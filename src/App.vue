@@ -1,16 +1,19 @@
 <template>
   <v-app>
-      <HelloWorld/>
+      <LandingPage />
+      <!-- <Home /> -->
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Home from './views/Home';
+import LandingPage from './views/LandingPage'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Home,
+    LandingPage,
   },
 };
 </script>

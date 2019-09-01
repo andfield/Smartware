@@ -1,13 +1,17 @@
 <template>
-  <HelloWorld />
+<v-app>
+  <AppToolbar />
+  <AppFooter /> 
+</v-app>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld';
+import AppToolbar from '../components/AppToolbar';
+import AppFooter from '../components/AppFooter';
 
 export default {
   components: {
-    HelloWorld,
+    AppToolbar,AppFooter,
   },
 };
 </script>
