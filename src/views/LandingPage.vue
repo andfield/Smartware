@@ -98,7 +98,7 @@
 											@click:append="show2 = !show2">
 				                        	</v-text-field>
 										</div>
-				                        <v-btn block color="blue" dark>Sign me up!!</v-btn>
+				                        <v-btn @click="signUp" block color="blue" dark>Sign me up!!</v-btn>
 				                    </form>
 			                    </div>
                         	</div>
@@ -112,6 +112,8 @@
 </template>
 
 <script>
+import firebase, { functions } from 'firebase';
+
 export default {
     data() {
 		return{
@@ -126,6 +128,18 @@ export default {
 			email: '',
 			pnum: '',
 			pass: '',
+		}
+	},
+	methods: {
+		signUp: function() {
+			firebase.auth().createUserWithEmailAndPassword(this.email, this.pass).then(
+				function(user) {
+					alert('Your account has been created!')
+				},
+				function(err){
+					alerts('An error has occured: ' + err.message)
+				}
+			);
 		}
 	}
 }
