@@ -1,7 +1,6 @@
 <template>
   <v-app>
-      <LandingPage />
-      <!-- <Home /> -->
+      <router-view/>
   </v-app>
 </template>
 
