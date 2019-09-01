@@ -35,7 +35,7 @@
 											outlined />
 				                        </div>
 				                        <div class="form-group">
-				                        	<v-text-field v-model="loginPass" 
+				                        	<v-text-field 
 											:append-icon="show1 ? 'visibility' : 'visibility_off'" 
 				                        	:rules="[rules.required, rules.min]"
 											:type="show1 ? 'text' : 'password'"
@@ -85,16 +85,16 @@
 											outlined />
 				                        </div>
 										<div class="form-group">
-				                        	<v-text-field v-model="loginPass" 
-											:append-icon="show1 ? 'visibility' : 'visibility_off'" 
+				                        	<v-text-field 
+											:append-icon="show2 ? 'visibility' : 'visibility_off'" 
 				                        	:rules="[rules.required, rules.min]"
-											:type="show1 ? 'text' : 'password'"
-											name="LoginPassword"
+											:type="show2 ? 'text' : 'password'"
+											name="SignupPassword"
 											label="Password"
 											hint="At least 8 characters"
 											counter
 											outlined
-											@click:append="show1 = !show1">
+											@click:append="show2 = !show2">
 				                        	</v-text-field>
 										</div>
 				                        <v-btn block color="blue" dark>Sign me up!!</v-btn>
@@ -115,11 +115,14 @@ export default {
     data() {
 		return{
 			show1: false,
-			password: 'Password',
-			rules: {
+			show2: false,
+		 	rules: {
 				required: value => !!value || 'Required.',
 				min: v => v.length >= 8 || 'Min 8 characters',
-			}
+			},
+
+
+			
 		}
 	}
 }
