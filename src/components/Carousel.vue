@@ -1,5 +1,5 @@
 <template>
-  <v-carousel>
+  <v-carousel cycle="3">
     <v-carousel-item
       v-for="(color, i) in colors"
       :key="color"

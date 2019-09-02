@@ -1,19 +1,15 @@
 <template>
-<v-container>
-  <v-layout row wrap>
-    <v-flex xl12 xs12 lg12>
-       <AppToolbar />
-    </v-flex>
-  </v-layout>
-  
-  <v-layout>
-    <v-flex xl10 xs12 centered>
-      <Carousel />
-    </v-flex>
-  </v-layout>
-  
-  <AppFooter />
-</v-container> 
+<v-app>
+  <AppToolbar />
+  <v-container>
+      <v-layout class="justify-center">
+          <v-flex xs12 lg10 xl10>
+            <Carousel />
+          </v-flex>
+      </v-layout>
+
+  </v-container> 
+</v-app>
 </template>
 
 <script>
