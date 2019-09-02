@@ -1,7 +1,9 @@
 <template>
   <div class="about">
     <AppToolbar />
+    <v-row max-height="100">
     <Carousel />
+    </v-row>
     <v-container class="grey lighten-5">
       <v-row>
         <v-col :cols="1 === 1 ? 9 : 3">
