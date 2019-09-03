@@ -28,29 +28,33 @@
               height="200px"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             >
-            <v-card-title
-                class="fill-height align-end"
-                v-text="product.name"
-              ></v-card-title>
+              <v-card-title class="fill-height align-end" v-text="product.name"></v-card-title>
             </v-img>
-            
+
             <v-card-text>
               <span v-text="product.info" />
             </v-card-text>
 
             <v-card-actions>
-              <v-icon >attach_money</v-icon>
-              <span v-text="product.price"/>
-              <v-spacer/>
+              <v-icon>attach_money</v-icon>
+              <span v-text="product.price" />
+              <v-spacer />
               <v-btn icon>
                 <v-icon>add_shopping_cart</v-icon>
               </v-btn>
-              
             </v-card-actions>
           </v-card>
         </v-flex>
       </v-layout>
     </v-container>
+    <v-container>
+      <v-layout class="justify-center">
+        <v-flex xs12 lg10 xl10>
+          <NavFooter />
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <AppFooter />
   </div>
 </template>
 
@@ -58,11 +62,14 @@
 import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
+import NavFooter from "../components/NavFooter";
+
 export default {
   components: {
     AppToolbar,
     AppFooter,
-    Carousel
+    Carousel,
+    NavFooter
   },
   data: () => ({
     products: [
@@ -70,15 +77,17 @@ export default {
         name: "Hp printer",
         src:
           "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
-          info: 'dododododoododdodo', price: 100,
+        info: "dododododoododdodo",
+        price: 100,
         flex: 4
       },
       {
         name: "Dell printer",
         src:
           "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
-        info: 'dododododoododdodo', price: 200,
-       flex: 4
+        info: "dododododoododdodo",
+        price: 200,
+        flex: 4
       }
     ]
   })

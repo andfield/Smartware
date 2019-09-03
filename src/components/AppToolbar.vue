@@ -11,11 +11,11 @@
     <v-spacer></v-spacer>
 
     <v-btn fab depressed>
-      <v-icon>shopping_cart</v-icon>
+      <v-icon>mdi-cart</v-icon>
       <span>(0)</span>
     </v-btn>
-    <v-btn fab depressed to="/login">
-      <v-icon>exit_to_app</v-icon>
+    <v-btn fab depressed to="/about">
+      <v-icon>mdi-information</v-icon>
     </v-btn>
     <v-btn fab depressed to="/T&C">
       <v-icon>exit_to_app</v-icon>
