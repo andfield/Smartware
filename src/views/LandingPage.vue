@@ -4,7 +4,7 @@
             <div class="container">
     	
                 <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2 text">
+                    <div class="col-sm-12  text" align-content-center>
                         <h1>Welecome to <strong>Smartware</strong></h1>
                             <div class="description">
                             	<p>
