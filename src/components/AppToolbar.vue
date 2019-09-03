@@ -6,6 +6,7 @@
         <span class="font-weight-light">ware</span>
       </v-toolbar-title>
     </v-btn>
+    <v-divider class="mx-4" vertical></v-divider>
 
     <v-spacer></v-spacer>
 
