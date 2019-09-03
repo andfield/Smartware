@@ -31,11 +31,12 @@
 	                            <div class="form-bottom">
 				                    <form role="form" action="" method="post" class="login-form">
 				                    	<div class="form-group">
-				                    		<v-text-field label="Email" 
+				                    		<v-text-field label="Email" v-model="loginEmail"
 											outlined />
 				                        </div>
 				                        <div class="form-group">
 				                        	<v-text-field 
+											v-model="loginPass"
 											:append-icon="show1 ? 'visibility' : 'visibility_off'" 
 				                        	:rules="[rules.required, rules.min]"
 											:type="show1 ? 'text' : 'password'"
@@ -47,14 +48,14 @@
 											@click:append="show1 = !show1">
 				                        	</v-text-field>
 										</div>
-				                        <v-btn block color="blue" dark>Sign in</v-btn>
+				                        <v-btn @click="login" color="blue" dark>Sign in</v-btn>
 				                    </form>
 			                    </div>
 		                    </div>
                         </div>          
                         <div class="col-sm-1 middle-border"></div>
                         <div class="col-sm-1"></div>
-  	
+			
                         <div class="col-sm-5">
                         	<div class="form-box">
                         		<div class="form-top">
@@ -128,17 +129,28 @@ export default {
 			email: '',
 			pnum: '',
 			pass: '',
+			loginEmail: '',
+			loginPass: '',
 		}
 	},
 	methods: {
 		signUp: function() {
 			firebase.auth().createUserWithEmailAndPassword(this.email, this.pass).then(
-				function(user) {
-					alert('Your account has been created!')
+				(user) => {
+					this.$router.replace('home')
 				},
-				function(err){
-
-					alerts('An error has occured: ' + err.message)
+				(err) => {
+					alert('An error has occured: ' + err.message)
+				}
+			);
+		},
+		login: function() {
+			firebase.auth().signInWithEmailAndPassword(this.loginEmail, this.loginPass).then(
+				(user) => {
+					this.$router.replace('home')
+				},
+				function(err) {
+					alert('Sign in failed. ' + err.message)
 				}
 			);
 		}
