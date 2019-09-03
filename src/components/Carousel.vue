@@ -1,5 +1,7 @@
 <template>
-  <v-carousel cycle="3">
+  <v-carousel height="300px" cycle :interval="3000"
+   show-arrows-on-hover hide-delimiter-background
+  >
     <v-carousel-item
       v-for="(color, i) in colors"
       :key="color"
@@ -25,7 +27,7 @@
   export default {
     data () {
       return {
-        colors: [
+        color: [
           'primary',
           'secondary',
           'yellow darken-2',

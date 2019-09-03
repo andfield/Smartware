@@ -1,9 +1,14 @@
 <template>
   <div class="about">
     <AppToolbar />
-    <v-row max-height="100">
-    <Carousel />
-    </v-row>
+    <v-container>
+          <v-layout class="justify-center">
+              <v-flex xs12 lg10 xl10>
+                <Carousel />
+              </v-flex>
+          </v-layout>
+
+    </v-container> 
     <v-container class="grey lighten-5">
       <v-row>
         <v-col :cols="1 === 1 ? 9 : 3">
@@ -18,10 +23,10 @@
         </v-col>
         <v-col :cols="1 === 1 ? 3 : 9">
           <h1>Our Partners</h1>
-          <v-card>
+          <v-card href="https://vuetifyjs.com/en/components/carousels#carousels" target>
             <v-img
               src="https://images.pexels.com/photos/736230/pexels-photo-736230.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              aspect-ratio="2"
+              aspect-ratio="1.5"
               contain
             ></v-img>
             <v-card-title>Company 1</v-card-title>
