@@ -9,7 +9,7 @@
     <v-divider class="mx-4" vertical></v-divider>
 
     <v-spacer></v-spacer>
-
+    
     <v-btn fab depressed>
       <v-icon>shopping_cart</v-icon>
       <span>(0)</span>
