@@ -5,7 +5,7 @@ import firebase from 'firebase'
 import Home from './views/Home.vue'
 import About from './views/About.vue'
 import LandingPage from './views/LandingPage.vue'
-
+import TandC from './views/TandC.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -38,6 +38,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/T&C',
+      name: 'TandC',
+      component: TandC,
+      meta: {
+        requiresAuth: true
+      }
+
     }
   ]
 })

@@ -16,6 +16,9 @@
     <v-btn fab depressed to="/login">
       <v-icon>exit_to_app</v-icon>
     </v-btn>
+    <v-btn fab depressed to="/T&C">
+      <v-icon>exit_to_app</v-icon>
+    </v-btn>
   </v-app-bar>
 </template>
 
@@ -23,9 +26,8 @@
 import { watch } from "fs";
 export default {
   data: {
-    show: true,
-  },
-     
+    show: true
+  }
 };
 </script>
 
