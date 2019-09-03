@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app hide-on-scroll>
-    <v-btn text to="/home">
+    <v-btn text large   to="/home">
       <v-toolbar-title class="headline text-uppercase">
         <span>Smart</span>
         <span class="font-weight-light">ware</span>

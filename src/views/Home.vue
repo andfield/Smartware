@@ -1,6 +1,8 @@
 <template>
   <div class="Home">
-    <AppToolbar />
+    <nav>
+      <AppToolbar />
+    </nav>
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs12 lg10 xl10>
@@ -20,10 +22,8 @@
 
     <v-container>
       <v-layout row wrap class="mx-5">
-        <v-flex xs12 md6 lg4 xl4 v-for="product in products" :key="product.name">
-          <v-card class="ma-2"
-           raised
-          >
+        <v-flex xs12 md4 lg2 xl2 v-for="product in products" :key="product.name">
+          <v-card class="ma-2" hover>
             <v-img
               :src="product.src"
               class="black--text"
@@ -41,15 +41,7 @@
               <v-icon>attach_money</v-icon>
               <span v-text="product.price" />
               <v-spacer />
-              <v-btn 
-              color="blue"
-              dark
-              small
-              absolute
-              bottom
-              right
-              fab
-              >
+              <v-btn color="blue" dark small absolute bottom right fab>
                 <v-icon>add_shopping_cart</v-icon>
               </v-btn>
             </v-card-actions>
