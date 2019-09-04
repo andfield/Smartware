@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app hide-on-scroll>
-    <v-btn text to="/home">
+    <v-btn text large   to="/home">
       <v-toolbar-title class="headline text-uppercase">
         <span>Smart</span>
         <span class="font-weight-light">ware</span>
@@ -9,9 +9,9 @@
     <v-divider class="mx-4" vertical></v-divider>
 
     <v-spacer></v-spacer>
-
+    
     <v-btn fab depressed>
-      <v-icon>shopping_cart</v-icon>
+      <v-icon>mdi-cart</v-icon>
       <span>(0)</span>
     </v-btn>
     <v-btn fab depressed to="/T&C">

@@ -2,16 +2,15 @@
   <div class="about">
     <AppToolbar />
     <v-container>
-          <v-layout class="justify-center">
-              <v-flex xs12 lg10 xl10>
-                <Carousel />
-              </v-flex>
-          </v-layout>
-
-    </v-container> 
+      <v-layout class="justify-center">
+        <v-flex xs12 lg10 xl10>
+          <Carousel />
+        </v-flex>
+      </v-layout>
+    </v-container>
     <v-container class="grey lighten-5">
       <v-row>
-        <v-col :cols="1 === 1 ? 9 : 3">
+        <v-col cols="9">
           <h1>About Smartware</h1>
           <v-card min-height="100%">
             <v-card-text>
@@ -21,7 +20,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col :cols="1 === 1 ? 3 : 9">
+        <v-col>
           <h1>Our Partners</h1>
           <v-card href="https://vuetifyjs.com/en/components/carousels#carousels" target>
             <v-img
@@ -61,6 +60,13 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-container>
+      <v-layout class="justify-center">
+        <v-flex xs12 lg10 xl10>
+          <NavFooter />
+        </v-flex>
+      </v-layout>
+    </v-container>
     <AppFooter />
   </div>
 </template>
@@ -69,12 +75,14 @@
 import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
+import NavFooter from "../components/NavFooter";
 
 export default {
   components: {
     AppToolbar,
     AppFooter,
-    Carousel
+    Carousel,
+    NavFooter
   }
 };
 </script>
