@@ -114,6 +114,7 @@
 
 <script>
 import firebase, { functions } from 'firebase';
+import db from '@/main'
 
 export default {
     data() {
@@ -137,12 +138,19 @@ export default {
 		signUp: function() {
 			firebase.auth().createUserWithEmailAndPassword(this.email, this.pass).then(
 				(user) => {
-					this.$router.replace('home')
+					// this.$router.replace('home')
 				},
 				(err) => {
 					alert('An error has occured: ' + err.message)
 				}
 			);
+			var custData = {
+				email: this.email,
+				fName: this.fname,
+				lName: this.lname,
+				phNum: this.pnum
+			};
+			db.collection('customers').add(custData).then( this.$router.replace('home') );
 		},
 		login: function() {
 			firebase.auth().signInWithEmailAndPassword(this.loginEmail, this.loginPass).then(

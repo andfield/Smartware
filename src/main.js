@@ -16,6 +16,11 @@ var config = {
   appId: "1:218476766597:web:f1f617802dd2a710"
 };
 firebase.initializeApp(config);
+const db = firebase.firestore();
+
+db.settings({ timestampsInSnapshots: true });
+
+export default db;
 
 new Vue({
   router,
