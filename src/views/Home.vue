@@ -12,18 +12,19 @@
     </v-container>
 
     <v-container>
-      <v-layout row wrap class="mx-5">
-        <v-flex xs12 md6>
+      <v-layout row wrap class="px-5">
+        <v-flex class="justify-center" v-for="p in products" :key="p.type">
           <h1>Printers</h1>
+          <v-divider></v-divider>
         </v-flex>
       </v-layout>
-      <v-divider class="ma-1"></v-divider>
+     
     </v-container>
 
     <v-container>
       <v-layout row wrap class="mx-5">
-        <v-flex xs12 md4 lg2 xl2 v-for="product in products" :key="product.name">
-          <v-card class="ma-2" hover>
+        <v-flex xs10 md4 lg2 xl2 v-for="product in products" :key="product.name">
+          <v-card class="ma-2" hover to="/Product">
             <v-img
               :src="product.src"
               class="black--text"
@@ -81,6 +82,7 @@ export default {
           "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
         info: "dododododoododdodo",
         price: 100,
+        type: "Printer",
         flex: 4
       },
       {
@@ -89,6 +91,7 @@ export default {
           "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
         info: "dododododoododdodo",
         price: 200,
+        type: "Ipad",
         flex: 4
       }
     ]
