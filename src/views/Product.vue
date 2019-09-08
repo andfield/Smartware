@@ -41,11 +41,11 @@
                         <p class="title">${{price}}</p>
                       </v-card-text>
                       <v-card-actions>
-                        <v-btn fab small text v-on:click="quantity -= 1">
+                        <v-btn fab small text @click="quantity -= 1">
                           <v-icon>keyboard_arrow_left</v-icon>
                         </v-btn>
                         <span v-text="quantity" class="grey" />
-                        <v-btn fab small text v-on:click="quantity += 1">
+                        <v-btn fab small text @click="quantity += 1">
                           <v-icon>keyboard_arrow_right</v-icon>
                         </v-btn>
                       </v-card-actions>
@@ -75,8 +75,8 @@
             </v-container>
           </v-row>
 
-          <v-divider/>
-          
+          <v-divider />
+
           <v-row>
             <v-container>
               <v-layout row wrap class="ma-5">
@@ -118,8 +118,8 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <NavFooter/>
-    <AppFooter/>
+    <NavFooter />
+    <AppFooter />
   </div>
 </template>
 
