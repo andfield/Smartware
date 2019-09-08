@@ -13,12 +13,11 @@
 
     <v-container>
       <v-layout row wrap class="px-5">
-        <v-flex class="justify-center" v-for="p in products" :key="p.type">
+        <v-flex class="justify-center">
           <h1>Printers</h1>
           <v-divider></v-divider>
         </v-flex>
       </v-layout>
-     
     </v-container>
 
     <v-container>

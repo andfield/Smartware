@@ -24,6 +24,9 @@
     <v-btn @click="logout" fab depressed>
       <v-icon>exit_to_app</v-icon>
     </v-btn>
+    <v-btn fab depressed to="/CustomerAccount">
+      <v-icon>account_circle</v-icon>
+    </v-btn>
   </v-app-bar>
 </template>
 
