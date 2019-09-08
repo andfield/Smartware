@@ -18,6 +18,7 @@ var config = {
   messagingSenderId: "218476766597",
   appId: "1:218476766597:web:f1f617802dd2a710"
 };
+
 firebase.initializeApp(config);
 const db = firebase.firestore();
 

@@ -3,6 +3,7 @@
     <nav>
       <AppToolbar />
     </nav>
+
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs12 lg10 xl10>
@@ -25,7 +26,8 @@
         <v-flex xs10 md4 lg2 xl2 v-for="product in products" :key="product.name">
           <v-card class="ma-2" hover to="/Product">
             <v-img
-              :src="product.src"
+              :src="product.imgURL"
+              lazy-src
               class="black--text"
               height="200px"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -34,12 +36,12 @@
             </v-img>
 
             <v-card-text>
-              <span v-text="product.info" />
+              <span v-text="product.description" />
             </v-card-text>
 
             <v-card-actions>
               <v-icon>attach_money</v-icon>
-              <span v-text="product.price" />
+              <span v-text="product.stanPrice" />
               <v-spacer />
               <v-btn color="blue" dark small absolute bottom right fab>
                 <v-icon>add_shopping_cart</v-icon>
@@ -65,12 +67,10 @@ import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
-import firebase, { functions } from 'firebase';
-import db from '@/main'
+import firebase, { functions, firestore } from "firebase";
+import db from "@/main";
 
-
-
-var exName = "new printer"
+var exName = "new printer";
 
 export default {
   components: {
@@ -79,44 +79,19 @@ export default {
     Carousel,
     NavFooter
   },
-  data: () => ({
-    products: [
-      {
-        name: docRef.get(),
-        src:
-          "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
-        info: "dododododoododdodo",
-        price: 100,
-        type: "Printer",
-        flex: 4
-      },
-      {
-        name: "Dell printer",
-        src:
-          "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
-        info: "dododododoododdodo",
-        price: 200,
-        type: "Ipad",
-        flex: 4
-      }
-    ]
-  }),
-  created(){
-    var docRef = db.collection("ProductCategory").doc("pcQhnNHvSg1L3LYyTFdX").collection("EftposMachines").doc("E9LiM7ZJkk1J5MGxRAeT")
-docRef.get().then(function(doc){
-  if(!doc.exists){
-    console.log('No such document')
-  }
-  else {
-    console.log("Document data: ", doc.data());
-    var eftDAta = doc.data()
-  }
-}).catch(function(error) {
-  console.log("error getting document:", error)
-});
-docRef.get().then(function(doc){
-console.log(doc)
-});
-  }
+  data() {
+    return{
+      products: {},
+      ProductCategory: {}
+    }
+    
+  },
+  firestore(){
+    return{
+      products:  db.collection("ProductCategory")
+      .doc("pcQhnNHvSg1L3LYyTFdX")
+      .collection("EftposMachines"),
+    }
+  },
 };
 </script>
