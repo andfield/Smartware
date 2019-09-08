@@ -1,30 +1,25 @@
 <template>
-  <div class="Home">
+  <div class="Category">
     <nav>
       <AppToolbar />
     </nav>
-    <v-container>
-      <v-layout class="justify-center">
-        <v-flex xs12 lg10 xl10>
-          <Carousel />
-        </v-flex>
-      </v-layout>
-    </v-container>
-
-    <v-container>
+    <v-container id="category-header">
       <v-layout row wrap class="px-5">
-        <v-flex class="justify-center" v-for="p in products" :key="p.type">
-          <h1>{{p.type}}</h1>
-          <v-divider></v-divider>
+        <v-flex class="justify-center">
+          <v-row>
+            <h1>Printer</h1>
+            <v-spacer />
+            <v-overflow-btn :items="sortBy" label="Sort By" target="#category-header"></v-overflow-btn>
+          </v-row>
+          <v-divider />
         </v-flex>
       </v-layout>
-     
     </v-container>
 
     <v-container>
       <v-layout row wrap class="mx-5">
         <v-flex xs10 md4 lg2 xl2 v-for="product in products" :key="product.name">
-          <v-card class="ma-2" hover to="/Product">
+          <v-card class="ma-2" hover to="/Product" v-if="product.type ==='Printer'">
             <v-img
               :src="product.src"
               class="black--text"
@@ -64,14 +59,12 @@
 <script>
 import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
-import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
 
 export default {
   components: {
     AppToolbar,
     AppFooter,
-    Carousel,
     NavFooter
   },
   data: () => ({
@@ -93,8 +86,18 @@ export default {
         price: 200,
         type: "Ipad",
         flex: 4
+      },
+      {
+        name: "Spider printer",
+        src:
+          "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
+        info: "dododododoododdodo",
+        price: 500,
+        type: "Printer",
+        flex: 4
       }
-    ]
+    ],
+    sortBy: ["Alphabetical", "Price"],
   })
 };
 </script>

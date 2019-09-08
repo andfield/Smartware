@@ -7,6 +7,7 @@ import About from './views/About.vue'
 import LandingPage from './views/LandingPage.vue'
 import TandC from './views/TandC.vue'
 import Product from './views/Product.vue'
+import Category from './views/Category.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -52,6 +53,14 @@ const router = new Router({
       path: '/Product' ,
       name: 'Product',
       component: Product,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/Category' ,
+      name: 'Category',
+      component: Category,
       meta: {
         requiresAuth: true
       }
