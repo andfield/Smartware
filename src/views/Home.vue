@@ -102,7 +102,7 @@ export default {
     ]
   }),
   created(){
-    var docRef = db.collection("products").doc("HKxqz2h1DJkbKp5r3Ect")
+    var docRef = db.collection("ProductCategory").doc("pcQhnNHvSg1L3LYyTFdX").collection("EftposMachines").doc("E9LiM7ZJkk1J5MGxRAeT")
 docRef.get().then(function(doc){
   if(!doc.exists){
     console.log('No such document')
