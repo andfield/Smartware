@@ -9,10 +9,11 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "firebase": "^6.5.0",
+    "firebase": "^6.6.0",
     "vue": "^2.6.10",
     "vue-material-design-icons": "^3.4.0",
     "vue-router": "^3.0.3",
+    "vuefire": "^2.2.0-alpha.0",
     "vuetify": "^2.0.0"
   },
   "devDependencies": {

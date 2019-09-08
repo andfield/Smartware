@@ -1,10 +1,13 @@
 import Vue from 'vue'
+import { firestorePlugin } from 'vuefire'
 import firebase from 'firebase'
+import 'firebase/firestore'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
+Vue.use(firestorePlugin)
 
 var config = {
   apiKey: "AIzaSyBpyAw6R0OYtsBZEXk-yCM7awcP9VvL2S8",
