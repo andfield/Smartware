@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import firebase from 'firebase'
-
 import Home from './views/Home.vue'
 import About from './views/About.vue'
 import LandingPage from './views/LandingPage.vue'
 import TandC from './views/TandC.vue'
 import Product from './views/Product.vue'
 import Category from './views/Category.vue'
+import CustomerAccount from './views/CustomerAccount.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -61,6 +62,14 @@ const router = new Router({
       path: '/Category' ,
       name: 'Category',
       component: Category,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/CustomerAccount' ,
+      name: 'CustomerAccount',
+      component: CustomerAccount,
       meta: {
         requiresAuth: true
       }

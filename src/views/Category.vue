@@ -9,7 +9,11 @@
           <v-row>
             <h1>Printer</h1>
             <v-spacer />
-            <v-overflow-btn :items="sortBy" label="Sort By" target="#category-header"></v-overflow-btn>
+            <v-flex>
+              <v-layout>
+              <v-select :items="sortBy" outlined label="Sort By"></v-select>
+              </v-layout>
+            </v-flex>
           </v-row>
           <v-divider />
         </v-flex>
@@ -18,8 +22,8 @@
 
     <v-container>
       <v-layout row wrap class="mx-5">
-        <v-flex xs10 md4 lg2 xl2 v-for="product in products" :key="product.name">
-          <v-card class="ma-2" hover to="/Product" v-if="product.type ==='Printer'">
+        <v-flex xs10 md4 lg2 xl2 v-for="product in priceSort" :key="product.name">
+          <v-card class="ma-2" hover to="/Product">
             <v-img
               :src="product.src"
               class="black--text"
@@ -97,7 +101,33 @@ export default {
         flex: 4
       }
     ],
-    sortBy: ["Alphabetical", "Price"],
-  })
+    sortBy: ["Alphabetical", "Price"]
+  }),
+  computed: {
+    alphabetical: function() {
+      function compare(a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      }
+      return this.products.sort(compare);
+    },
+    priceSort: function() {
+      function compare(a, b) {
+        if (a.price < b.price) {
+          return 1;
+        }
+        if (a.price > b.price) {
+          return -1;
+        }
+        return 0;
+      }
+      return this.products.sort(compare);
+    }
+  }
 };
 </script>
