@@ -65,6 +65,12 @@ import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
+import firebase, { functions } from 'firebase';
+import db from '@/main'
+
+
+
+var exName = "new printer"
 
 export default {
   components: {
@@ -76,7 +82,7 @@ export default {
   data: () => ({
     products: [
       {
-        name: "Hp printer",
+        name: docRef.get(),
         src:
           "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
         info: "dododododoododdodo",
@@ -94,6 +100,23 @@ export default {
         flex: 4
       }
     ]
-  })
+  }),
+  created(){
+    var docRef = db.collection("ProductCategory").doc("pcQhnNHvSg1L3LYyTFdX").collection("EftposMachines").doc("E9LiM7ZJkk1J5MGxRAeT")
+docRef.get().then(function(doc){
+  if(!doc.exists){
+    console.log('No such document')
+  }
+  else {
+    console.log("Document data: ", doc.data());
+    var eftDAta = doc.data()
+  }
+}).catch(function(error) {
+  console.log("error getting document:", error)
+});
+docRef.get().then(function(doc){
+console.log(doc)
+});
+  }
 };
 </script>
