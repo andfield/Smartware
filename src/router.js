@@ -56,6 +56,9 @@ const router = new Router({
       component: Product,
       meta: {
         requiresAuth: true
+      },
+      props(route){
+        return { myprop: route.query.myprop}
       }
     },
     {

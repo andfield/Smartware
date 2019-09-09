@@ -11,7 +11,7 @@
             <v-container>
               <v-layout class="mx-2 my-5">
                 <v-flex fluid>
-                  <h1 class="display-1" v-text="name" />
+                  <h1 class="display-1" v-text="myprop.name" />
                   <v-divider></v-divider>
                 </v-flex>
               </v-layout>
@@ -23,8 +23,8 @@
               <v-layout class="ma-5">
                 <v-row>
                   <v-col cols="4" align-self>
-                    <v-card class="pa-2" outlined tile max-height="400px" max-width="400px">
-                      <v-img :src="src"></v-img>
+                    <v-card class="pa-2" outlined tile max-height="500px" max-width="500px">
+                      <v-img :src="myprop.imgURL"></v-img>
                     </v-card>
                   </v-col>
                   <v-col cols="1" align-self>
@@ -37,8 +37,8 @@
                         <span>Description</span>
                       </v-card-title>
                       <v-card-text>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias minima debitis amet repellat laboriosam ea, vel at odio nobis laudantium neque fuga expedita accusamus delectus explicabo deserunt a dolores quo.</p>
-                        <p class="title">${{price}}</p>
+                        <p v-text="myprop.description">
+                        <p class="title">${{myprop.stanPrice}}</p>
                       </v-card-text>
                       <v-card-actions>
                         <v-btn fab small text @click="quantity -= 1">
@@ -77,44 +77,8 @@
 
           <v-divider />
 
-          <v-row>
-            <v-container>
-              <v-layout row wrap class="ma-5">
-                <v-row>
-                  <v-flex class="justify-center">
-                    <h4 class="display-1">Related Products</h4>
-                  </v-flex>
-                </v-row>
-                <v-row>
-                  <v-flex xs10 md4 lg2 xl2 v-for="product in products" :key="product.name">
-                    <v-card class="ma-2" hover to="/Product" max-height="auto">
-                      <v-img
-                        :src="product.src"
-                        class="black--text"
-                        height="200px"
-                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                      >
-                        <v-card-title class="fill-height align-end" v-text="product.name"></v-card-title>
-                      </v-img>
+          <productlist v-bindv-bind:products="products"/>
 
-                      <v-card-text>
-                        <span v-text="product.info" />
-                      </v-card-text>
-
-                      <v-card-actions>
-                        <v-icon>attach_money</v-icon>
-                        <span v-text="product.price" />
-                        <v-spacer />
-                        <v-btn color="blue" dark small absolute bottom right fab>
-                          <v-icon>add_shopping_cart</v-icon>
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-flex>
-                </v-row>
-              </v-layout>
-            </v-container>
-          </v-row>
         </v-flex>
       </v-layout>
     </v-container>
@@ -128,58 +92,57 @@ import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
+import firebase, { functions, firestore } from "firebase";
+import db from "@/main";
+import productlist from '../components/productlist.vue'
+
 
 export default {
+
+  props: ["myprop"],
+
   components: {
     AppToolbar,
     AppFooter,
     Carousel,
-    NavFooter
+    NavFooter,
+    productlist
   },
-  data: () => ({
-    name: "Hp printer",
-    src:
-      "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
-    info: "dododododoododdodo",
-    price: 100,
-    type: "Printer",
-    flex: 4,
-    quantity: 0,
-    details: [
-      {
-        name: "Weight",
-        desc: "6Kg"
-      },
-      {
-        name: "Dimensions",
-        desc: "10x10"
-      },
-      {
-        name: "Color",
-        desc: "White"
-      }
-    ],
-    products: [
-      {
-        name: "Epson printer",
-        src:
-          "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
-        info: "dododododoododdodo",
-        price: 100,
-        type: "Printer",
-        flex: 4
-      },
-      {
-        name: "Dell printer",
-        src:
-          "https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
-        info: "dododododoododdodo",
-        price: 200,
-        type: "Printer",
-        flex: 4
-      }
-    ]
-  }),
+  data() {
+    return {
+      name: "Hp printer",
+      src:"https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
+      info: "dododododoododdodo",
+      price: 100,
+      type: "Printer",
+      flex: 4,
+      quantity: 0,
+      details: [
+        {
+          name: "Weight",
+          desc: "6Kg"
+        },
+        {
+          name: "Dimensions",
+          desc: "10x10"
+        },
+        {
+          name: "Color",
+          desc: "White"
+        }
+      ],
+      products: {}
+    };
+  },
+  firestore() {
+    return {
+      products: db
+        .collection("ProductCategory")
+        .doc("pcQhnNHvSg1L3LYyTFdX")
+        .collection("EftposMachines")
+    };
+  },
+
   methods: {}
 };
 </script>
