@@ -36,7 +36,7 @@
                       </v-list-item-icon>
                     </v-list-item>
                   </v-card-title>
-                  <v-card-text>
+                  <v-card-text @keypress.enter="login">
                     <v-text-field label="Email" v-model="loginEmail" outlined />
 
                     <v-text-field
@@ -73,7 +73,7 @@
                       </v-list-item-icon>
                     </v-list-item>
                   </v-card-title>
-                  <v-card-text>
+                  <v-card-text @keypress.enter="signUp">
                     <v-text-field label="First Name" v-model="fname" outlined />
 
                     <v-text-field label="Last Name" v-model="lname" outlined />
