@@ -39,7 +39,6 @@
 
 <script>
 export default {
-  props: ["products"],
-  data() {}
+  props: ["products"]
 };
 </script>
