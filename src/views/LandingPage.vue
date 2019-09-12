@@ -137,7 +137,9 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.pass)
         .then(
           user => {
-            // this.$router.replace('home')
+            db.collection("customers")
+            .add(custData)
+            .then(this.$router.replace("home"));
           },
           err => {
             alert("An error has occured: " + err.message);
@@ -149,9 +151,9 @@ export default {
         lName: this.lname,
         phNum: this.pnum
       };
-      db.collection("customers")
-        .add(custData)
-        .then(this.$router.replace("home"));
+      // db.collection("customers")
+      //   .add(custData)
+      //   .then(this.$router.replace("home"));
     },
     login: function() {
       firebase
