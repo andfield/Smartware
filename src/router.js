@@ -8,6 +8,8 @@ import TandC from './views/TandC.vue'
 import Product from './views/Product.vue'
 import Category from './views/Category.vue'
 import CustomerAccount from './views/CustomerAccount.vue'
+import Signin from './views/Signin'
+import Signup from './views/Signup'
 
 Vue.use(Router)
 
@@ -15,17 +17,28 @@ const router = new Router({
   routes: [
     {
       path: '*',
-      redirect: '/login'
+      redirect: '/LandingPage'
     },
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/LandingPage'
     },
     {
-      path: '/login',
-      name: 'login',
+      path: '/LandingPage',
+      name: 'LandingPage',
       component: LandingPage
     },
+    {
+      path: '/signin',
+      name: 'Signin',
+      component: Signin
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
+    },
+
     {
       path: '/about',
       name: 'about',

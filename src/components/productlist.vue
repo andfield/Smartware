@@ -8,7 +8,11 @@
     </v-layout>
     <v-layout row wrap class="mx-5">
       <v-flex xs10 md4 lg2 xl2 v-for="product in products" :key="product.name">
-        <v-card class="ma-2" hover >
+        <v-card
+          class="ma-2"
+          hover
+          @click="$router.push({path: '/Product', query: { myprop: product} })"
+        >
           <v-img
             :src="product.imgURL"
             class="black--text"
@@ -20,7 +24,6 @@
 
           <v-card-text>
             <span v-text="product.description" />
-            <router-link :to="{path: '/Product', query: { myprop: product}}">link</router-link>
           </v-card-text>
 
           <v-card-actions>
