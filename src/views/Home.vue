@@ -1,9 +1,6 @@
 <template>
   <div class="Home">
-    <nav>
-      <AppToolbar />
-    </nav>
-
+    <LandingNav/>
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs12 lg10 xl10>
@@ -27,21 +24,21 @@
 </template>
 
 <script>
-import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
 import productlist from '../components/productlist.vue'
+import LandingNav from '../components/LandingNav'
 
 export default {
   components: {
-    AppToolbar,
     AppFooter,
     Carousel,
     NavFooter,
-    productlist
+    productlist,
+    LandingNav
   },
   data() {
     return {

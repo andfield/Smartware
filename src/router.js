@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser;
   const requiresAuth= to.matched.some(record => record.meta.requiresAuth);
 
-  if(requiresAuth && !currentUser) next('login'); // if user is not logged in will redirect to landing page
+  if(requiresAuth && !currentUser) next('LandingPage'); // if user is not logged in will redirect to landing page
   else if (!requiresAuth && currentUser) next('home'); // if user is logged in will redirect to home
   else next();
 });

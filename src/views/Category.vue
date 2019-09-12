@@ -1,7 +1,6 @@
 <template>
   <div class="Category">
     <nav>
-      <AppToolbar />
     </nav>
     <v-container id="category-header">
       <v-layout row wrap class="px-5">
@@ -61,13 +60,11 @@
 </template>
 
 <script>
-import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import NavFooter from "../components/NavFooter";
 
 export default {
   components: {
-    AppToolbar,
     AppFooter,
     NavFooter
   },

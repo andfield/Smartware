@@ -16,7 +16,7 @@ export default {
   components: {
     Home,
     LandingPage,
-    About
+    About,
   },
 };
 </script>

@@ -9,20 +9,14 @@ export default new Vuex.Store({
   state: {
     currentuser: null,
     isAuthenticated: false,
-    allCategories: [],
-    cartTotal: 0.0,
-    cartProducts: []
   },
-  mutatuions: {
+  mutations: {
     setUser(state, payload) {
       state.currentuser = payload;
     },
     setIsAuthenticated(state, payload) {
-      state.setIsAuthenticated = payload;
-    },
-    setAllCategories(state, payload) {},
-    setCartTotal(state, payload) {},
-    setCartProducts(state, payload) {}
+      state.isAuthenticated = payload;
+  }
   },
   actions: {
     userSignup({ commit }, { email, password, custData }) {
@@ -45,14 +39,15 @@ export default new Vuex.Store({
         });
     },
 
-    userLogin({ commit }, { email, password }) {
+    userLogin({ commit, state }, { email, password }) {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(
           user => {
             commit("setUser", user);
-            commit("setIsAuthenticated", true);
+            commit('setIsAuthenticated' , true);
+            console.log(state.isAuthenticated);
             router.push("/home");
           }
         )
@@ -79,7 +74,8 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated(state) {
-      return state.user !== null && state.user !== undefined;
+      return state.isAuthenticated 
+      //state.user !== null && state.user !== undefined;
     }
   }
 });

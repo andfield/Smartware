@@ -4,7 +4,7 @@
     <v-container>
       <v-layout>
         <v-row>
-          <AppToolbar />
+         add nav
         </v-row>
         <v-row>
           <v-container>
@@ -22,10 +22,7 @@
 </template>
 
 <script>
-import AppToolbar from "../components/AppToolbar";
+
 export default {
-  components: {
-    AppToolbar
-  }
 };
 </script>

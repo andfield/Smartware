@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <AppToolbar />
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs12 lg10 xl10>
@@ -72,14 +71,12 @@
 </template>
 
 <script>
-import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
 
 export default {
   components: {
-    AppToolbar,
     AppFooter,
     Carousel,
     NavFooter
