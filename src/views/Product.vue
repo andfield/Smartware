@@ -4,7 +4,7 @@
       <v-layout>
         <v-flex xs12 lg12 xl12 md12>
           <v-row>
-            <AppToolbar app />
+            Add nav
           </v-row>
 
           <v-row>
@@ -88,7 +88,6 @@
 </template>
 
 <script>
-import AppToolbar from "../components/AppToolbar";
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
@@ -102,7 +101,6 @@ export default {
   props: ["myprop"],
 
   components: {
-    AppToolbar,
     AppFooter,
     Carousel,
     NavFooter,

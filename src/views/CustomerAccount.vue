@@ -27,19 +27,19 @@ import firebase, { functions } from "firebase";
 import FBInt from "@/main"
 import db from "@/main";
 
-// var user = firebase.auth().currentUser
-// var userEmail
-// var customerRef = db.collection("customers")
-// var querry = customerRef.where("email", "==", "user.email")
+var user = firebase.auth().currentUser
+var userEmail
+var customerRef = db.collection("customers")
+var querry = customerRef.where("email", "==", "user.email")
 
-// console.log(querry.get().doc.data())
+console.log(querry.get().doc.data())
 
-// if (user != null){
-//   userEmail = user.email
-// }
-// else{
-//   console.log("nobody is logged in... spooky") //just to make sure current user is working
-// }
+if (user != null){
+  userEmail = user.email
+}
+else{
+  console.log("nobody is logged in... spooky") //just to make sure current user is working
+}
 
 export default {
   components: {
