@@ -4,13 +4,11 @@
     <v-container>
       <v-layout>
         <v-row>
-          <AppToolbar />
-        </v-row>
-        <v-row>
           <v-container>
             <v-layout>
               <v-flex fluid>
-                <h1 class="display-1">Your Cart</h1>
+                <h1 class="display-1">Your Cart{{ getUserInfo() }}</h1>
+                <div v-bind:CustomerAccount="getUserInfo"></div>
                 <v-divider></v-divider>
               </v-flex>
             </v-layout>
@@ -22,45 +20,40 @@
 </template>
 
 <script>
-import AppToolbar from "../components/AppToolbar";
 import firebase, { functions } from "firebase";
-import FBInt from "@/main"
 import db from "@/main";
 
-var user = firebase.auth().currentUser
-var userEmail
-var customerRef = db.collection("customers")
-var querry = customerRef.where("email", "==", "user.email")
+// var user = firebase.auth().currentUser
+// var userEmail
+// var customerRef = db.collection("customers")
+// var querry = customerRef.where("email", "==", "user.email")
 
-console.log(querry.get().doc.data())
+// console.log(querry.get().doc.data())
 
-if (user != null){
-  userEmail = user.email
-}
-else{
-  console.log("nobody is logged in... spooky") //just to make sure current user is working
-}
+// if (user != null){
+//   userEmail = user.email
+// }
+// else{
+//   console.log("nobody is logged in... spooky") //just to make sure current user is working
+// }
+
 
 export default {
   components: {
-    AppToolbar
+    userData: {}
   },
   methods: {
-    getUserInfo:function(){
-      var user = firebase.auth().currentUser
-      var userEmail
-      var customerRef = db.collection("customers")
-      var querry = customerRef.where("email", "==", "user.email")
-
-      console.log(querry.get().doc.data())
-
-      if (user != null){
-        userEmail = user.email
-      }
-      else{
-        console.log("nobody is logged in... spooky") //just to make sure current user is working
-      }
+    getUserInfo() {
+      this.$store.dispatch("customerDetails")
+      var userData = this.$store.getters.getCustomerDetails
+      console.log("CustermoerAccount.vue:  " + userData)
+      return userData
     }
+  },
+  data() {
+    return {
+      userData: {}
+    };
   }
 };
 

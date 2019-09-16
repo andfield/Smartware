@@ -68,8 +68,9 @@ export default {
       this.$store.dispatch("userSignup", {
         email: this.email,
         password: this.password,
-        custData: this.custData
+        custInfo: custData
       });
+      console.log("signup,vue:  " + custData)
     }
   }
 };
