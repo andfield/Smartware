@@ -15,28 +15,37 @@
                     <v-spacer />
                     <v-btn small text @click="disable = !disable">Edit details</v-btn>
                   </v-card-actions>
+
                   <v-card-actions>
-                    <h3>Email:</h3>
-                    <v-text-field value="Email From Database" :disabled="disable" class="mx-5" />
+                    <h3>Name: {{getUserInfo().fName + " " + getUserInfo().lName}}</h3>
+                  </v-card-actions>
+                  <v-card-actions>
+                    <h3>Email: {{getUserInfo().email}}</h3>
+                    <v-text-field value= "placeholder" v-model="newEmail" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
-                    <h3>Phone No:</h3>
-                    <v-text-field value="Phone No. From Database" :disabled="disable" class="mx-5" />
+                    <h3>Phone No: {{getUserInfo().phNum}}</h3>
+                    <v-text-field value="placehodler phNumber" v-model="newPhNum" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
-                    <h3>Billing Address:</h3>
+                    <h3>Billing Address: {{getUserInfo().address}} Addres not stored </h3>
                     <v-text-field value="Address From Database" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
-                    <h3>Password:</h3>
+                    <h3>Password: (not shown)</h3>
                     <v-text-field value="Password From Database" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
-                    <v-btn v-if="!disable" text >Change</v-btn>
+                    <h3>Confirm Password:</h3>
+                    <v-text-field value="Password From Database" :disabled="disable" class="mx-5" />
+                  </v-card-actions>
+
+                  <v-card-actions>
+                    <v-btn v-if="!disable" text @click="updateDetails">Change</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -106,18 +115,28 @@ export default {
     LandingNav
   },
   methods: {
-    // getUserInfo() {
-    //   this.$store.dispatch("customerDetails")
-    //   var userData = this.$store.getters.getCustomerDetails
-    //   console.log("CustermoerAccount.vue:  " + userData)
-    //   return userData
-    // }
+    getUserInfo() {
+      this.$store.dispatch("customerDetails")
+      var userData = this.$store.getters.getCustomerDetails
+      return userData
+    },
+    updateDetails(){
+      console.log("test")
+      // this.disable = true
+      this.$store.dispatch("updateCustomer", {
+        newPhNum: this.newPhNum,
+        newEmail: this.newEmail
+      });
+
+    }
   },
   data() {
     return {
       userData: {},
       disable: true,
       userOrders: {},
+      newPhNum: null,
+      newEmail: null
     };
   }
 };
