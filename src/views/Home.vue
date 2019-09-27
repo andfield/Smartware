@@ -1,6 +1,6 @@
 <template>
   <div class="Home">
-    <LandingNav/>
+    <LandingNav />
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs12 lg10 xl10>
@@ -9,8 +9,14 @@
       </v-layout>
     </v-container>
 
-    <productlist v-bind:products="products"/>
-    
+    <v-container>
+      <v-layout class="justify-center">
+        <v-flex xs12 lg10 xl10>
+           <productlist v-bind:products="products" />
+        </v-flex>
+      </v-layout>
+    </v-container>
+
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs12 lg10 xl10>
@@ -29,8 +35,8 @@ import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
-import productlist from '../components/productlist.vue'
-import LandingNav from '../components/LandingNav'
+import productlist from "../components/productlist.vue";
+import LandingNav from "../components/LandingNav";
 
 export default {
   components: {
