@@ -39,14 +39,15 @@ export default new Vuex.Store({
         .createUserWithEmailAndPassword(email, password)
         .then(user => {
           commit("setUser", user);
-          commit("setIsAuthenticated", true);
+          // commit("setIsAuthenticated", true);
+          console.log(isAuthenticated())
           console.log(custInfo)
           db.collection("customers").add(custInfo);
           router.push("/home");
         })
         .catch(() => {
           commit("setUser", null);
-          commit("setIsAuthenticated", false);
+          // commit("setIsAuthenticated", false);
           router.push("/");
         });
     },
@@ -59,13 +60,14 @@ export default new Vuex.Store({
           user => {
             commit("setUser", user);
             commit('setIsAuthenticated' , true);
-            console.log(state.isAuthenticated);
+            console.log("userLogin - Authentication state: " + state.isAuthenticated);
             router.push("/home");
           }
         )
         .catch(() => {
+          console.log("userLogin error")
           commit("setUser", null);
-          commit("setIsAuthenticated", false);
+          // commit("setIsAuthenticated", false);
         });
     },
 
@@ -80,7 +82,7 @@ export default new Vuex.Store({
         })
         .catch(() => {
           commit("setUser", null);
-          commit("setIsAuthenticated", false);
+          // commit("setIsAuthenticated", false);
         });
     },
 
@@ -99,29 +101,34 @@ export default new Vuex.Store({
       })
     },
 
-    updateCustomer({ commit }, { newPhNum, newEmail, }) {
+    updateCustomer({ commit }, { newPhNum, newEmail, newPass }) {
       var user = firebase.auth().currentUser //this currentUser is not realated to the state, it is apart Firebase/Firestore
       var userEmail = user.email
       var docID = null
       var docRef = null
 
-      db.collection("customers").where("email", "==", userEmail).get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc){            //using a foreach loop even though there is just one, idk how to do just one
-          docID = doc.id
-          docRef = db.collection("customers").doc(docID) //have to search by docID if the email is changing
-          docRef.update({
-            phNum: newPhNum,
-            email: newEmail,
+      user.updateEmail(newEmail).then(() => { //update the authentication email first
+        db.collection("customers").where("email", "==", userEmail).get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc){            //using a foreach loop even though there is just one, idk how to do just one
+            docID = doc.id
+            docRef = db.collection("customers").doc(docID) //have to search by docID if the email is changing
+            docRef.update({
+              phNum: newPhNum,
+              email: newEmail,
+            })
           })
         })
+        .catch(function(error) {
+          console.log("Error getting documents: ", error)
+        }),
+        // user.reauthenticateWithCredential(),
+        user.updatePassword(newPass)
       })
-      .catch(function(error) {
-        console.log("Error getting documents: ", error)
+      .catch(function (error) {
+        console.log("Error: ", error)
+        alert("Error - Something went wrong")
       })
-
-      user.updateEmail(newEmail) //updates the authenticated email
-      // alert('Details have been updated')
     }
   },
   getters: {

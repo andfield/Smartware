@@ -17,31 +17,31 @@
                   </v-card-actions>
 
                   <v-card-actions>
-                    <h3>Name: {{getUserInfo().fName + " " + getUserInfo().lName}}</h3>
+                    <h3>Name: {{fName + " " + lName}}</h3>
                   </v-card-actions>
                   <v-card-actions>
-                    <h3>Email: {{getUserInfo().email}}</h3>
+                    <h3>Email: {{email}}</h3>
                     <v-text-field value= "placeholder" v-model="newEmail" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
-                    <h3>Phone No: {{getUserInfo().phNum}}</h3>
+                    <h3>Phone No: {{phNum}}</h3>
                     <v-text-field value="placehodler phNumber" v-model="newPhNum" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
-                    <h3>Billing Address: {{getUserInfo().address}} Addres not stored </h3>
+                    <h3>Billing Address: {{address}}</h3>
                     <v-text-field value="Address From Database" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
                     <h3>Password: (not shown)</h3>
-                    <v-text-field value="Password From Database" :disabled="disable" class="mx-5" />
+                    <v-text-field value="Password From Database" v-model="newPass" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
                     <h3>Confirm Password:</h3>
-                    <v-text-field value="Password From Database" :disabled="disable" class="mx-5" />
+                    <v-text-field value="Password From Database" v-model="newPassCon" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
@@ -95,49 +95,51 @@ import firebase, { functions } from "firebase";
 import db from "@/main";
 import LandingNav from "../components/LandingNav";
 
-
-// var user = firebase.auth().currentUser
-// var userEmail
-// var customerRef = db.collection("customers")
-// var querry = customerRef.where("email", "==", "user.email")
-
-// console.log(querry.get().doc.data())
-
-// if (user != null){
-//   userEmail = user.email
-// }
-// else{
-//   console.log("nobody is logged in... spooky") //just to make sure current user is working
-// }
-
 export default {
   components: {
     LandingNav
   },
   methods: {
-    getUserInfo() {
+    getUserInfo() { // this is causing the infinite loop
       this.$store.dispatch("customerDetails")
       var userData = this.$store.getters.getCustomerDetails
       return userData
     },
     updateDetails(){
-      console.log("test")
-      // this.disable = true
-      this.$store.dispatch("updateCustomer", {
-        newPhNum: this.newPhNum,
-        newEmail: this.newEmail
-      });
-
+      if(this.newPass == this.newPassCon){
+        if (this.newPass.length >= 8) {
+            this.$store.dispatch("updateCustomer", {
+            newPhNum: this.newPhNum,
+            newEmail: this.newEmail,
+            newPass: this.newPass,
+          });
+        }
+        else {
+          alert("The password is too short")
+        }
+      }
+      else{
+        alert("The password do not match")
+      }
     }
   },
   data() {
+    this.$store.dispatch("customerDetails")
+    var userData = this.$store.getters.getCustomerDetails
     return {
       userData: {},
       disable: true,
       userOrders: {},
       newPhNum: null,
-      newEmail: null
+      newEmail: null,
+      newPass: null,
+      newPassCon: null,
+      fName: userData.fName,
+      lName: userData.lName,
+      email: userData.email,
+      phNum: userData.phNum,
+      address: "userData.address", //userData.address,
     };
-  }
+  },
 };
 </script>
