@@ -149,8 +149,10 @@ export default new Vuex.Store({
         });
     },
 
-    addToCart({ commit }, { product }) {},
-    
+    addToCart({ commit }, { product }) {
+      
+    },
+
     updateCustomer({ commit }, { newPhNum, newEmail, newPass, newAddress }) {
       var user = firebase.auth().currentUser //this currentUser is not realated to the state, it is apart Firebase/Firestore
       var userEmail = user.email
