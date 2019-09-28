@@ -1,6 +1,6 @@
 <template>
   <v-container class="justify-center">
-    <v-layout row wrap>
+    <v-layout row wrap class="px-5">
       <v-flex class="justify-center">
         <h1>Printers</h1>
         <v-divider></v-divider>
