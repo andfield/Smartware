@@ -32,7 +32,7 @@
             <span>Cart</span>
             <v-badge>
               <template v-slot:badge>
-                <span v-text="cartNo" />
+                <span v-text="0" /> <!-- change this later -->
               </template>
               <v-icon small>mdi-cart</v-icon>
             </v-badge>
@@ -91,7 +91,7 @@
           Cart
           <v-badge>
             <template v-slot:badge>
-              <span v-text="cartNo" />
+              <span v-text="0" /><!-- change this later -->
             </template>
             <v-icon right>mdi-cart</v-icon>
           </v-badge>

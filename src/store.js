@@ -30,6 +30,7 @@ export default new Vuex.Store({
       state.customerData.fName = payload.fName
       state.customerData.lName = payload.lName
       state.customerData.phNum = payload.phNum
+      state.customerData.address = payload.address
     }
   },
   actions: {
@@ -101,34 +102,58 @@ export default new Vuex.Store({
       })
     },
 
-    updateCustomer({ commit }, { newPhNum, newEmail, newPass }) {
+    updateCustomer({ commit }, { newPhNum, newEmail, newPass, newAddress }) {
       var user = firebase.auth().currentUser //this currentUser is not realated to the state, it is apart Firebase/Firestore
       var userEmail = user.email
       var docID = null
       var docRef = null
 
-      user.updateEmail(newEmail).then(() => { //update the authentication email first
-        db.collection("customers").where("email", "==", userEmail).get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc){            //using a foreach loop even though there is just one, idk how to do just one
-            docID = doc.id
-            docRef = db.collection("customers").doc(docID) //have to search by docID if the email is changing
+      db.collection("customers").where("email", "==", userEmail).get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc){            //using a foreach loop even though there is just one, idk how to do just one
+          docID = doc.id
+          docRef = db.collection("customers").doc(docID) //have to search by docID if the email is changing
+          
+          if(newPhNum != null){ //check if not null so it doesnt overwrite in DB with nothing
             docRef.update({
-              phNum: newPhNum,
-              email: newEmail,
+              phNum: newPhNum
             })
-          })
+          }
+          else{
+            console.log("error updating phNum: " + newPhNum)
+          }
+          if(newEmail != null){ //checking each part individualy, probably a better way
+            user.updateEmail(newEmail).then(() => { //update the authentication email first
+              docRef.update({
+                email: newEmail
+              })
+            }) 
+            
+          }
+          else{
+            console.log("error updating email: " + newEmail)
+          }
+          if(newAddress != null){ //checking each part individualy, probably a better way
+            docRef.update({
+              address: newAddress
+            })
+          }
+          else{
+            console.log("error updating email: " + newEmail)
+          }
+
         })
-        .catch(function(error) {
-          console.log("Error getting documents: ", error)
-        }),
-        // user.reauthenticateWithCredential(),
+      })
+      .catch(function(error) {
+        console.log("Error getting documents: ", error)
+      })
+      if(newPass != null){
         user.updatePassword(newPass)
-      })
-      .catch(function (error) {
-        console.log("Error: ", error)
-        alert("Error - Something went wrong")
-      })
+      }
+      else{
+        console.log("error updating password")
+      }
+      alert("Deatils have been updated")
     }
   },
   getters: {

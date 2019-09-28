@@ -31,7 +31,7 @@
 
                   <v-card-actions>
                     <h3>Billing Address: {{address}}</h3>
-                    <v-text-field value="Address From Database" :disabled="disable" class="mx-5" />
+                    <v-text-field value="Address From Database" v-model="newAddress" :disabled="disable" class="mx-5" />
                   </v-card-actions>
 
                   <v-card-actions>
@@ -106,12 +106,17 @@ export default {
       return userData
     },
     updateDetails(){
+      if(this.newpass == !null){ // Cant compare .length if its null
+        this.passLength = this.newPass.length
+      }
+
       if(this.newPass == this.newPassCon){
-        if (this.newPass.length >= 8) {
+        if (this.passLength >= 8 || this.newPass == null) {
             this.$store.dispatch("updateCustomer", {
             newPhNum: this.newPhNum,
             newEmail: this.newEmail,
             newPass: this.newPass,
+            newAddress: this.newAddress
           });
         }
         else {
@@ -134,12 +139,15 @@ export default {
       newEmail: null,
       newPass: null,
       newPassCon: null,
+      newAddress: null,
       fName: userData.fName,
       lName: userData.lName,
       email: userData.email,
       phNum: userData.phNum,
-      address: "userData.address", //userData.address,
+      address: userData.address, 
+      passLength: 0
     };
+    
   },
 };
 </script>
