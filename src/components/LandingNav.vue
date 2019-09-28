@@ -87,11 +87,11 @@
           </v-list>
         </v-menu>
 
-        <v-btn text class="ma-2">
+        <v-btn text class="ma-2" to="/CartPage">
           Cart
           <v-badge>
             <template v-slot:badge>
-              <span v-text="cartNo" />
+              <span v-text="cartNum()" />
             </template>
             <v-icon right>mdi-cart</v-icon>
           </v-badge>
@@ -127,6 +127,9 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;
+    },
+    cartNum() {
+       this.$store.getters.getCartList.length
     }
   },
   methods: {
