@@ -108,6 +108,12 @@ export default {
   },
   data() {
     return {
+      name: "Hp printer",
+      src:"https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
+      info: "dododododoododdodo",
+      price: 100,
+      type: "Printer",
+      flex: 4,
       quantity: 0,
       details: [
         {
