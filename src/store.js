@@ -26,7 +26,6 @@ export default new Vuex.Store({
       state.isAuthenticated = payload;
     },
     setUserData(state, payload) {
-<<<<<<< HEAD
       state.customerData.email = payload.email;
       state.customerData.fName = payload.fName;
       state.customerData.lName = payload.lName;
@@ -34,13 +33,11 @@ export default new Vuex.Store({
     },
     setcartList(state, payload) {
       state.cartList = payload;
-=======
       state.customerData.email = payload.email
       state.customerData.fName = payload.fName
       state.customerData.lName = payload.lName
       state.customerData.phNum = payload.phNum
       state.customerData.address = payload.address
->>>>>>> 2e90869ae7bff87262635f165e252ef361d8d854
     }
   },
   actions: {
@@ -115,7 +112,6 @@ export default new Vuex.Store({
         });
     },
 
-<<<<<<< HEAD
     updateCustomer({ commit }, { newPhNum, newEmail, newPass }) {
       var user = firebase.auth().currentUser; //this currentUser is not realated to the state, it is apart Firebase/Firestore
       var userEmail = user.email;
@@ -153,8 +149,8 @@ export default new Vuex.Store({
         });
     },
 
-    addToCart({ commit }, { product }) {}
-=======
+    addToCart({ commit }, { product }) {},
+    
     updateCustomer({ commit }, { newPhNum, newEmail, newPass, newAddress }) {
       var user = firebase.auth().currentUser //this currentUser is not realated to the state, it is apart Firebase/Firestore
       var userEmail = user.email
@@ -208,7 +204,6 @@ export default new Vuex.Store({
       }
       alert("Deatils have been updated")
     }
->>>>>>> 2e90869ae7bff87262635f165e252ef361d8d854
   },
 
   getters: {
