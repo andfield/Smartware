@@ -15,8 +15,8 @@ export default new Vuex.Store({
       fName: null,
       lName: null,
       phNum: null
-    }
-      
+    },
+    cartData: [],
   },
   mutations: {
     setUser(state, payload) {
@@ -31,6 +31,9 @@ export default new Vuex.Store({
       state.customerData.lName = payload.lName
       state.customerData.phNum = payload.phNum
       state.customerData.address = payload.address
+    },
+    setCartData(state, payload){
+      state.cartData = payload
     }
   },
   actions: {
@@ -87,7 +90,7 @@ export default new Vuex.Store({
         });
     },
 
-    customerDetails({ commit, state }) {
+    customerDetails({ commit, state }) { // i think this is redundant now, can probably just delete, will check later
       var user = firebase.auth().currentUser //this currentUser is not realated to the state, it is apart Firebase/Firestore
       var userEmail = user.email
 
@@ -154,6 +157,20 @@ export default new Vuex.Store({
         console.log("error updating password")
       }
       alert("Deatils have been updated")
+    },
+
+    cartDetails(){
+      //todo ???? probably dont need this
+    },
+
+    updateCart({ commit, state }, { newProduct, quantity }){
+      var currentCart = state.cartData
+      for(var i=quantity; i>0; i--){
+        currentCart.push(newProduct)
+        console.log("loop counter: " + i)
+      }
+      commit("setCartData", currentCart)
+      console.log("cart data in [0]: " + state.cartData[0].name)
     }
   },
   getters: {
@@ -163,6 +180,9 @@ export default new Vuex.Store({
     },
     getCustomerDetails(state) {
       return state.customerData
+    },
+    getCartDetails(state){
+      return state.cartData
     }
   }
 });

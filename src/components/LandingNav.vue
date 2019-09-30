@@ -87,7 +87,7 @@
           </v-list>
         </v-menu>
 
-        <v-btn text class="ma-2">
+        <v-btn text class="ma-2" to="/CartPage">
           Cart
           <v-badge>
             <template v-slot:badge>

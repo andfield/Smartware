@@ -49,7 +49,7 @@
                           <v-icon>keyboard_arrow_right</v-icon>
                         </v-btn>
                       </v-card-actions>
-                      <v-btn color="primary" class="ma-5" dark>Add To Cart</v-btn>
+                      <v-btn color="primary" @click="addCart(myprop, quantity)" class="ma-5" dark>Add To Cart</v-btn>
                       <v-divider class="ma-5" />
                       <v-card-title class="title ma-5">
                         <span>Detailed Information</span>
@@ -108,14 +108,13 @@ export default {
   },
   data() {
     return {
-      name: "Hp printer",
-      src:"https://images-na.ssl-images-amazon.com/images/I/61hbjZ0dRkL._SL1500_.jpg",
-      info: "dododododoododdodo",
-      price: 100,
-      type: "Printer",
-      flex: 4,
+      flex: 0, // what is this for??????????????????????????????????????????????????????
       quantity: 0,
       details: [
+        {
+          name: "these details mean nothing",
+          desc: "they are the same on every product"
+        },
         {
           name: "Weight",
           desc: "6Kg"
@@ -129,18 +128,17 @@ export default {
           desc: "White"
         }
       ],
-      products: {}
-    };
-  },
-  firestore() {
-    return {
-      products: db
-        .collection("ProductCategory")
-        .doc("pcQhnNHvSg1L3LYyTFdX")
-        .collection("EftposMachines")
+      products: {} //todo
     };
   },
 
-  methods: {}
+  methods: {
+    addCart(product, quantity){
+      this.$store.dispatch("updateCart", {
+            newProduct: product,
+            quantity: this.quantity
+          });
+    }
+  }
 };
 </script>

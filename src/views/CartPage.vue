@@ -72,16 +72,19 @@ export default {
         {
           name: "hello",
           src:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNKGFpBmgjdMCeUAHblvliOk6Yom20eTNWiTgTxQc6mTkEM-Kj",
+            "https://cdn.dribbble.com/users/528264/screenshots/3140440/firebase_logo.png",
           quantity: 0,
-          desc: "sup cunts how yall doing"
+          desc: "sup fellas how yall doing"
         }
-      ]
+      ],
+      newProduct: null,
     };
   },
   methods: {
-    getCart() {
-      cartList = this.state.cartList;
+    getCart() { // this might not be it cheif
+      this.$store.dispatch("updateCart", {
+            newProduct: this.newProduct
+          });
     }
   }
 };

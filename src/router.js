@@ -10,6 +10,7 @@ import Category from './views/Category.vue'
 import CustomerAccount from './views/CustomerAccount.vue'
 import Signin from './views/Signin'
 import Signup from './views/Signup'
+import CartPage from './views/CartPage'
 
 Vue.use(Router)
 
@@ -86,7 +87,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    }
+    },
+    {
+      path: '/CartPage' ,
+      name: 'CartPage',
+      component: CartPage,
+      meta: {
+        requiresAuth: true
+      }
+    },
   ]
 })
 

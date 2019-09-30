@@ -100,7 +100,7 @@ export default {
     LandingNav
   },
   methods: {
-    getUserInfo() { // this is causing the infinite loop
+    getUserInfo() { // pretty sure i can delete this wil check later tho
       this.$store.dispatch("customerDetails")
       var userData = this.$store.getters.getCustomerDetails
       return userData
@@ -129,7 +129,7 @@ export default {
     }
   },
   data() {
-    this.$store.dispatch("customerDetails")
+    // this.$store.dispatch("customerDetails") // i think this isnt needed
     var userData = this.$store.getters.getCustomerDetails
     return {
       userData: {},
