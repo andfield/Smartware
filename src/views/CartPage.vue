@@ -19,12 +19,22 @@
               <tbody>
                 <tr v-for="item in cartList" :key="item.name">
                   <td>
-                    <v-img :src="item.src" max-height="200px" max-width="200px" />
+                    <v-img :src="item.imgURL" max-height="200px" max-width="200px" />
                   </td>
                   <td>
                     <span>
                       <h3 v-text="item.name" />
-                      <p v-text="item.desc"/>
+                      <p v-text="item.description"/>
+                    </span>
+                  </td>
+                  <td>
+                    <span>
+                      <h3 v-text="item.stanPrice" />
+                    </span>
+                  </td>
+                  <td>
+                    <span>
+                      <h3 v-text="item.stanPrice" />
                     </span>
                   </td>
                 </tr>
@@ -43,7 +53,7 @@
                                 
                             </v-card>
                         </v-col>
-                </v-row>-->
+                </v-row> -->
               </v-card>
             </v-simple-table>
           </v-card>
@@ -67,17 +77,12 @@ export default {
   },
 
   data() {
+    // this.$store.dispatch("customerDetails") // pretty sure this isnt needed
+    var cartData = this.$store.getters.getCartDetails
+    console.log(cartData)
+    
     return {
-      cartList: [
-        {
-          name: "hello",
-          src:
-            "https://cdn.dribbble.com/users/528264/screenshots/3140440/firebase_logo.png",
-          quantity: 0,
-          desc: "sup fellas how yall doing"
-        }
-      ],
-      newProduct: null,
+      cartList: cartData,
     };
   },
   methods: {

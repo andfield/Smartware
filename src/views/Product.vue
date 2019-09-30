@@ -1,12 +1,9 @@
 <template>
   <div class="Product">
+    <LandingNav />
     <v-container>
       <v-layout>
         <v-flex xs12 lg12 xl12 md12>
-          <v-row>
-            Add nav
-          </v-row>
-
           <v-row>
             <v-container>
               <v-layout class="mx-2 my-5">
@@ -94,6 +91,7 @@ import NavFooter from "../components/NavFooter";
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
 import productlist from '../components/productlist.vue'
+import LandingNav from "../components/LandingNav";
 
 
 export default {
@@ -101,6 +99,7 @@ export default {
   props: ["myprop"],
 
   components: {
+    LandingNav,
     AppFooter,
     Carousel,
     NavFooter,
@@ -128,7 +127,7 @@ export default {
           desc: "White"
         }
       ],
-      products: {} //todo
+      products: {} //todo maybe
     };
   },
 

@@ -91,7 +91,7 @@
           Cart
           <v-badge>
             <template v-slot:badge>
-              <span v-text="0" /><!-- change this later -->
+              <span v-text="quantity" />
             </template>
             <v-icon right>mdi-cart</v-icon>
           </v-badge>
@@ -121,7 +121,8 @@ export default {
         { title: "Contact us", route: "/contactUs" },
         { title: "Sign In", route: "/signin" },
         { title: "Sign up", route: "/signup" }
-      ]
+      ],
+      quantity: this.$store.getters.getCartQuantity
     };
   },
   computed: {

@@ -17,6 +17,7 @@ export default new Vuex.Store({
       phNum: null
     },
     cartData: [],
+    cartQuantity: null,
   },
   mutations: {
     setUser(state, payload) {
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     setCartData(state, payload){
       state.cartData = payload
+    },
+    setCartQuantity(state, payload){
+      state.cartQuantity = payload
     }
   },
   actions: {
@@ -170,6 +174,8 @@ export default new Vuex.Store({
         console.log("loop counter: " + i)
       }
       commit("setCartData", currentCart)
+      commit("setCartQuantity", state.cartData.length)
+      console.log("cart quantity: " + state.cartQuantity)
       console.log("cart data in [0]: " + state.cartData[0].name)
     }
   },
@@ -183,6 +189,9 @@ export default new Vuex.Store({
     },
     getCartDetails(state){
       return state.cartData
+    },
+    getCartQuantity(state){
+      return state.cartQuantity
     }
   }
 });

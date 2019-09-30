@@ -129,8 +129,9 @@ export default {
     }
   },
   data() {
-    // this.$store.dispatch("customerDetails") // i think this isnt needed
+    this.$store.dispatch("customerDetails")
     var userData = this.$store.getters.getCustomerDetails
+    console.log(userData.name)
     return {
       userData: {},
       disable: true,
