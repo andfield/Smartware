@@ -11,6 +11,10 @@ import CustomerAccount from './views/CustomerAccount.vue'
 import Signin from './views/Signin'
 import Signup from './views/Signup'
 import CartPage from './views/CartPage'
+import AdminDashboard from './views/AdminDashboard'
+import AddProduct from './views/AddProduct'
+import DeleteProduct from './views/DeleteProduct'
+import UpdateProduct from './views/UpdateProduct'
 
 Vue.use(Router)
 
@@ -96,6 +100,27 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    {
+      path: '/AdminDashboard',
+      name: 'AdminDashboard',
+      component: AdminDashboard
+
+    },
+    {
+      path: '/AddProduct',
+      name: 'AddProduct',
+      component: AddProduct
+    },
+    {
+      path: '/DeleteProduct',
+      name: 'DeleteProduct',
+      component: DeleteProduct
+    },
+    {
+      path: '/UpdateProduct',
+      name: 'UpdateProduct',
+      component: UpdateProduct
+    }
   ]
 })
 

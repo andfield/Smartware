@@ -32,7 +32,8 @@
             <span>Cart</span>
             <v-badge>
               <template v-slot:badge>
-                <span v-text="0" /> <!-- change this later -->
+                <span v-text="0" />
+                <!-- change this later -->
               </template>
               <v-icon small>mdi-cart</v-icon>
             </v-badge>
@@ -120,7 +121,8 @@ export default {
         { title: "About us", route: "/about" },
         { title: "Contact us", route: "/contactUs" },
         { title: "Sign In", route: "/signin" },
-        { title: "Sign up", route: "/signup" }
+        { title: "Sign up", route: "/signup" },
+        { title: "Admin", route: "/AdminDashboard" }
       ],
       quantity: this.$store.getters.getCartQuantity
     };
