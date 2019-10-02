@@ -59,18 +59,22 @@ export default {
   },
   methods: {
     signUp() {
-      var custData = {
-        email: this.email,
-        fName: this.fname,
-        lName: this.lname,
-        phNum: this.pnum
-      };
-      this.$store.dispatch("userSignup", {
-        email: this.email,
-        password: this.password,
-        custInfo: custData
-      });
-      console.log("signup,vue:  " + custData)
+      if( this.password.length > 7){
+        var custData = {
+          email: this.email,
+          fName: this.fname,
+          lName: this.lname,
+          phNum: this.pnum
+        };
+        this.$store.dispatch("userSignup", {
+          email: this.email,
+          password: this.password,
+          custInfo: custData
+        });
+      } else{
+        alert("Error password must be at least 8 characters long.")
+      }
+      
     }
   }
 };

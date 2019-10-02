@@ -17,7 +17,7 @@
                 <th>Quantity</th>
               </thead>
               <tbody>
-                <tr v-for="item in cartList" :key="item.name">
+                <tr v-for="(item, i) in cartList" :key="item.name"> <!-- i is the loop counter -->
                   <td>
                     <v-img :src="item.imgURL" max-height="200px" max-width="200px" />
                   </td>
@@ -29,15 +29,20 @@
                   </td>
                   <td>
                     <span>
-                      <h3 v-text="item.stanPrice" />
+                      <h3>${{item.stanPrice}}</h3>
                     </span>
                   </td>
                   <td>
                     <span>
-                      <h3 v-text="item.stanPrice" />
+                      <v-btn @click="removeProduct(i)">
+                        <p>Remove Item From Cart</p>
+                      </v-btn>
                     </span>
                   </td>
                 </tr>
+                <v-btn @click="clearCart()">
+                  <p>Clear All</p>
+                </v-btn>
               </tbody>
               <v-card>
                 <!-- <v-row>
@@ -59,6 +64,13 @@
           </v-card>
         </v-flex>
       </v-layout>
+      <v-card>
+        <h2>Summary ({{cartList.length}} items)</h2>
+        <h3>Subtotal: ${{subtotal}} </h3>
+        <h3>Shipping: $todo </h3>
+        <h3>GST: $todo </h3>
+        <v-btn to="/Checkout/ShippingInfo"> Checkout </v-btn>
+      </v-card>
     </v-container>
   </span>
 </template>
@@ -77,19 +89,24 @@ export default {
   },
 
   data() {
-    // this.$store.dispatch("customerDetails") // pretty sure this isnt needed
     var cartData = this.$store.getters.getCartDetails
-    console.log(cartData)
-    
+    var productSum = 0
+
+    cartData.forEach(element => {
+      productSum += element.stanPrice
+    });
+
     return {
       cartList: cartData,
+      subtotal: parseFloat(productSum).toFixed(2), // weird rounding bug if not forced to 2dp
     };
   },
   methods: {
-    getCart() { // this might not be it cheif
-      this.$store.dispatch("updateCart", {
-            newProduct: this.newProduct
-          });
+    clearCart() {
+      this.$store.dispatch("clearCart");
+    },
+    removeProduct(arrayPos){
+      this.$store.dispatch("removeCartProduct", {arrayPos});
     }
   }
 };

@@ -68,13 +68,13 @@
       <div v-if="isAuthenticated" class="hidden-sm-and-down">
         <v-menu>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" text>
+            <v-btn  to="/Support" text>
               Support
               <v-icon right>contact_support</v-icon>
             </v-btn>
           </template>
 
-          <v-list dark>
+          <!-- <v-list dark>
             <v-list-item>
               <v-list-item-title>Book appointments</v-list-item-title>
             </v-list-item>
@@ -84,7 +84,7 @@
             <v-list-item>
               <v-list-item-title>Option 3</v-list-item-title>
             </v-list-item>
-          </v-list>
+          </v-list> -->
         </v-menu>
 
         <v-btn text class="ma-2" to="/CartPage">
@@ -110,9 +110,14 @@
 </template>
 
 <script>
+import firebase, { functions } from "firebase";
+
 export default {
   name: "LandingNav",
   data() {
+    if(firebase.auth().currentUser != null){
+      var authStatus = true
+    }
     return {
       appTitle: "Smartware",
       drawer: false,
@@ -122,14 +127,15 @@ export default {
         { title: "Sign In", route: "/signin" },
         { title: "Sign up", route: "/signup" }
       ],
-      quantity: this.$store.getters.getCartQuantity
+      quantity: this.$store.getters.getCartQuantity,
+      isAuthenticated: authStatus
     };
   },
-  computed: {
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    }
-  },
+  // computed: { // maybe able to use this for quantity
+  //   isAuthenticated() {
+  //     return this.$store.getters.isAuthenticated;
+  //   }
+  // },
   methods: {
     logout() {
       this.$store.dispatch("userSignOut");

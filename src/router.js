@@ -11,6 +11,11 @@ import CustomerAccount from './views/CustomerAccount.vue'
 import Signin from './views/Signin'
 import Signup from './views/Signup'
 import CartPage from './views/CartPage'
+import Support from './views/Support'
+
+import ShippingInfo from './views/Checkout/ShippingInfo'
+import PaymentInfo from './views/Checkout/PaymentInfo'
+import FinaliseOrder from './views/Checkout/FinaliseOrder'
 
 Vue.use(Router)
 
@@ -92,6 +97,30 @@ const router = new Router({
       path: '/CartPage' ,
       name: 'CartPage',
       component: CartPage,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/Support' ,
+      name: 'Support',
+      component: Support,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/Checkout/ShippingInfo' ,
+      name: 'ShippingInfo',
+      component: ShippingInfo,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/Checkout/PaymentInfo' ,
+      name: 'PaymentInfo',
+      component: PaymentInfo,
       meta: {
         requiresAuth: true
       }
