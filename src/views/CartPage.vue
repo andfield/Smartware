@@ -90,24 +90,21 @@ export default {
 
   data() {
     var cartData = this.$store.getters.getCartDetails
-    var productSum = 0
-
-    cartData.forEach(element => {
-      productSum += element.stanPrice
-    });
 
     return {
       cartList: cartData,
-      subtotal: parseFloat(productSum).toFixed(2), // weird rounding bug if not forced to 2dp
+      subtotal: parseFloat(this.$store.getters.getCartTotal).toFixed(2), // weird rounding bug if not forced to 2dp
     };
   },
   methods: {
     clearCart() {
-      this.$store.dispatch("clearCart");
+      this.$store.dispatch("clearCart")
+      this.subtotal = parseFloat(this.$store.getters.getCartTotal).toFixed(2)
     },
     removeProduct(arrayPos){
-      this.$store.dispatch("removeCartProduct", {arrayPos});
-    }
+      this.$store.dispatch("removeCartProduct", {arrayPos})
+      this.subtotal = parseFloat(this.$store.getters.getCartTotal).toFixed(2)
+    },
   }
 };
 </script>

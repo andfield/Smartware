@@ -16,6 +16,7 @@ export default new Vuex.Store({
     },
     cartData: [],
     cartQuantity: 0,
+    cartTotal: 0,
   },
   mutations: {
     setUser(state, payload) {
@@ -33,7 +34,10 @@ export default new Vuex.Store({
     },
     setCartQuantity(state, payload){
       state.cartQuantity = payload
-    }
+    },
+    setCartTotal(state, payload){
+      state.cartTotal = payload
+    },
   },
   actions: {
     userSignup({ commit }, { email, password, custInfo }) {
@@ -144,11 +148,14 @@ export default new Vuex.Store({
 
     updateCart({ commit, state }, { newProduct, quantity }){
       var currentCart = state.cartData
-      for(var i=quantity; i>0; i--){
+      var currentTotal = state.cartTotal
+      for(var i=0; quantity>i; i++){
         currentCart.push(newProduct)
+        currentTotal += newProduct.stanPrice
       }
       commit("setCartData", currentCart)
       commit("setCartQuantity", state.cartData.length)
+      commit("setCartTotal", currentTotal)
     },
 
     clearCart({commit, state}){
@@ -157,14 +164,17 @@ export default new Vuex.Store({
       currentCart.splice(0, quantity) // using this makes the cart page update when you clear all
       commit("setCartData" , currentCart)
       commit("setCartQuantity", 0)
+      commit("setCartTotal", 0)
     },
 
     removeCartProduct({commit, state}, {arrayPos}){
       var currentCart = state.cartData
-      console.log(arrayPos)
+      var price = currentCart[arrayPos].stanPrice
+      var currentTotal = state.cartTotal - price
       currentCart.splice(arrayPos, 1)
       commit("setCartData", currentCart)
       commit("setCartQuantity", state.cartData.length)
+      commit("setCartTotal", currentTotal)
     }
   },
   getters: {
@@ -176,6 +186,9 @@ export default new Vuex.Store({
     },
     getCartQuantity(state){
       return state.cartQuantity
-    }
+    },
+    getCartTotal(state){
+      return state.cartTotal
+    },
   }
 });
