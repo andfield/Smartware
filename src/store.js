@@ -14,9 +14,18 @@ export default new Vuex.Store({
       lName: null,
       phNum: null
     },
+
     cartData: [],
     cartQuantity: 0,
     cartTotal: 0,
+
+    shippingInfo: {
+      fName: null,
+      lName: null,
+      companyName: null,
+      address: null,
+      apt: null,
+    },
   },
   mutations: {
     setUser(state, payload) {
@@ -37,6 +46,13 @@ export default new Vuex.Store({
     },
     setCartTotal(state, payload){
       state.cartTotal = payload
+    },
+    setShippingInfo(state, payload) {
+      state.shippingInfo.fName = payload.fName
+      state.shippingInfo.lName = payload.lName
+      state.shippingInfo.companyName = payload.companyName
+      state.shippingInfo.address = payload.address
+      state.shippingInfo.apt = payload.apt
     },
   },
   actions: {
@@ -175,7 +191,20 @@ export default new Vuex.Store({
       commit("setCartData", currentCart)
       commit("setCartQuantity", state.cartData.length)
       commit("setCartTotal", currentTotal)
-    }
+    },
+
+    shippingInfo({commit, state}, {fName, lName, companyName, address, apt}){
+      var shippingData = []
+      shippingData = {
+        fName: fName,
+        lName: lName,
+        companyName: companyName,
+        address: address,
+        apt: apt,
+      }
+
+      commit("setShippingInfo", shippingData)
+    },
   },
   getters: {
     getCustomerDetails(state) {
@@ -189,6 +218,9 @@ export default new Vuex.Store({
     },
     getCartTotal(state){
       return state.cartTotal
+    },
+    getShippingInfo(state){
+      return state.shippingInfo
     },
   }
 });

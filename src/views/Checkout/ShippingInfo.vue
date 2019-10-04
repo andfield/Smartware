@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md4>
         <v-card hover>
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Login Form</v-toolbar-title>
+            <v-toolbar-title>Shipping Infomation</v-toolbar-title>
           </v-toolbar>
           <v-card-text @keypress.enter="login">
 
@@ -21,7 +21,7 @@
               <span>Back</span>
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="primary" to="/Checkout/PaymentInfo">
+            <v-btn color="primary" @click="shippingAddress()">
               <span>Next</span>
               <v-icon left>arrow_forward</v-icon>
             </v-btn>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "Signin",
   data() {
@@ -45,12 +47,24 @@ export default {
     };
   },
   methods: {
-    // login() { //something similar
-    //   this.$store.dispatch("userLogin", {
-    //     email: this.email,
-    //     password: this.password
-    //   });
-    // }
+    shippingAddress() {
+      if(this.fName == ""){
+        alert("Please enter your first name")
+      } else if(this.lName == ""){
+        alert("Please enter your last name")
+      } else if(this.address == ""){
+        alert("Please enter an address")
+      } else{
+        this.$store.dispatch("shippingInfo", {
+          fName: this.fName,
+          lName: this.lName,
+          companyName: this.companyName,
+          address: this.address,
+          apt: this.apt,
+        });
+        router.push('/Checkout/PaymentInfo')
+      }
+    }
   }
 };
 </script>

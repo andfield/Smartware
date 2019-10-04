@@ -69,7 +69,7 @@
         <h3>Subtotal: ${{subtotal}} </h3>
         <h3>Shipping: $todo </h3>
         <h3>GST: $todo </h3>
-        <v-btn to="/Checkout/ShippingInfo"> Checkout </v-btn>
+        <v-btn @click="checkout()"> Checkout </v-btn>
       </v-card>
     </v-container>
   </span>
@@ -79,6 +79,7 @@
 import LandingNav from "../components/LandingNav";
 import NavFooter from "../components/NavFooter";
 import AppFooter from "../components/AppFooter";
+import router from "@/router";
 
 export default {
   name: "CartPage",
@@ -105,6 +106,14 @@ export default {
       this.$store.dispatch("removeCartProduct", {arrayPos})
       this.subtotal = parseFloat(this.$store.getters.getCartTotal).toFixed(2)
     },
+    checkout(){
+      var cartData = this.$store.getters.getCartDetails
+      if(cartData.length == 0){
+        alert("Add something to the cart before you checkout")
+      }else{
+        router.push("/Checkout/ShippingInfo")
+      }
+    }
   }
 };
 </script>

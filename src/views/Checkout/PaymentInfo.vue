@@ -4,11 +4,11 @@
       <v-flex xs12 sm8 md4>
         <v-card hover>
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Login Form</v-toolbar-title>
+            <v-toolbar-title>Payment Infomation(not implemented yet)</v-toolbar-title>
           </v-toolbar>
           <v-card-text @keypress.enter="login">
 
-            <h2> Shipping Address </h2>
+            <h2> Payment Details </h2>
             <v-text-field label="First Name" v-model="fName" outlined />
             <v-text-field label="Last Name" v-model="lName" outlined />
             <v-text-field label="Company (Optional)" v-model="companyName" outlined />
@@ -21,8 +21,8 @@
               <span>Back</span>
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="primary" to="/Checkout/PaymentInfo">
-              <span>Next</span>
+            <v-btn color="primary" to="/Checkout/FinaliseOrder">
+              <span>Skip(for now)</span>
               <v-icon left>arrow_forward</v-icon>
             </v-btn>
           </v-card-actions>
@@ -45,11 +45,23 @@ export default {
     };
   },
   methods: {
-    // login() { //something similar
-    //   this.$store.dispatch("userLogin", {
-    //     email: this.email,
-    //     password: this.password
-    //   });
+    // shippingAddress() {
+    //   if(this.fName == ""){
+    //     alert("Please enter your first name")
+    //   } else if(this.lName == ""){
+    //     alert("Please enter your last name")
+    //   } else if(this.address == ""){
+    //     alert("Please enter an address")
+    //   } else{
+    //     this.$store.dispatch("shippingInfo", {
+    //       fName: this.fName,
+    //       lName: this.lName,
+    //       companyName: this.companyName,
+    //       address: this.address,
+    //       apt: this.apt,
+    //     });
+    //     console.log(this.$store.getters.getShippingInfo)
+    //   }
     // }
   }
 };

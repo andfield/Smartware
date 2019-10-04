@@ -41,6 +41,7 @@ export default {
     LandingNav
   },
   data() {
+    this.$store.dispatch("customerDetails") // updates store so when called in CustomerAccount the data will be avaible to render
     return {
       products: {},
       ProductCategory: {}

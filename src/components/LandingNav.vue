@@ -92,7 +92,7 @@
           Cart
           <v-badge>
             <template v-slot:badge>
-              <span v-text="quantity" />
+              <span :key="quantityKey" v-text="quantity" />
             </template>
             <v-icon right>mdi-cart</v-icon>
           </v-badge>
@@ -130,18 +130,22 @@ export default {
         { title: "Admin", route: "/AdminDashboard" }
       ],
       quantity: this.$store.getters.getCartQuantity,
-      isAuthenticated: authStatus
+      isAuthenticated: authStatus,
+      quantityKey: 0,
     };
   },
-  // computed: { // maybe able to use this for quantity
-  //   isAuthenticated() {
-  //     return this.$store.getters.isAuthenticated;
-  //   }
-  // },
+  computed: { // maybe able to use this for quantity
+    cartQuantity() {
+      return this.$store.getters.getCartQuantity;
+    }
+  },
   methods: {
     logout() {
       this.$store.dispatch("userSignOut");
-    }
+    },
+    forceRerender() {
+      this.quantityKey += 1
+    },
   }
 };
 </script>
