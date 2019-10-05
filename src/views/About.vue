@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <LandingNav />
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs12 lg10 xl10>
@@ -74,12 +75,14 @@
 import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
+import LandingNav from "../components/LandingNav";
 
 export default {
   components: {
     AppFooter,
     Carousel,
-    NavFooter
+    NavFooter,
+    LandingNav,
   }
 };
 </script>

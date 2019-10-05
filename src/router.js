@@ -50,9 +50,17 @@ const router = new Router({
     },
 
     {
+      path: '/publicAbout',
+      name: 'publicAbout',
+      component: About
+    },
+    {
       path: '/about',
       name: 'about',
-      component: About
+      component: About,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/home',

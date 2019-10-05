@@ -123,7 +123,7 @@ export default {
       appTitle: "Smartware",
       drawer: false,
       items: [
-        { title: "About us", route: "/about" },
+        { title: "About us", route: "/publicAbout" },
         { title: "Contact us", route: "/contactUs" },
         { title: "Sign In", route: "/signin" },
         { title: "Sign up", route: "/signup" },
