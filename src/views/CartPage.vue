@@ -68,7 +68,7 @@
         <h2>Summary ({{cartList.length}} items)</h2>
         <h3>Subtotal: ${{subtotal}} </h3>
         <h3>Shipping: $todo </h3>
-        <h3>GST: $todo </h3>
+        <h3>GST(incl.): ${{parseFloat(subtotal*0.15).toFixed(2)}} </h3>
         <v-btn @click="checkout()"> Checkout </v-btn>
       </v-card>
     </v-container>

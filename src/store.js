@@ -8,17 +8,17 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    custID: null,
+    cartData: [],
+    cartQuantity: 0,
+    cartTotal: 0,
+
     customerData: {
       email: null,
       fName: null,
       lName: null,
       phNum: null
     },
-
-    cartData: [],
-    cartQuantity: 0,
-    cartTotal: 0,
-
     shippingInfo: {
       fName: null,
       lName: null,
@@ -26,10 +26,17 @@ export default new Vuex.Store({
       address: null,
       apt: null,
     },
+    orderData: {
+      cartData: [],
+      custID: null,
+      shippingAddress: [], // array or string
+      cost: null,
+      date: null,
+    },
   },
   mutations: {
-    setUser(state, payload) {
-      state.currentuser = payload;
+    setUserID(state, payload) {
+      state.custID = payload;
     },
     setUserData(state, payload) {
       state.customerData.email = payload.email
@@ -53,6 +60,13 @@ export default new Vuex.Store({
       state.shippingInfo.companyName = payload.companyName
       state.shippingInfo.address = payload.address
       state.shippingInfo.apt = payload.apt
+    },
+    setOrderData(state, payload) {
+      state.orderData.cartData = payload.cartData
+      state.orderData.custID = payload.custID
+      state.orderData.address = payload.address
+      state.orderData.cost = payload.cost
+      state.orderData.date = payload.date
     },
   },
   actions: {
@@ -101,6 +115,8 @@ export default new Vuex.Store({
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc){            //using a foreach loop even though there is just one, idk how to do just one
           commit("setUserData", doc.data())
+          commit("setUserID", doc.id)
+          console.log((3<10?'0':'') + '3')
         })
       })
       .catch(function(error) {
@@ -193,7 +209,7 @@ export default new Vuex.Store({
       commit("setCartTotal", currentTotal)
     },
 
-    shippingInfo({commit, state}, {fName, lName, companyName, address, apt}){
+    shippingInfo({commit}, {fName, lName, companyName, address, apt}){
       var shippingData = []
       shippingData = {
         fName: fName,
@@ -204,6 +220,28 @@ export default new Vuex.Store({
       }
 
       commit("setShippingInfo", shippingData)
+    },
+
+    createOrder({state},){
+      var orderData = []
+      var date = new Date()
+      var day = date.getDate()
+      var month = date.getMonth() + 1
+      var year = date.getFullYear()
+      var hour = date.getHours()
+      var minute = (date.getMinutes()<10?'0':'') + date.getMinutes().toString() // will lead with 0 if appropriate | may not need toString need to wait until time is right(x:00 - x:09)
+
+      var orderDate = day + "/" + month + "/" + year + " " + hour + ":" + minute
+
+      orderData = {
+        cartData: state.cartData,
+        custID: state.custID,
+        shippingAddress: state.shippingInfo,
+        orderPrice: state.cartTotal,
+        date: orderDate
+      }
+      console.log(orderData)
+      db.collection("Orders").add(orderData);
     },
   },
   getters: {
@@ -222,5 +260,8 @@ export default new Vuex.Store({
     getShippingInfo(state){
       return state.shippingInfo
     },
+    getCustID(state){
+      return state.custID
+    }
   }
 });

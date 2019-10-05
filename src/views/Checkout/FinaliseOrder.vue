@@ -4,7 +4,7 @@
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md8>
             <v-card>
-                <h2>Your Address </h2>
+                <h2>This order will be shipping the following address</h2>
                  <tr v-for="(item) in addressDetails" :key="item.name"> <!-- i is the loop counter -->
                   <td>
                     <span>
@@ -45,17 +45,6 @@
                 <v-btn @click="clearCart()">
                   <p>Clear All</p>
                 </v-btn>
-                <v-card-actions class="mx-3">
-                    <v-btn color="primary" to="/CartPage">
-                    <v-icon left>arrow_back</v-icon>
-                    <span>Back</span>
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                    <v-btn color="primary" @click="placeOrder()">
-                    <span>Place Order(todo)</span>
-                    <v-icon left>arrow_forward</v-icon>
-                    </v-btn>
-                </v-card-actions>
               </tbody>
               <v-card>
                 <!-- <v-row>
@@ -75,14 +64,24 @@
               </v-card>
             </v-simple-table>
           </v-card>
+            <v-card-actions class="mx-3">
+                <v-btn color="primary" to="/CartPage">
+                <v-icon left>arrow_back</v-icon>
+                <span>Back</span>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" @click="placeOrder()">
+                <span>Place Order(todo)</span>
+                </v-btn>
+            </v-card-actions>
         </v-flex>
       </v-layout>
       <v-card>
         <h2>Summary ({{cartList.length}} items)</h2>
         <h3>Subtotal: ${{subtotal}} </h3>
         <h3>Shipping: $todo </h3>
-        <h3>GST: $todo </h3>
-        <v-btn @click="checkout()"> Checkout </v-btn>
+        <h3>GST(incl.): ${{parseFloat(subtotal*0.15).toFixed(2)}} </h3>
+        <h3>Total: ${{subtotal}} </h3>
       </v-card>
     </v-container>
   </span>
@@ -104,7 +103,7 @@ export default {
   },
   methods: {
     placeOrder(){
-        //todo
+      this.$store.dispatch("createOrder")
     }
   }
 };

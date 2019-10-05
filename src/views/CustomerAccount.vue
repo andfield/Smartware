@@ -71,7 +71,7 @@
                         <td>{{order.name}}</td>
                         <td>{{order.date}}</td>
                         <td>{{order.status}}</td>
-                        <td>{{order.total}}</td>
+                        <td>{{order.orderPrice}}</td>
                       </tr>
                     </tbody>
                   </v-simple-table>
@@ -132,10 +132,25 @@ export default {
   },
   data() {
     var userData = this.$store.getters.getCustomerDetails
+    var orderList = []
+
+    db.collection("Orders").where("custID", "==", this.$store.getters.getCustID).get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc){ // it works but need to get rid of foreach
+          orderList.push(doc.id)
+          orderList.push(doc.data())
+          console.log(doc.id)
+          console.log(doc.data())
+          console.log(orderList)
+        })
+      })
+      .catch(function(error) {
+        console.log("Error getting documents: ", error)
+      })
     return {
       userData: {},
       disable: true,
-      userOrders: {},
+      userOrders: orderList,
       newPhNum: null,
       newEmail: null,
       newPass: null,
