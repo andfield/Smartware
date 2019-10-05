@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import AdminToolBar from "../components/AdminToolBar";
+import AdminToolBar from '@/components/AdminToolBar';
 export default {
   name: "AddProduct",
   components: {

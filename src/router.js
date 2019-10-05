@@ -20,7 +20,7 @@ import FinaliseOrder from './views/Checkout/FinaliseOrder'
 import AdminDashboard from './views/AdminSide/AdminDashboard'
 import AddProduct from './views/AdminSide/AddProduct'
 import UpdateProduct from './views/AdminSide/UpdateProduct'
-import ProductManagement from './views/AdminSide  /ProductManagement'
+import ProductManagement from './views/AdminSide/ProductManagement'
 
 Vue.use(Router)
 

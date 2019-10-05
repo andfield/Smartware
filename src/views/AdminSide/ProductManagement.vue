@@ -81,7 +81,7 @@
 <script>
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
-import AdminToolBar from "../componenets/AdminToolBar";
+import AdminToolBar from '@/components/AdminToolBar';
 export default {
   name: "ProductManagment",
   components: {

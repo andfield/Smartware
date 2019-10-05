@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import AdminToolBar from "../components/AdminSide/AdminToolBar";
+import AdminToolBar from '@/components/AdminToolBar';
 export default {
   props: ["currentProduct"], //This is where I am getting data from product management.
 
