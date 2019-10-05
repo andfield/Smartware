@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AdminToolBar from '../components/AdminToolBar'
+import AdminToolBar from '../components/AdminSide/AdminToolBar'
 export default {
     name: 'AdminDashboard',
     components: {

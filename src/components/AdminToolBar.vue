@@ -13,8 +13,17 @@
     </v-app-bar>
 
     <v-navigation-drawer dark app v-model="drawer">
+      <v-layout column align-center>
+        <v-flex class="mt-5 mb-5">
+          <v-avatar color="white" size="100">
+            <v-icon color="black" x-large>person</v-icon>
+          </v-avatar>
+        </v-flex>
+        <p class="display-1 white--text">Admin Controls</p>
+      </v-layout>
+      <v-divider />
       <v-list>
-        <v-list-item link>
+        <v-list-item to="/AdminDashboard">
           <v-list-item-icon>
             <v-icon>dashboard</v-icon>
           </v-list-item-icon>
@@ -22,29 +31,13 @@
           <v-list-item-title>Dashboard</v-list-item-title>
         </v-list-item>
 
-        <v-list-group prepend-icon="view_module" value="true">
-          <template v-slot:activator>
-            <v-list-item-title>Products</v-list-item-title>
-          </template>
-          <v-list-item link to="/AddProduct">
-            <v-list-item-icon>
-              <v-icon>add</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Add Product</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>delete</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Delete Product</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>update</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Update Product</v-list-item-title>
-          </v-list-item>
-        </v-list-group>
+        <v-list-item to="/ProductManagement">
+          <v-list-item-icon>
+            <v-icon>view_module</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-title>Product Management</v-list-item-title>
+        </v-list-item>
 
         <v-list-item link>
           <v-list-item-icon>
@@ -71,7 +64,7 @@ export default {
   name: "AdminToolBar",
   data() {
     return {
-      drawer: true,
+      drawer: true
     };
   }
 };
