@@ -11,18 +11,16 @@ import CustomerAccount from './views/CustomerAccount.vue'
 import Signin from './views/Signin'
 import Signup from './views/Signup'
 import CartPage from './views/CartPage'
-<<<<<<< HEAD
-import AdminDashboard from './views/AdminDashboard'
-import AddProduct from './views/AddProduct'
-import DeleteProduct from './views/DeleteProduct'
-import UpdateProduct from './views/UpdateProduct'
-=======
 import Support from './views/Support'
-
 import ShippingInfo from './views/Checkout/ShippingInfo'
 import PaymentInfo from './views/Checkout/PaymentInfo'
 import FinaliseOrder from './views/Checkout/FinaliseOrder'
->>>>>>> 8c678e1f7adc71b52d3ea2e209c3f8e80f169f04
+
+//Admin Side Imports
+import AdminDashboard from './views/AdminSide/AdminDashboard'
+import AddProduct from './views/AdminSide/AddProduct'
+import UpdateProduct from './views/AdminSide/UpdateProduct'
+import ProductManagement from './views/AdminSide  /ProductManagement'
 
 Vue.use(Router)
 
@@ -120,15 +118,15 @@ const router = new Router({
       component: AddProduct
     },
     {
-      path: '/DeleteProduct',
-      name: 'DeleteProduct',
-      component: DeleteProduct
-    },
-    {
       path: '/UpdateProduct',
       name: 'UpdateProduct',
-      component: UpdateProduct
-    }
+      component: UpdateProduct,
+
+      props(route){
+        return { currentProduct: route.query.currentProduct}
+      }
+    },
+    {
       path: '/Support' ,
       name: 'Support',
       component: Support,
@@ -152,6 +150,11 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    {
+      path: '/ProductManagement',
+      name: 'ProductManagement',
+      component: ProductManagement
+    }
   ]
 })
 
