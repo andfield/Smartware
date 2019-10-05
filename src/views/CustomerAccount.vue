@@ -95,6 +95,8 @@ import firebase, { functions } from "firebase";
 import db from "@/main";
 import LandingNav from "../components/LandingNav";
 
+
+
 export default {
   components: {
     LandingNav
@@ -129,9 +131,7 @@ export default {
     }
   },
   data() {
-    this.$store.dispatch("customerDetails")
     var userData = this.$store.getters.getCustomerDetails
-    console.log(userData.name)
     return {
       userData: {},
       disable: true,
@@ -148,7 +148,7 @@ export default {
       address: userData.address, 
       passLength: 0
     };
-    
+    $forceUpdate()
   },
 };
 </script>

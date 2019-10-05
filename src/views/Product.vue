@@ -127,7 +127,6 @@ export default {
           desc: "White"
         }
       ],
-      products: {} //todo maybe
     };
   },
 

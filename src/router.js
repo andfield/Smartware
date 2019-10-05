@@ -154,7 +154,15 @@ const router = new Router({
       path: '/ProductManagement',
       name: 'ProductManagement',
       component: ProductManagement
-    }
+    },
+    {
+      path: '/Checkout/FinaliseOrder' ,
+      name: 'FinaliseOrder',
+      component: FinaliseOrder,
+      meta: {
+        requiresAuth: true
+      }
+    },
   ]
 })
 
