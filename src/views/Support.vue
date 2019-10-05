@@ -31,6 +31,15 @@
               </v-card>
             </v-simple-table>
           </v-card>
+          <v-card>
+            <v-file-input
+              label="Put Your File"
+              :rules="rules"
+              accept="image/pdf"
+              outlined
+              shaped
+            />
+          </v-card>
         </v-flex>
       </v-layout>
     </v-container>
