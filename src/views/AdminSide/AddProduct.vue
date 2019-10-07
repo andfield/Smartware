@@ -7,7 +7,7 @@
           <v-toolbar dark color="primary">
             <v-toolbar-title>Add New Product</v-toolbar-title>
           </v-toolbar>
-          <v-card-text @keypress.enter="addProduct">
+          <v-card-text @keypress.enter="addProduct()">
             
             <v-text-field
               shaped
@@ -80,6 +80,8 @@
 
 <script>
 import AdminToolBar from '@/components/AdminToolBar';
+import db from "@/main"
+
 export default {
   name: "AddProduct",
   components: {
@@ -98,12 +100,21 @@ export default {
           value.size < 2000000 ||
           "Image size should be less than 2 MB!"
       ],
-      items: ["Printers", "EFTPOS Machines", "Accessories", "Others"]
+      items: ["EFTPOS Machines", "Cables", "Parts", "Accessories",]
     };
   },
   methods:{
     addProduct() {
-      
+      console.log(this.category)
+      var productData = {
+        name: this.name,
+        description: this.description,
+        img: "no image available", // this doesnt do anything, need to upload to storage then store the reference(maybe a better way)
+        stanPrice: this.price,
+      }
+      console.log(productData)
+      db.collection("ProductCategory").doc("vQzSkBnxzbu1Tnqn4iv2").collection(this.category).add(productData);
+      alert(this.name + " has been added to the Database")
     }
   }
 };

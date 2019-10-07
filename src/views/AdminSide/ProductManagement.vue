@@ -26,8 +26,7 @@
                 <th>Controls</th>
               </thead>
               <tbody>
-                <tr v-for="(item, i) in products" :key="item.name">
-                  <!-- i is the loop counter -->
+                <tr v-for="(item) in products" :key="item.name"><!-- there is no loop counter -->
                   <td class="hidden-md-and-down">
                     <v-img :src="item.imgURL" max-height="100px" max-width="100px" />
                   </td>
@@ -35,7 +34,7 @@
                   <td>{{item.description}}</td>
                   <td>
                     <span>
-                      <h3>${{item.stanPrice}}</h3>
+                      <h3>${{parseFloat(item.stanPrice).toFixed(2)}}</h3>
                     </span>
                   </td>
                   <td>
@@ -56,7 +55,7 @@
                           dark
                           small
                           color="error"
-                          @click="deleteProduct(item)"
+                          @click="deleteProduct(item.id)"
                         >
                           <v-icon>delete</v-icon>
                         </v-btn>
@@ -75,6 +74,9 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <v-btn @click="tempTest()">
+      yolo
+    </v-btn>
   </span>
 </template>
 
@@ -97,13 +99,31 @@ export default {
     return {
       products: db
         .collection("ProductCategory")
-        .doc("pcQhnNHvSg1L3LYyTFdX")
-        .collection("EftposMachines")
-    };
+        .doc("vQzSkBnxzbu1Tnqn4iv2")
+    }
+    console.log("testing")
   },
   methods: {
-    deleteProduct(item) {}
+    deleteProduct(item) {
+      // db.collection("ProductCategory")
+      // .doc("vQzSkBnxzbu1Tnqn4iv2")
+      // .collection("Cables")
+      // .doc(item).delete().then(function() {
+      //   console.log("Document successfully deleted!");
+      // }).catch(function(error) {
+      //   console.error("Error removing document: ", error);
+      // });
+    },
+    tempTest(){
+      console.log(this.products) 
+      var prodRef = db.collection("ProductCategory").doc("vQzSkBnxzbu1Tnqn4iv2");
+      prodRef.getCollections().then(collections => {
+        collections.forEach(collection => {
+          console.log('Found subcollection with id:', collection.id);
+        });
+      });
+    }
   }
-};
+}
 </script>
 
