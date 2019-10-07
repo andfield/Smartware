@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import firebase, { functions } from "firebase";
-import db from "@/main"
+import db from "@/main";
 import router from "./router";
 
 Vue.use(Vuex);
@@ -24,52 +24,59 @@ export default new Vuex.Store({
       lName: null,
       companyName: null,
       address: null,
-      apt: null,
+      apt: null
     },
     orderData: {
       cartData: [],
       custID: null,
       shippingAddress: [], // array or string
       cost: null,
-      date: null,
+      date: null
     },
+    // products: []
   },
   mutations: {
     setUserID(state, payload) {
       state.custID = payload;
     },
     setUserData(state, payload) {
-      state.customerData.email = payload.email
-      state.customerData.fName = payload.fName
-      state.customerData.lName = payload.lName
-      state.customerData.phNum = payload.phNum
-      state.customerData.address = payload.address
+      state.customerData.email = payload.email;
+      state.customerData.fName = payload.fName;
+      state.customerData.lName = payload.lName;
+      state.customerData.phNum = payload.phNum;
+      state.customerData.address = payload.address;
     },
-    setCartData(state, payload){
-      state.cartData = payload
+    setCartData(state, payload) {
+      state.cartData = payload;
     },
-    setCartQuantity(state, payload){
-      state.cartQuantity = payload
+    setCartQuantity(state, payload) {
+      state.cartQuantity = payload;
     },
-    setCartTotal(state, payload){
-      state.cartTotal = payload
+    setCartTotal(state, payload) {
+      state.cartTotal = payload;
     },
     setShippingInfo(state, payload) {
-      state.shippingInfo.fName = payload.fName
-      state.shippingInfo.lName = payload.lName
-      state.shippingInfo.companyName = payload.companyName
-      state.shippingInfo.address = payload.address
-      state.shippingInfo.apt = payload.apt
+      state.shippingInfo.fName = payload.fName;
+      state.shippingInfo.lName = payload.lName;
+      state.shippingInfo.companyName = payload.companyName;
+      state.shippingInfo.address = payload.address;
+      state.shippingInfo.apt = payload.apt;
     },
     setOrderData(state, payload) {
-      state.orderData.cartData = payload.cartData
-      state.orderData.custID = payload.custID
-      state.orderData.address = payload.address
-      state.orderData.cost = payload.cost
-      state.orderData.date = payload.date
-    },
+      state.orderData.cartData = payload.cartData;
+      state.orderData.custID = payload.custID;
+      state.orderData.address = payload.address;
+      state.orderData.cost = payload.cost;
+      state.orderData.date = payload.date;
+    }
   },
   actions: {
+    // products({ commit, state }, { category }) {
+    //   db.collection("ProductCategory")
+    //     .doc("vQzSkBnxzbu1Tnqn4iv2")
+    //     .collection(category);
+    // },
+
     userSignup({ commit }, { email, password, custInfo }) {
       firebase
         .auth()
@@ -78,8 +85,8 @@ export default new Vuex.Store({
           db.collection("customers").add(custInfo);
           router.push("/home");
         })
-        .catch((error) => {
-          alert("Error: " + error)
+        .catch(error => {
+          alert("Error: " + error);
         });
     },
 
@@ -88,11 +95,10 @@ export default new Vuex.Store({
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
-            router.push("/home");
-          }
-        )
-        .catch((error) => {
-          alert("Error: Invalid Login")
+          router.push("/home");
+        })
+        .catch(error => {
+          alert("Error: Invalid Login");
         });
     },
 
@@ -103,135 +109,140 @@ export default new Vuex.Store({
         .then(() => {
           router.push("/");
         })
-        .catch(() => {
-        });
+        .catch(() => {});
     },
 
     customerDetails({ commit, state }) {
-      var user = firebase.auth().currentUser //this currentUser is not realated to the state, it is apart Firebase/Firestore
-      var userEmail = user.email
+      var user = firebase.auth().currentUser; //this currentUser is not realated to the state, it is apart Firebase/Firestore
+      var userEmail = user.email;
 
-      db.collection("customers").where("email", "==", userEmail).get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc){            //using a foreach loop even though there is just one, idk how to do just one
-          commit("setUserData", doc.data())
-          commit("setUserID", doc.id)
-          console.log((3<10?'0':'') + '3')
+      db.collection("customers")
+        .where("email", "==", userEmail)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            //using a foreach loop even though there is just one, idk how to do just one
+            commit("setUserData", doc.data());
+            commit("setUserID", doc.id);
+            console.log((3 < 10 ? "0" : "") + "3");
+          });
         })
-      })
-      .catch(function(error) {
-        console.log("Error getting documents: ", error)
-      })
+        .catch(function(error) {
+          console.log("Error getting documents: ", error);
+        });
     },
 
     updateCustomer({ commit }, { newPhNum, newEmail, newPass, newAddress }) {
-      var user = firebase.auth().currentUser //this currentUser is not realated to the state, it is apart Firebase/Firestore
-      var userEmail = user.email
-      var docID = null
-      var docRef = null
+      var user = firebase.auth().currentUser; //this currentUser is not realated to the state, it is apart Firebase/Firestore
+      var userEmail = user.email;
+      var docID = null;
+      var docRef = null;
 
-      db.collection("customers").where("email", "==", userEmail).get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc){            //using a foreach loop even though there is just one, idk how to do just one
-          docID = doc.id
-          docRef = db.collection("customers").doc(docID) //have to search by docID if the email is changing
-          
-          if(newPhNum != null){ //check if not null so it doesnt overwrite in DB with nothing
-            docRef.update({
-              phNum: newPhNum
-            })
-          }
-          else{
-            console.log("error updating phNum: " + newPhNum)
-          }
-          if(newEmail != null){ //checking each part individualy, probably a better way
-            user.updateEmail(newEmail).then(() => { //update the authentication email first
+      db.collection("customers")
+        .where("email", "==", userEmail)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            //using a foreach loop even though there is just one, idk how to do just one
+            docID = doc.id;
+            docRef = db.collection("customers").doc(docID); //have to search by docID if the email is changing
+
+            if (newPhNum != null) {
+              //check if not null so it doesnt overwrite in DB with nothing
               docRef.update({
-                email: newEmail
-              })
-            }) 
-            
-          }
-          else{
-            console.log("error updating email: " + newEmail)
-          }
-          if(newAddress != null){ //checking each part individualy, probably a better way
-            docRef.update({
-              address: newAddress
-            })
-          }
-          else{
-            console.log("error updating email: " + newEmail)
-          }
-
+                phNum: newPhNum
+              });
+            } else {
+              console.log("error updating phNum: " + newPhNum);
+            }
+            if (newEmail != null) {
+              //checking each part individualy, probably a better way
+              user.updateEmail(newEmail).then(() => {
+                //update the authentication email first
+                docRef.update({
+                  email: newEmail
+                });
+              });
+            } else {
+              console.log("error updating email: " + newEmail);
+            }
+            if (newAddress != null) {
+              //checking each part individualy, probably a better way
+              docRef.update({
+                address: newAddress
+              });
+            } else {
+              console.log("error updating email: " + newEmail);
+            }
+          });
         })
-      })
-      .catch(function(error) {
-        console.log("Error getting documents: ", error)
-      })
-      if(newPass != null){
-        user.updatePassword(newPass)
+        .catch(function(error) {
+          console.log("Error getting documents: ", error);
+        });
+      if (newPass != null) {
+        user.updatePassword(newPass);
+      } else {
+        console.log("error updating password");
       }
-      else{
-        console.log("error updating password")
+      alert("Deatils have been updated");
+    },
+
+    updateCart({ commit, state }, { newProduct, quantity }) {
+      var currentCart = state.cartData;
+      var currentTotal = state.cartTotal;
+      for (var i = 0; quantity > i; i++) {
+        currentCart.push(newProduct);
+        currentTotal += newProduct.stanPrice;
       }
-      alert("Deatils have been updated")
+      commit("setCartData", currentCart);
+      commit("setCartQuantity", state.cartData.length);
+      commit("setCartTotal", currentTotal);
     },
 
-    updateCart({ commit, state }, { newProduct, quantity }){
-      var currentCart = state.cartData
-      var currentTotal = state.cartTotal
-      for(var i=0; quantity>i; i++){
-        currentCart.push(newProduct)
-        currentTotal += newProduct.stanPrice
-      }
-      commit("setCartData", currentCart)
-      commit("setCartQuantity", state.cartData.length)
-      commit("setCartTotal", currentTotal)
+    clearCart({ commit, state }) {
+      var currentCart = state.cartData;
+      var quantity = currentCart.length;
+      currentCart.splice(0, quantity); // using this makes the cart page update when you clear all
+      commit("setCartData", currentCart);
+      commit("setCartQuantity", 0);
+      commit("setCartTotal", 0);
     },
 
-    clearCart({commit, state}){
-      var currentCart = state.cartData
-      var quantity = currentCart.length
-      currentCart.splice(0, quantity) // using this makes the cart page update when you clear all
-      commit("setCartData" , currentCart)
-      commit("setCartQuantity", 0)
-      commit("setCartTotal", 0)
+    removeCartProduct({ commit, state }, { arrayPos }) {
+      var currentCart = state.cartData;
+      var price = currentCart[arrayPos].stanPrice;
+      var currentTotal = state.cartTotal - price;
+      currentCart.splice(arrayPos, 1);
+      commit("setCartData", currentCart);
+      commit("setCartQuantity", state.cartData.length);
+      commit("setCartTotal", currentTotal);
     },
 
-    removeCartProduct({commit, state}, {arrayPos}){
-      var currentCart = state.cartData
-      var price = currentCart[arrayPos].stanPrice
-      var currentTotal = state.cartTotal - price
-      currentCart.splice(arrayPos, 1)
-      commit("setCartData", currentCart)
-      commit("setCartQuantity", state.cartData.length)
-      commit("setCartTotal", currentTotal)
-    },
-
-    shippingInfo({commit}, {fName, lName, companyName, address, apt}){
-      var shippingData = []
+    shippingInfo({ commit }, { fName, lName, companyName, address, apt }) {
+      var shippingData = [];
       shippingData = {
         fName: fName,
         lName: lName,
         companyName: companyName,
         address: address,
-        apt: apt,
-      }
+        apt: apt
+      };
 
-      commit("setShippingInfo", shippingData)
+      commit("setShippingInfo", shippingData);
     },
 
-    createOrder({state},){
-      var orderData = []
-      var date = new Date()
-      var day = date.getDate()
-      var month = date.getMonth() + 1
-      var year = date.getFullYear()
-      var hour = date.getHours()
-      var minute = (date.getMinutes()<10?'0':'') + date.getMinutes().toString() // will lead with 0 if appropriate | may not need toString need to wait until time is right(x:00 - x:09)
+    createOrder({ state }) {
+      var orderData = [];
+      var date = new Date();
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getFullYear();
+      var hour = date.getHours();
+      var minute =
+        (date.getMinutes() < 10 ? "0" : "") + date.getMinutes().toString(); // will lead with 0 if appropriate | may not need toString need to wait until time is right(x:00 - x:09)
 
-      var orderDate = day + "/" + month + "/" + year + " " + hour + ":" + minute
+      var orderDate =
+        day + "/" + month + "/" + year + " " + hour + ":" + minute;
 
       orderData = {
         cartData: state.cartData,
@@ -239,29 +250,29 @@ export default new Vuex.Store({
         shippingAddress: state.shippingInfo,
         orderPrice: state.cartTotal,
         date: orderDate
-      }
-      console.log(orderData)
+      };
+      console.log(orderData);
       db.collection("Orders").add(orderData);
-    },
+    }
   },
   getters: {
     getCustomerDetails(state) {
-      return state.customerData
+      return state.customerData;
     },
-    getCartDetails(state){
-      return state.cartData
+    getCartDetails(state) {
+      return state.cartData;
     },
-    getCartQuantity(state){
-      return state.cartQuantity
+    getCartQuantity(state) {
+      return state.cartQuantity;
     },
-    getCartTotal(state){
-      return state.cartTotal
+    getCartTotal(state) {
+      return state.cartTotal;
     },
-    getShippingInfo(state){
-      return state.shippingInfo
+    getShippingInfo(state) {
+      return state.shippingInfo;
     },
-    getCustID(state){
-      return state.custID
+    getCustID(state) {
+      return state.custID;
     }
   }
 });
