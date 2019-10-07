@@ -100,6 +100,7 @@ export default {
       products: db
         .collection("ProductCategory")
         .doc("vQzSkBnxzbu1Tnqn4iv2")
+        .collection("Cables") // need to fix this
     }
     console.log("testing")
   },

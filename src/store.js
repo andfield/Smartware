@@ -192,7 +192,7 @@ export default new Vuex.Store({
       var currentTotal = state.cartTotal;
       for (var i = 0; quantity > i; i++) {
         currentCart.push(newProduct);
-        currentTotal += newProduct.stanPrice;
+        currentTotal += parseFloat(newProduct.stanPrice) // newProduct.stanPrice is a string need to change admin page
       }
       commit("setCartData", currentCart);
       commit("setCartQuantity", state.cartData.length);

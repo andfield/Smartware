@@ -91,10 +91,12 @@ export default {
 
   data() {
     var cartData = this.$store.getters.getCartDetails
+    console.log(cartData)
+    console.log(parseFloat(this.$store.getters.getCartTotal).toFixed(2))
 
     return {
       cartList: cartData,
-      subtotal: parseFloat(this.$store.getters.getCartTotal).toFixed(2), // weird rounding bug if not forced to 2dp
+      subtotal: this.$store.getters.getCartTotal, // weird rounding bug if not forced to 2dp
     };
   },
   methods: {
