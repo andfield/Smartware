@@ -108,15 +108,16 @@ export default {
       // });
     },
     tempTest() {
-      console.log(this.products);
-      var prodRef = db
-        .collection("ProductCategory")
-        .doc("vQzSkBnxzbu1Tnqn4iv2");
-      prodRef.getCollections().then(collections => {
-        collections.forEach(collection => {
-          console.log("Found subcollection with id:", collection.id);
-        });
-      });
+      
+      var collections = null
+      var ref = db.collection("ProductCategory").doc("vQzSkBnxzbu1Tnqn4iv2")
+
+      console.log(ref.collection("Cables").get())
+//       // Create a reference to the specific document you want to search with
+// var reference = db.collection("Collection B").doc("rFOEwdw5go4dbitOCXyC");
+
+// // Construct a query that filters documents matching the reference
+// var query = db.collection("Collection A").where("reference", "==", reference);
     }
   }
 };

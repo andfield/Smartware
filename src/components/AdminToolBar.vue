@@ -39,7 +39,7 @@
           <v-list-item-title>Product Management</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link to="/OrderManagement">
           <v-list-item-icon>
             <v-icon>local_shipping</v-icon>
           </v-list-item-icon>

@@ -124,7 +124,6 @@ export default new Vuex.Store({
             //using a foreach loop even though there is just one, idk how to do just one
             commit("setUserData", doc.data());
             commit("setUserID", doc.id);
-            console.log((3 < 10 ? "0" : "") + "3");
           });
         })
         .catch(function(error) {
