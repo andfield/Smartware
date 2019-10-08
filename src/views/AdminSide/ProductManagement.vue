@@ -84,40 +84,50 @@ export default {
           value: "actions",
           sortable: false
         }
-      ]
+      ],
+      items: ["EFTPOS Machines", "Cables", "Parts", "Accessories",],
     };
   },
-  firestore() {
-    return {
-      products: db
-        .collection("ProductCategory")
-        .doc("vQzSkBnxzbu1Tnqn4iv2")
-        .collection("Cables") // need to fix this
-    };
-    console.log("testing");
-  },
+  // firestore() {
+  //   return {
+  //     products: db
+  //       .collection("ProductCategory")
+  //       .doc("vQzSkBnxzbu1Tnqn4iv2")
+  //       .collection("Cables") // need to fix this
+  //   };
+  //   console.log("testing");
+  // },
   methods: {
-    deleteProduct(item) {
-      // db.collection("ProductCategory")
-      // .doc("vQzSkBnxzbu1Tnqn4iv2")
-      // .collection("Cables")
-      // .doc(item).delete().then(function() {
-      //   console.log("Document successfully deleted!");
-      // }).catch(function(error) {
-      //   console.error("Error removing document: ", error);
-      // });
-    },
+    // deleteProduct(item) {
+    //   db.collection("ProductCategory")
+    //   .doc("vQzSkBnxzbu1Tnqn4iv2")
+    //   .collection("Cables")
+    //   .doc(item).delete().then(function() {
+    //     console.log("Document successfully deleted!");
+    //   }).catch(function(error) {
+    //     console.error("Error removing document: ", error);
+    //   });
+    // },
     tempTest() {
+      var fullProductsList = []
       
-      var collections = null
-      var ref = db.collection("ProductCategory").doc("vQzSkBnxzbu1Tnqn4iv2")
+      for (var i in this.items){
+        db.collection("ProductCategory")
+        .doc("vQzSkBnxzbu1Tnqn4iv2")
+        .collection(this.items[i]).get()
+        .then(snapshot => {
+          snapshot.forEach(doc =>{
+            console.log(doc.id + "=>" + doc.data())
+            fullProductsList.push(doc.data())
+          })
+        })
+        .catch(error =>{
+          console.log("error: " + error)
+        })
+      }
 
-      console.log(ref.collection("Cables").get())
-//       // Create a reference to the specific document you want to search with
-// var reference = db.collection("Collection B").doc("rFOEwdw5go4dbitOCXyC");
+      this.products = fullProductsList
 
-// // Construct a query that filters documents matching the reference
-// var query = db.collection("Collection A").where("reference", "==", reference);
     }
   }
 };
