@@ -33,7 +33,7 @@ export default new Vuex.Store({
       cost: null,
       date: null
     },
-    // products: []
+    defaultProducts: []
   },
   mutations: {
     setUserID(state, payload) {
@@ -68,6 +68,9 @@ export default new Vuex.Store({
       state.orderData.address = payload.address;
       state.orderData.cost = payload.cost;
       state.orderData.date = payload.date;
+    },
+    setDefaultProducts(state, payload) {
+      state.defaultProducts = payload
     }
   },
   actions: {
@@ -252,6 +255,27 @@ export default new Vuex.Store({
       };
       console.log(orderData);
       db.collection("Orders").add(orderData);
+    },
+    defaultProductList({commit}){
+      var defaultProductList = []
+      
+      db.collection("ProductCategory")
+        .doc("vQzSkBnxzbu1Tnqn4iv2")
+        .collection("EFTPOS Machine")
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            console.log(doc.data())
+            defaultProductList.push(doc.data());
+          });
+        })
+        .catch(function(error) {
+          console.log("error getting documents: ", error);
+        });
+
+        console.log(defaultProductList)
+
+        commit("setDefaultProducts", defaultProductList)
     }
   },
   getters: {
@@ -272,6 +296,9 @@ export default new Vuex.Store({
     },
     getCustID(state) {
       return state.custID;
-    }
+    },
+     getDefaultProducts(state) {
+       return state.defaultProducts
+     }
   }
 });

@@ -91,13 +91,21 @@ export default {
     LandingNav
   },
   data() {
-    this.$store.dispatch("customerDetails"); // updates store so when called in CustomerAccount the data will be avaible to render
+    this.$store.dispatch("customerDetails"); // updates store so when called in CustomerAccount the data will be available to render
 
     return {
-      products: {},
+      products: this.$store.getters.getDefaultProducts,
       ProductCategory: ["Accessories", "Cables", "EFTPOS Machines", "Parts"],
-      productHeader: "All Products",
-      category: "Parts"
+      productHeader: "Accessories", //default header on homepage
+      category: "Accessories" //default collection displayed
+    };
+  },
+    firestore() { //Sets the default category to display
+    return {
+      products: db
+        .collection("ProductCategory")
+        .doc("vQzSkBnxzbu1Tnqn4iv2")
+        .collection(this.category)
     };
   },
   methods: {
