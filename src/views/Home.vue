@@ -1,68 +1,74 @@
 <template>
   <div class="Home">
     <LandingNav />
+    <v-btn @click="getAll()"/>
     <v-container>
       <v-layout class="justify-center">
-        <v-flex xs12 lg10 xl10>
-          <Carousel />
-          <v-app-bar>
-            <span v-for="i in ProductCategory" :key="i">
-              <v-btn text v-text="i" @click="setCategory(i)"/>
-            </span>
-          </v-app-bar>
-            <!-- <productlist v-bind:products="products" /> -->
+        <v-flex xs12 md12 sm12 lg10 xl10>
+          <v-row>
+            <Carousel />
+          </v-row>
+
+          <v-row>
+            <v-tabs class="mt-5" background-color="transparent" fixed-tabs slider-color="grey">
+              <v-tab
+                v-for="i in ProductCategory"
+                :key="i"
+                @click="setCategory(i); productHeader = i"
+              >{{ i }}</v-tab>
+            </v-tabs>
+          </v-row>
+
+          <v-row>
+            <h1 v-text="productHeader" />
+          </v-row>
+
+          <v-divider />
+
+          <v-row>
+            <v-layout row wrap class="justify-center">
+              <v-flex xs11 sm6 md6 lg6 xl4 v-for="product in products" :key="product.name">
+                <v-card
+                  class="ma-2"
+                  hover
+                  @click="$router.push({path: '/Product', query: { myprop: product} })"
+                >
+                  <v-img
+                    :src="product.imgURL"
+                    class="black--text"
+                    height="200px"
+                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                  >
+                    <v-card-title class="fill-height align-end" v-text="product.name"></v-card-title>
+                  </v-img>
+
+                  <v-card-text>
+                    <span v-text="product.description" />
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-icon>attach_money</v-icon>
+                    <span v-text="product.stanPrice" />
+                    <v-spacer />
+                    <v-btn color="blue" dark small absolute bottom right fab>
+                      <v-icon>add_shopping_cart</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-row>
+
+          <v-row>
+            <v-layout class="mt-5">
+              <v-flex>
+                <NavFooter class="hidden-sm-and-down" />
+              </v-flex>
+            </v-layout>
+          </v-row>
         </v-flex>
       </v-layout>
     </v-container>
-
-    <v-container class="justify-center">
-      <v-layout row wrap class="px-5">
-        <v-flex class="justify-center">
-          <h1>Printers</h1>
-          <v-divider></v-divider>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap class="mx-5">
-        <v-flex xs10 md4 lg2 xl2 v-for="product in products" :key="product.name">
-          <v-card
-            class="ma-2"
-            hover
-            @click="$router.push({path: '/Product', query: { myprop: product} })"
-          >
-            <v-img
-              :src="product.imgURL"
-              class="black--text"
-              height="200px"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            >
-              <v-card-title class="fill-height align-end" v-text="product.name"></v-card-title>
-            </v-img>
-
-            <v-card-text>
-              <span v-text="product.description" />
-            </v-card-text>
-
-            <v-card-actions>
-              <v-icon>attach_money</v-icon>
-              <span v-text="product.stanPrice" />
-              <v-spacer />
-              <v-btn color="blue" dark small absolute bottom right fab>
-                <v-icon>add_shopping_cart</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    
-    <v-container>
-      <v-layout class="justify-center">
-        <v-flex xs12 lg10 xl10>
-          <NavFooter />
-        </v-flex>
-      </v-layout>
-    </v-container>
-
     <AppFooter />
   </div>
 </template>
@@ -87,52 +93,41 @@ export default {
   data() {
     this.$store.dispatch("customerDetails"); // updates store so when called in CustomerAccount the data will be avaible to render
 
-
     return {
       products: {},
       ProductCategory: ["Accessories", "Cables", "EFTPOS Machines", "Parts"],
-      
+      productHeader: "All Products",
       category: "Parts"
     };
   },
-  // firestore() {
-  //   return {
-  //     products: db
-  //       .collection("ProductCategory")
-  //       .doc("vQzSkBnxzbu1Tnqn4iv2")
-  //       .collection(this.category)
-  //   };
-  // },
   methods: {
-    test(){
-      c
+    test() {
+      c;
     },
-    setCategory(selected){
-      var productList = []
+    setCategory(selected) {
+      var productList = [];
 
       db.collection("ProductCategory")
         .doc("vQzSkBnxzbu1Tnqn4iv2")
-        .collection(selected).get().then(function(querySnapshot){
+        .collection(selected)
+        .get()
+        .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-            productList.push(doc.data())
-          })
+            productList.push(doc.data());
+          });
         })
         .catch(function(error) {
-          console.log("error getting documents: ", error)
-        })
-      console.log(selected)
-      console.log(productList)
-      console.log(this.products)
-      this.products = productList
-      console.log(this.products)
-    },
+          console.log("error getting documents: ", error);
+        });
+      this.products = productList;
+    }
 
     // getProducts(category) {
     //   products =  db
     //     .collection("ProductCategory")
     //     .doc("vQzSkBnxzbu1Tnqn4iv2")
     //     .collection(category);
-      
+
     // },
   }
 };
