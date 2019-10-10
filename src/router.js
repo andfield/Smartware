@@ -1,6 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import firebase from "firebase";
+import store from "./store.js"
+
+// Client Side Imports
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import LandingPage from "./views/LandingPage.vue";
@@ -117,25 +120,6 @@ const router = new Router({
       }
     },
     {
-      path: "/AdminDashboard",
-      name: "AdminDashboard",
-      component: AdminDashboard
-    },
-    {
-      path: "/AddProduct",
-      name: "AddProduct",
-      component: AddProduct
-    },
-    {
-      path: "/UpdateProduct",
-      name: "UpdateProduct",
-      component: UpdateProduct,
-
-      props(route) {
-        return { currentProduct: route.query.currentProduct };
-      }
-    },
-    {
       path: "/Support",
       name: "Support",
       component: Support,
@@ -160,28 +144,125 @@ const router = new Router({
       }
     },
     {
-      path: "/ProductManagement",
-      name: "ProductManagement",
-      component: ProductManagement
-    },
-    {
-      path: "/OrderManagement",
-      name: "OrderManagement",
-      component: OrderManagement
-    },
-    {
-      path: "/RequestManagement",
-      name: "RequestManagement",
-      component: RequestManagement
-    },
-    {
       path: "/Checkout/FinaliseOrder",
       name: "FinaliseOrder",
       component: FinaliseOrder,
       meta: {
         requiresAuth: true
       }
-    }
+    },
+
+    //Admin side paths
+    {
+      path: "/AdminDashboard",
+      name: "AdminDashboard",
+      component: AdminDashboard,
+      meta: {
+        requiresAuth: true,
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.getIsAdmin) { //checks if suer is using admin login
+          console.log("admin login test: " + store.getters.getIsAdmin)
+          next();
+        } 
+        else {
+          console.log("Access Denied")
+        }
+      }
+    },
+    {
+      path: "/AddProduct",
+      name: "AddProduct",
+      component: AddProduct,
+      meta: {
+        requiresAuth: true,
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.getIsAdmin) {
+          console.log("admin login test: " + store.getters.getIsAdmin)
+          next();
+        } 
+        else {
+          console.log("Access Denied")
+        }
+      }
+    },
+    {
+      path: "/UpdateProduct",
+      name: "UpdateProduct",
+      component: UpdateProduct,
+      meta: {
+        requiresAuth: true,
+        adminAccess: true
+      },
+
+      props(route) {
+        return { currentProduct: route.query.currentProduct };
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.getIsAdmin) {
+          console.log("admin login test: " + store.getters.getIsAdmin)
+          next();
+        } 
+        else {
+          console.log("Access Denied")
+        }
+      }
+    },
+    {
+      path: "/ProductManagement",
+      name: "ProductManagement",
+      component: ProductManagement,
+      meta: {
+        requiresAuth: true,
+        adminAccess: true
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.getIsAdmin) {
+          console.log("admin login test: " + store.getters.getIsAdmin)
+          next();
+        } 
+        else {
+          console.log("Access Denied")
+        }
+      }
+    },
+    {
+      path: "/OrderManagement",
+      name: "OrderManagement",
+      component: OrderManagement,
+      meta: {
+        requiresAuth: true,
+        adminAccess: true
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.getIsAdmin) {
+          console.log("admin login test: " + store.getters.getIsAdmin)
+          next();
+        } 
+        else {
+          console.log("Access Denied")
+        }
+      }
+    },
+    {
+      path: "/RequestManagement",
+      name: "RequestManagement",
+      component: RequestManagement,
+      meta: {
+        requiresAuth: true,
+        adminAccess: true
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.getIsAdmin) {
+          console.log("admin login test: " + store.getters.getIsAdmin)
+          next();
+        } 
+        else {
+          console.log("Access Denied")
+        }
+      }
+    },
   ]
 });
 

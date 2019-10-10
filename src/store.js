@@ -33,7 +33,8 @@ export default new Vuex.Store({
       cost: null,
       date: null
     },
-    defaultProducts: []
+    defaultProducts: [],
+    isAdmin: false
   },
   mutations: {
     setUserID(state, payload) {
@@ -71,6 +72,9 @@ export default new Vuex.Store({
     },
     setDefaultProducts(state, payload) {
       state.defaultProducts = payload
+    },
+    setIsAdmin(state, status) {
+      state.isAdmin = status
     }
   },
   actions: {
@@ -98,7 +102,13 @@ export default new Vuex.Store({
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
-          router.push("/home");
+          if(firebase.auth().currentUser.uid == "sNBUtBuDEFbPkuZaTs3TQkCBKH12") {
+            commit("setIsAdmin", true)
+            router.push("/AdminDashboard")
+          }
+          else {
+            router.push("/home");
+          }
         })
         .catch(error => {
           alert("Error: Invalid Login");
@@ -256,7 +266,7 @@ export default new Vuex.Store({
       console.log(orderData);
       db.collection("Orders").add(orderData);
     },
-    defaultProductList({commit}){
+    defaultProductList({commit}){ //think this is obsolete
       var defaultProductList = []
       
       db.collection("ProductCategory")
@@ -276,7 +286,8 @@ export default new Vuex.Store({
         console.log(defaultProductList)
 
         commit("setDefaultProducts", defaultProductList)
-    }
+    },
+
   },
   getters: {
     getCustomerDetails(state) {
@@ -299,6 +310,10 @@ export default new Vuex.Store({
     },
      getDefaultProducts(state) {
        return state.defaultProducts
+     },
+     getIsAdmin(state) {
+      //  console.log(sate.isAdmin)
+       return state.isAdmin
      }
   }
 });
