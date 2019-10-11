@@ -1,7 +1,7 @@
 <template>
   <span>
     <LandingNav />
-    <v-container fluild fill-height class="home-hero" style="max-height: 100vh;">
+    <v-container fluild fill-height class="home-hero" style="max-height: 50vh;">
       <v-layout justify-center align-center column pa-5 elevation-10>
         <div
           style="text-shadow: 3px 3px #000000"
@@ -21,7 +21,13 @@
       </v-layout>
     </v-container>
 
-    <Services id="services"></Services>
+    <v-container>
+      <v-layout class="justify-center">
+        <v-flex xs12 md12 sm12 lg10 xl10>
+          <Services id="services"></Services>
+        </v-flex>
+      </v-layout>
+    </v-container>
 
     <AppFooter />
   </span>

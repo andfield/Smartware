@@ -46,7 +46,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-btn @click="tempTest()">yolo</v-btn>
   </span>
 </template>
 
