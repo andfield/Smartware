@@ -259,9 +259,12 @@ export default new Vuex.Store({
       orderData = {
         cartData: state.cartData,
         custID: state.custID,
+        custFName: state.customerData.fName,
+        custLName: state.customerData.lName,
         shippingAddress: state.shippingInfo,
         orderPrice: state.cartTotal,
-        date: orderDate
+        date: orderDate,
+        status: "pending"
       };
       console.log(orderData);
       db.collection("Orders").add(orderData);
@@ -314,6 +317,6 @@ export default new Vuex.Store({
      getIsAdmin(state) {
       //  console.log(sate.isAdmin)
        return state.isAdmin
-     }
+     },
   }
 });
