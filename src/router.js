@@ -162,7 +162,6 @@ const router = new Router({
       },
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) { //checks if suer is using admin login
-          console.log("admin login test: " + store.getters.getIsAdmin)
           next();
         } 
         else {
@@ -179,7 +178,6 @@ const router = new Router({
       },
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
-          console.log("admin login test: " + store.getters.getIsAdmin)
           next();
         } 
         else {
@@ -219,7 +217,6 @@ const router = new Router({
       },
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
-          console.log("admin login test: " + store.getters.getIsAdmin)
           next();
         } 
         else {
@@ -237,7 +234,6 @@ const router = new Router({
       },
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
-          console.log("admin login test: " + store.getters.getIsAdmin)
           next();
         } 
         else {
@@ -255,7 +251,6 @@ const router = new Router({
       },
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
-          console.log("admin login test: " + store.getters.getIsAdmin)
           next();
         } 
         else {

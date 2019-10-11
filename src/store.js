@@ -264,7 +264,7 @@ export default new Vuex.Store({
         shippingAddress: state.shippingInfo,
         orderPrice: state.cartTotal,
         date: orderDate,
-        status: "pending"
+        status: "Pending"
       };
       console.log(orderData);
       db.collection("Orders").add(orderData);

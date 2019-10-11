@@ -111,6 +111,7 @@ export default {
         description: this.description,
         img: "no image available", // this doesnt do anything, need to upload to storage then store the reference(maybe a better way)
         stanPrice: this.price,
+        category: this.category,
       }
       console.log(productData)
       db.collection("ProductCategory").doc("vQzSkBnxzbu1Tnqn4iv2").collection(this.category).add(productData);

@@ -33,7 +33,7 @@
                     @click="$router.push({path: '/UpdateProduct', query: { currentProduct: item} })"
                   >edit</v-icon>
 
-                  <v-icon color="error" @click="deleteProduct(item.id)">delete</v-icon>
+                  <v-icon color="error" @click="deleteProduct(item)">delete</v-icon>
                 </template>
               </v-data-table>
             </v-card-text>
@@ -84,31 +84,29 @@ export default {
           sortable: false
         }
       ],
-      items: ["EFTPOS Machines", "Cables", "Parts", "Accessories",],
+      items: ["Accessories", "Cables", "EFTPOS Machines", "Parts", ],
     };
   },
-  // firestore() {
-  //   return {
-  //     products: db
-  //       .collection("ProductCategory")
-  //       .doc("vQzSkBnxzbu1Tnqn4iv2")
-  //       .collection("Cables") // need to fix this
-  //   };
-  //   console.log("testing");
-  // },
   methods: {
-    // deleteProduct(item) {
-    //   db.collection("ProductCategory")
-    //   .doc("vQzSkBnxzbu1Tnqn4iv2")
-    //   .collection("Cables")
-    //   .doc(item).delete().then(function() {
-    //     console.log("Document successfully deleted!");
-    //   }).catch(function(error) {
-    //     console.error("Error removing document: ", error);
-    //   });
-    // },
-    tempTest() {
+    deleteProduct(item) {
+      console.log(item.productID)
+      console.log(item)
+      if(confirm("Are you sure you want to delete product: " + item.name + " ?")){
+        db.collection("ProductCategory")
+        .doc("vQzSkBnxzbu1Tnqn4iv2")
+        .collection("Cables")
+        .doc(item.productID).delete().then(function() {
+          console.log("Document successfully deleted!");
+        }).catch(function(error) {
+          console.error("Error removing document: ", error);
+        });
+        alert("Product: " + item.productID + " has been deleted from the database.")
+      }
+      this.getProductData()
+    },
+    getProductData() {
       var fullProductsList = []
+      var tempProduct = null
       
       for (var i in this.items){
         db.collection("ProductCategory")
@@ -116,18 +114,23 @@ export default {
         .collection(this.items[i]).get()
         .then(snapshot => {
           snapshot.forEach(doc =>{
-            console.log(doc.id + "=>" + doc.data())
-            fullProductsList.push(doc.data())
+            tempProduct = doc.data()
+            tempProduct["productID"] = doc.id
+            tempProduct["category"] = this.items[i] //Temporary until I give all the products categories
+            fullProductsList.push(tempProduct)
           })
         })
         .catch(error =>{
           console.log("error: " + error)
         })
       }
-
+      console.log(fullProductsList)
       this.products = fullProductsList
 
     }
+  },
+  beforeMount(){
+    this.getProductData();
   }
 };
 </script>

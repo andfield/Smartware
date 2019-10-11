@@ -69,7 +69,7 @@
               <span>Go back</span>
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="addProduct">
+            <v-btn color="primary" @click="updateProduct(currentProduct)">
               <span>Update Product</span>
               <v-icon left>edit</v-icon>
             </v-btn>
@@ -82,6 +82,7 @@
 
 <script>
 import AdminToolBar from '@/components/AdminToolBar';
+import db from "@/main"
 export default {
   props: ["currentProduct"], //This is where I am getting data from product management.
 
@@ -106,7 +107,65 @@ export default {
     };
   },
   methods: {
-    updateProduct() {}
+    updateProduct(item) {
+      console.log(item)
+      var docRef = db.collection("ProductCategory")
+                  .doc("vQzSkBnxzbu1Tnqn4iv2")
+                  .collection("Accessories")
+                  .doc("6ym9kvBdnU5jEFQE9jGX")
+
+      docRef.update({
+        name: "000123yolo"
+      }).then(function() {
+          console.log("Document successfully updated!");
+      })
+      .catch(function(error) {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+      });
+
+
+        // .get()
+        // .then(function(doc) {
+        //     console.log(doc.id)
+        //     doc.update({
+        //       name: "000yolo"
+        //     })
+        //     // docID = doc.id;
+        //     // docRef = db.collection("customers").doc(docID); //have to search by docID if the email is changing
+
+        //     // if (newPhNum != null) {
+        //     //   //check if not null so it doesnt overwrite in DB with nothing
+        //     //   docRef.update({
+        //     //     phNum: newPhNum
+        //     //   });
+        //     // } else {
+        //     //   console.log("error updating phNum: " + newPhNum);
+        //     // }
+        //     // if (newEmail != null) {
+        //     //   //checking each part individualy, probably a better way
+        //     //   user.updateEmail(newEmail).then(() => {
+        //     //     //update the authentication email first
+        //     //     docRef.update({
+        //     //       email: newEmail
+        //     //     });
+        //     //   });
+        //     // } else {
+        //     //   console.log("error updating email: " + newEmail);
+        //     // }
+        //     // if (newAddress != null) {
+        //     //   //checking each part individualy, probably a better way
+        //     //   docRef.update({
+        //     //     address: newAddress
+        //     //   });
+        //     // } else {
+        //     //   console.log("error updating email: " + newEmail);
+        //     // }
+        // })
+        // .catch(function(error) {
+        //   console.log("Error getting documents: ", error);
+        // });
+    }
   }
 };
 </script>

@@ -29,12 +29,12 @@
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                  <v-icon v-if="item.status === 'Pending'"
+                  <v-icon @click="completeOrder(item)" v-if="item.status === 'Pending'"
                     class="mr-2"
                     color="success"
                   >done_outline</v-icon>
 
-                  <v-icon color="primary">remove_red_eye</v-icon>
+                  <v-icon @click="test2()" color="primary">remove_red_eye</v-icon>
                 </template>
 
                 <template v-slot:expanded-item="{ headers }">
@@ -55,6 +55,8 @@
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
 import AdminToolBar from "@/components/AdminToolBar";
+import Vue from 'vue'
+
 export default {
   components: {
     AdminToolBar
@@ -79,16 +81,21 @@ export default {
         },
         {
           text: "Customer name",
-          value: "name",
+          value: "fullName",
           sortable: true
         },
         {
           text: "Shipping Address",
-          value: "address"
+          value: "shippingAddress.address"
         },
         {
           text: "Total Price",
-          value: "price",
+          value: "orderPrice",
+          sortable: true
+        },
+        {
+          text: "Date",
+          value: "date",
           sortable: true
         },
         {
@@ -99,23 +106,43 @@ export default {
 
         { text: "", value: "data-table-expand" }
       ],
-      Orders: [
-        {
-          name: "Conor",
-          price: 159,
-          address: "20 manchester",
-          orderID: 1,
-          status: "Pending"
-        },
-        {
-          name: "Sid",
-          price: 259,
-          address: "10 manchester",
-          orderID: 2,
-          status: "Done"
-        }
-      ]
+      Orders: []
     };
+  },
+  methods: {
+    getOrderData(){
+      var fullList = []
+      var tempOrder = null
+
+      db.collection("Orders").get().then(snapshot => {
+        snapshot.forEach(doc =>{
+          tempOrder = doc.data()
+          tempOrder["orderID"] = doc.id
+          tempOrder["fullName"] = doc.data().custFName + " " + doc.data().custLName
+          fullList.push(tempOrder)
+        })
+      })
+      .catch(error =>{
+          console.log("error: " + error)
+        })
+
+      this.Orders = fullList
+    },
+    completeOrder(test){
+      if(confirm("Are you sure order: " + test.orderID + " is complete?")){
+        db.collection("Orders").doc(test.orderID).update({
+          status: "Complete"
+        })
+        alert("Order: " + test.orderID + " has been updated.")
+      }
+      this.getOrderData()
+    },
+    test2(){
+      console.log("eye button")
+    }
+  },
+  beforeMount(){
+    this.getOrderData();
   }
 };
 </script>
