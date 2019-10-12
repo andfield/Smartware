@@ -10,7 +10,6 @@
                 :headers="headers"
                 :items="Orders"
                 item-key="name"
-                show-expand
                 class="elevation-1"
                 :search="search"
               >
@@ -37,11 +36,6 @@
                   <v-icon @click="test2()" color="primary">remove_red_eye</v-icon>
                 </template>
 
-                <template v-slot:expanded-item="{ headers }">
-                  <!-- put the products in this td  -->
-                  <td ></td>
-                </template>
-
               </v-data-table>
             </v-card-text>
           </v-card>
@@ -64,7 +58,6 @@ export default {
   data() {
     return {
       products: [],
-      expanded: [],
       search: "",
       headers: [
         {
