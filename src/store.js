@@ -290,7 +290,6 @@ export default new Vuex.Store({
 
         commit("setDefaultProducts", defaultProductList)
     },
-
   },
   getters: {
     getCustomerDetails(state) {
