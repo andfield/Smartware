@@ -111,23 +111,17 @@
   </span>
 </template>
 
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </span>
-</template>
 
 <script>
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
 import AdminToolBar from "@/components/AdminToolBar";
 import Vue from "vue";
-import currentOrder from "./currentOrder";
 
 export default {
   components: {
     AdminToolBar,
-    currentOrder
+    
   },
   data() {
     return {
