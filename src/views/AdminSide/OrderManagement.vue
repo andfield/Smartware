@@ -35,65 +35,89 @@
                     color="success"
                   >done_outline</v-icon>
 
-                  <v-dialog v-model="dialog" max-width="600px">
+                  <v-dialog max-width="600px">
                     <template v-slot:activator="{ on }">
-                          <v-btn fab x-small v-on="on">
-                            <v-icon color="primary">remove_red_eye</v-icon>
-                          </v-btn>
-                        </template>
-                        <v-card>
-                          <v-card-title>
-                            <v-card-title>Order ID: </v-card-title>
-                            <v-card-title v-text="item.orderID"></v-card-title>
-                          </v-card-title>
-                          <v-card-text>
-                            <v-container>
-                              <v-row>
-                                <v-col cols="12" sm="6" md="4">
-                                  <v-text>First Name: </v-text>
-                                  <v-text>{{item.custFName}}</v-text>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                  <v-text>Last Name: </v-text>
-                                  <v-text> {{item.custLName}}</v-text>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                  <v-text>Order Date: </v-text>
-                                  <v-text>{{item.date}}</v-text>
-                                </v-col>
-                                <v-col cols="12">
-                                  <v-text>Order Contents: </v-text>
-                                  <v-text>{{item.cartData}}</v-text>
-                                </v-col>
-                                <v-col cols="12">
-                                  <v-text>Order Price: </v-text>
-                                  <v-text>{{item.orderPrice}}</v-text>
-                                </v-col>
-                                <v-col cols="12" sm="6">
-                                  <v-text>Shipping Address: </v-text>
-                                  <v-text>{{item.shippingAddress}}</v-text>
-                                </v-col>
-                                <v-col cols="12" sm="6">
-                                  <v-text>Order Status: </v-text>
-                                  <v-text>{{item.status}}</v-text>
-                                </v-col>
-                              </v-row>
-                            </v-container>
-                            <small>*indicates required field</small>
-                          </v-card-text>
-                          <v-card-actions>
-                            <div class="flex-grow-1"></div>
-                            <v-btn color="blue darken-1" text >Done</v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
+                      <v-btn fab x-small v-on="on">
+                        <v-icon color="primary">remove_red_eye</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-card flat>
+                      <v-card-title>
+                        <v-toolbar dark>
+                          <v-toolbar-title v-text="item.orderID" />
+                        </v-toolbar>
+                      </v-card-title>
+                      <v-card-text class="mx-5">
+                        <v-row>
+                          <v-text class="black--text title">Customer Name:</v-text>
+                          <v-text
+                            class="black--text mx-3 mt-2"
+                          >{{item.custFName + " " + item.custLName }}</v-text>
+                        </v-row>
+                        <v-row class="mt-2">
+                          <v-divider />
+                        </v-row>
+                        <v-row class="mt-4">
+                          <v-text class="black--text title">Order Date:</v-text>
+                          <v-text class="black--text mx-3 mt-2">{{item.date}}</v-text>
+                        </v-row>
 
-               
-                </template>
+                        <v-row class="mt-2">
+                          <v-divider />
+                        </v-row>
 
-                <template v-slot:expanded-item="{ headers }">
-                  <!-- put the products in this td  -->
-                  <td></td>
+                        <v-row>
+                          <v-text class="black--text title">Order Contents</v-text>
+                        </v-row>
+
+                        <v-row>
+                          <v-simple-table height="100px">
+                            <thead>
+                              <th class="text-left">Name</th>
+                              <th>Category</th>
+                              <th>Price</th>
+                            </thead>
+
+                            <tbody>
+                              <tr v-for="product in item.cartData" :key="product.name">
+                                <td>{{product.name}}</td>
+                                <td>{{product.category}}</td>
+                                <td>{{product.stanPrice}}</td>
+                              </tr>
+                            </tbody>
+                          </v-simple-table>
+                        </v-row>
+
+                        <v-row>
+                          <v-text class="black--text title">Order Price:</v-text>
+                          <v-text class="black--text mx-3 mt-2">${{item.orderPrice}}</v-text>
+                        </v-row>
+                        <v-row class="mt-2">
+                          <v-divider />
+                        </v-row>
+                        <v-row>
+                          <v-text class="black--text title">Shipping Address:</v-text>
+                          <v-text class="black--text mx-3 mt-1">
+                            <strong>Name:</strong>
+                            {{item.shippingAddress.fName + " " +item.shippingAddress.lName}}
+                            <br />
+                            <strong>Company Name:</strong>
+                            {{item.shippingAddress.companyName}}
+                            <br />
+                            <strong>Address:</strong>
+                            {{item.shippingAddress.address + ", "+item.shippingAddress.apt}}
+                          </v-text>
+                        </v-row>
+                        <v-row class="mt-2">
+                          <v-divider />
+                        </v-row>
+                        <v-row>
+                          <v-text class="black--text title">Order Status:</v-text>
+                          <v-text class="black--text mx-3 mt-2">{{item.status}}</v-text>
+                        </v-row>
+                      </v-card-text>
+                    </v-card>
+                  </v-dialog>
                 </template>
               </v-data-table>
             </v-card-text>
@@ -113,8 +137,7 @@ import Vue from "vue";
 
 export default {
   components: {
-    AdminToolBar,
-    
+    AdminToolBar
   },
   data() {
     return {
@@ -160,8 +183,7 @@ export default {
 
         { text: "", value: "data-table-expand" }
       ],
-      Orders: [],
-      dialog: false
+      Orders: []
     };
   },
   methods: {

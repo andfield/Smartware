@@ -1,45 +1,76 @@
 <template>
   <span class="CartPage">
     <LandingNav />
-    <v-container fluild fill-height>
+    <v-container fluild fill-height style="max-height: 100vh;">
       <v-layout align-center justify-center>
-        <v-flex xs12 sm8 md8>
-          <v-card hover>
-            <v-toolbar dark>
-              <v-toolbar-title class="display-2">Support Forms</v-toolbar-title>
-            </v-toolbar>
-            <v-simple-table>
-              <v-divider />
-              <thead></thead>
-              <tbody>
-                <tr v-for="item in cartList" :key="item.name">
-                  <td>
-                    <span>
-                      <h3 v-text="item.name" />
-                      <p v-text="item.desc" />
-                    </span>
-                  </td>
-                  <td>
-                    <span>
-                      <a v-bind:href="item.dlLink">Download</a>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-              <v-card></v-card>
-            </v-simple-table>
-          </v-card>
-          <v-card>
-            <v-file-input
-              label="Put Your File"
-              :rules="rules"
-              accept="image/pdf"
-              outlined
-              shaped
-              v-model="userForm"
-            />
-          </v-card>
-          <v-btn @click="submitForm(userForm)">test</v-btn>
+        <v-flex xs12 md12 sm12 lg10 xl10>
+          <v-row class="mb-10">
+            <v-layout row wrap class="justify-center">
+              <v-flex class="mx - 1- my-5" xs12 sm12 md6 lg6 xl6>
+                <v-card flat outlined>
+                  <v-card-title>
+                    <v-toolbar dark flat>
+                      <v-toolbar-title class="display-2">Send Request</v-toolbar-title>
+                    </v-toolbar>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-text-field label="First Name" v-model="fname" outlined />
+
+                    <v-text-field label="Last Name" v-model="lname" outlined />
+
+                    <v-select :items="types" label="Request Type" v-model="type" outlined />
+
+                    <v-file-input
+                      label="Put Your File"
+                      :rules="rules"
+                      accept="image/pdf"
+                      outlined
+                      v-model="userForm"
+                    />
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer />
+                    <v-btn block flat color="primary" @click="submitForm(userForm)">Submit</v-btn>
+                    <v-spacer />
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+
+              <v-flex class="mx-10 my-5 mb-10" xs12 sm12 md12 lg5 xl4>
+                <v-card flat>
+                  <v-toolbar flat dark>
+                    <v-toolbar-title class="title">Support Forms</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text class="px-5 black--text">
+                    <v-simple-table>
+                      <v-divider />
+                      <thead></thead>
+                      <tbody>
+                        <tr v-for="item in FormList" :key="item.name">
+                          <td>
+                            <span>
+                              <strong v-text="item.name" />
+                              <p v-text="item.desc" />
+                            </span>
+                          </td>
+                          <td>
+                            <span>
+                              <a class="caption" v-bind:href="item.dlLink">Download</a>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <v-card></v-card>
+                    </v-simple-table>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-row>
+          <footer>
+            <NavFooter />
+          </footer>
         </v-flex>
       </v-layout>
     </v-container>
@@ -49,7 +80,6 @@
 <script>
 import LandingNav from "../components/LandingNav";
 import NavFooter from "../components/NavFooter";
-import AppFooter from "../components/AppFooter";
 import firebase, { functions } from "firebase";
 import db from "@/main";
 
@@ -62,7 +92,16 @@ export default {
 
   data() {
     return {
-      cartList: [
+      fname: "",
+      lname: "",
+      type: "",
+      types: [
+        "SHORT-TERM EFTPOS HIRING AGREEMENT",
+        "POINT OF SALE | EFTPOS AGREEMENT",
+        "Proposal Request",
+        "Appointment Request"
+      ],
+      FormList: [
         {
           name: "SHORT-TERM EFTPOS HIRING AGREEMENT",
           desc: "This is to request a short term rental of a POS system",
@@ -92,11 +131,11 @@ export default {
     getCart() {
       // this might not be it cheif
       this.$store.dispatch("updateCart", {
-            newProduct: this.newProduct
-          });
+        newProduct: this.newProduct
+      });
     },
     submitForm(form) {
-      if(form != null){
+      if (form != null) {
         //get the date to make an identifiable filename, could use seconds but the file name doesnt have to be unique
         var date = new Date();
         var day = date.getDate();
@@ -106,9 +145,10 @@ export default {
         var minute =
           (date.getMinutes() < 10 ? "0" : "") + date.getMinutes().toString(); // will lead with 0 if appropriate | may not need toString need to wait until time is right(x:00 - x:09)
 
-        var submissionDate = day + "-" + month + "-" + year + ":" + hour + minute;
+        var submissionDate =
+          day + "-" + month + "-" + year + ":" + hour + minute;
 
-        var filename = "CustomerSupportForms/" + form.name + submissionDate
+        var filename = "CustomerSupportForms/" + form.name + submissionDate;
 
         // Create a root reference
         var storageRef = firebase.storage().ref();
@@ -117,13 +157,11 @@ export default {
         var formRef = storageRef.child(filename);
 
         formRef.put(form).then(function(snapshot) {
-          console.log('Uploaded a blob or file!');
+          console.log("Uploaded a blob or file!");
         });
+      } else {
+        alert("Nothing to submit");
       }
-      else {
-        alert("Nothing to submit")
-      }
-
     }
   }
 };

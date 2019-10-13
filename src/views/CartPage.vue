@@ -122,9 +122,7 @@
             </v-layout>
           </v-row>
 
-          <v-footer absolute>
-            <NavFooter />
-          </v-footer>
+          <NavFooter/>
         </v-flex>
       </v-layout>
     </v-container>
