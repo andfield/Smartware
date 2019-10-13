@@ -94,7 +94,7 @@ export default {
       if(confirm("Are you sure you want to delete product: " + item.name + " ?")){
         db.collection("ProductCategory")
         .doc("vQzSkBnxzbu1Tnqn4iv2")
-        .collection("Cables")
+        .collection(item.category)
         .doc(item.productID).delete().then(function() {
           console.log("Document successfully deleted!");
         }).catch(function(error) {

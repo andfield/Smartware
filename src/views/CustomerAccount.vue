@@ -200,22 +200,31 @@ export default {
       var userData = this.$store.getters.getCustomerDetails;
       return userData;
     },
-    updateDetails() {
-      if (this.newpass == !null) {
-        // Cant compare .length if its null
-        this.passLength = this.newPass.length;
+    updateDetails(){
+      console.log(this.newPass)
+      if(this.newpass == null){ // Cant compare .length if its null
+        console.log("null password")
+        this.$store.dispatch("updateCustomer", {
+              newPhNum: this.newPhNum,
+              newEmail: this.newEmail,
+              newAddress: this.newAddress
+            });
+      }
+      else{
+        console.log("nothing")
       }
 
-      if (this.newPass == this.newPassCon) {
-        if (this.passLength >= 8 || this.newPass == null) {
-          this.$store.dispatch("updateCustomer", {
-            newPhNum: this.newPhNum,
-            newEmail: this.newEmail,
-            newPass: this.newPass,
-            newAddress: this.newAddress
-          });
-        } else {
-          alert("The password is too short");
+      if(this.newPass == this.newPassCon){
+        if (this.passLength >= 8) {
+            this.$store.dispatch("updateCustomer", {
+              newPhNum: this.newPhNum,
+              newEmail: this.newEmail,
+              newPass: this.newPass,
+              newAddress: this.newAddress
+            });
+        }
+        else if(this.newPass == null) {
+          console.log("null password")
         }
       } else {
         alert("The password do not match");
@@ -230,14 +239,10 @@ export default {
       .where("custID", "==", this.$store.getters.getCustID)
       .get()
       .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          // it works but need to get rid of foreach
-          orderList.push(doc.id);
-          orderList.push(doc.data());
-          console.log(doc.id);
-          console.log(doc.data());
-          console.log(orderList);
-        });
+        querySnapshot.forEach(function(doc){ // it works but need to get rid of foreach
+          orderList.push(doc.id)
+          orderList.push(doc.data())
+        })
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error);
