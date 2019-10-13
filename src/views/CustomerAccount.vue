@@ -113,7 +113,7 @@ export default {
       }
 
       if(this.newPass == this.newPassCon){
-        if (this.passLength >= 8 || this.newPass != null) {
+        if (this.passLength >= 8 && this.newPass != null) {
             this.$store.dispatch("updateCustomer", {
             newPhNum: this.newPhNum,
             newEmail: this.newEmail,
@@ -122,7 +122,6 @@ export default {
           });
         }
         else {
-          console.log(this.newPass.length)
           alert("The password is too short")
         }
       }
@@ -140,9 +139,6 @@ export default {
         querySnapshot.forEach(function(doc){ // it works but need to get rid of foreach
           orderList.push(doc.id)
           orderList.push(doc.data())
-          console.log(doc.id)
-          console.log(doc.data())
-          console.log(orderList)
         })
       })
       .catch(function(error) {
