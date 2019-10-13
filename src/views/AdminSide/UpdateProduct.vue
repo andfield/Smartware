@@ -115,7 +115,7 @@ export default {
                   .doc(item.productID)
 
       
-      if(this.name != null){ //doing it one at a time again so that it doesnt override the empty spaces with nothing
+      if(this.name != ""){ //doing it one at a time again so that it doesnt override the empty spaces with nothing
         docRef.update({
           name: this.name
         }).then(function() {
@@ -127,7 +127,7 @@ export default {
         });
       }
 
-      if(this.description != null){
+      if(this.description != ""){
         docRef.update({
           description: this.description
         }).then(function() {
@@ -139,7 +139,7 @@ export default {
         });
       }
 
-      if(this.price != null){
+      if(this.price != ""){
         docRef.update({
           stanPrice: this.price
         }).then(function() {
@@ -151,7 +151,7 @@ export default {
         });
       }
 
-      if(this.category != null){
+      if(this.category != ""){
         docRef.update({
           category: this.category
         }).then(function() {

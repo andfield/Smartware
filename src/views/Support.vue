@@ -41,6 +41,7 @@
               v-model="userForm"
             />
           </v-card>
+          <v-btn @click="submitForm(userForm)">test</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -51,6 +52,8 @@
 import LandingNav from "../components/LandingNav";
 import NavFooter from "../components/NavFooter";
 import AppFooter from "../components/AppFooter";
+import firebase, { functions } from "firebase";
+import db from "@/main";
 
 export default {
   name: "CartPage",
@@ -91,6 +94,36 @@ export default {
       this.$store.dispatch("updateCart", {
             newProduct: this.newProduct
           });
+    },
+    submitForm(form) {
+      if(form != null){
+        //get the date to make an identifiable filename, could use seconds but the file name doesnt have to be unique
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var hour = date.getHours();
+        var minute =
+          (date.getMinutes() < 10 ? "0" : "") + date.getMinutes().toString(); // will lead with 0 if appropriate | may not need toString need to wait until time is right(x:00 - x:09)
+
+        var submissionDate = day + "-" + month + "-" + year + ":" + hour + minute;
+
+        var filename = "CustomerSupportForms/" + form.name + submissionDate
+
+        // Create a root reference
+        var storageRef = firebase.storage().ref();
+
+        // Create a reference to the path
+        var formRef = storageRef.child(filename);
+
+        formRef.put(form).then(function(snapshot) {
+          console.log('Uploaded a blob or file!');
+        });
+      }
+      else {
+        alert("Nothing to submit")
+      }
+
     }
   }
 };

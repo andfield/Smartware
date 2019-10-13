@@ -108,8 +108,7 @@ export default {
       return userData
     },
     updateDetails(){
-      console.log(this.newPass)
-      if(this.newpass == null){ // Cant compare .length if its null
+      if(this.newPass == null){ // Cant compare .length if its null
         console.log("null password")
         this.$store.dispatch("updateCustomer", {
               newPhNum: this.newPhNum,
@@ -118,11 +117,11 @@ export default {
             });
       }
       else{
-        console.log("nothing")
+        var passLength = this.newPass
       }
 
       if(this.newPass == this.newPassCon){
-        if (this.passLength >= 8) {
+        if (passLength >= 8) {
             this.$store.dispatch("updateCustomer", {
               newPhNum: this.newPhNum,
               newEmail: this.newEmail,

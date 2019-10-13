@@ -127,7 +127,6 @@ export default {
         { title: "Contact us", route: "/contactUs" },
         { title: "Sign In", route: "/signin" },
         { title: "Sign up", route: "/signup" },
-        { title: "Admin", route: "/AdminDashboard" }
       ],
       quantity: this.$store.getters.getCartQuantity,
       isAuthenticated: authStatus,

@@ -43,47 +43,39 @@
                         </template>
                         <v-card>
                           <v-card-title>
-                            <v-card-title v-text="item.orderPrice"></v-card-title>
+                            <v-card-title>Order ID: </v-card-title>
+                            <v-card-title v-text="item.orderID"></v-card-title>
                           </v-card-title>
                           <v-card-text>
                             <v-container>
                               <v-row>
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text>{{item.cartData[0].description}}</v-text>
+                                  <v-text>First Name: </v-text>
+                                  <v-text>{{item.custFName}}</v-text>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field
-                                    label="Legal middle name"
-                                    hint="example of helper text only on focus"
-                                  ></v-text-field>
+                                  <v-text>Last Name: </v-text>
+                                  <v-text> {{item.custLName}}</v-text>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field
-                                    label="Legal last name*"
-                                    hint="example of persistent helper text"
-                                    persistent-hint
-                                    required
-                                  ></v-text-field>
+                                  <v-text>Order Date: </v-text>
+                                  <v-text>{{item.date}}</v-text>
                                 </v-col>
                                 <v-col cols="12">
-                                  <v-text-field label="Email*" required></v-text-field>
+                                  <v-text>Order Contents: </v-text>
+                                  <v-text>{{item.cartData}}</v-text>
                                 </v-col>
                                 <v-col cols="12">
-                                  <v-text-field label="Password*" type="password" required></v-text-field>
+                                  <v-text>Order Price: </v-text>
+                                  <v-text>{{item.orderPrice}}</v-text>
                                 </v-col>
                                 <v-col cols="12" sm="6">
-                                  <v-select
-                                    :items="['0-17', '18-29', '30-54', '54+']"
-                                    label="Age*"
-                                    required
-                                  ></v-select>
+                                  <v-text>Shipping Address: </v-text>
+                                  <v-text>{{item.shippingAddress}}</v-text>
                                 </v-col>
                                 <v-col cols="12" sm="6">
-                                  <v-autocomplete
-                                    :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                                    label="Interests"
-                                    multiple
-                                  ></v-autocomplete>
+                                  <v-text>Order Status: </v-text>
+                                  <v-text>{{item.status}}</v-text>
                                 </v-col>
                               </v-row>
                             </v-container>

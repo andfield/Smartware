@@ -6,7 +6,11 @@
         <span>SmartWare</span>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn text>
+      <v-btn to="/home" text>
+        <span>Home</span>
+        <v-icon right>home</v-icon>
+      </v-btn>
+      <v-btn @click="signOut()" text>
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
@@ -66,6 +70,11 @@ export default {
     return {
       drawer: true
     };
+  },
+  methods: {
+    signOut(){
+      this.$store.dispatch("userSignOut")
+    }
   }
 };
 </script>
