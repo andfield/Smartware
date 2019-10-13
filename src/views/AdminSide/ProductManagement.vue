@@ -114,9 +114,10 @@ export default {
         .collection(this.items[i]).get()
         .then(snapshot => {
           snapshot.forEach(doc =>{
+            // console.log("Data: " + doc.data())
             tempProduct = doc.data()
             tempProduct["productID"] = doc.id
-            tempProduct["category"] = this.items[i] //Temporary until I give all the products categories
+            // tempProduct["category"] = this.items[i] //Temporary until I give all the products categories
             fullProductsList.push(tempProduct)
           })
         })

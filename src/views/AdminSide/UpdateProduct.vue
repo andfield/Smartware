@@ -111,18 +111,57 @@ export default {
       console.log(item)
       var docRef = db.collection("ProductCategory")
                   .doc("vQzSkBnxzbu1Tnqn4iv2")
-                  .collection("Accessories")
-                  .doc("6ym9kvBdnU5jEFQE9jGX")
+                  .collection(item.category)
+                  .doc(item.productID)
 
-      docRef.update({
-        name: "000123yolo"
-      }).then(function() {
-          console.log("Document successfully updated!");
-      })
-      .catch(function(error) {
-          // The document probably doesn't exist.
-          console.error("Error updating document: ", error);
-      });
+      
+      if(this.name != null){ //doing it one at a time again so that it doesnt override the empty spaces with nothing
+        docRef.update({
+          name: this.name
+        }).then(function() {
+            console.log("Document successfully updated!");
+        })
+        .catch(function(error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+      }
+
+      if(this.description != null){
+        docRef.update({
+          description: this.description
+        }).then(function() {
+            console.log("Document successfully updated!");
+        })
+        .catch(function(error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+      }
+
+      if(this.price != null){
+        docRef.update({
+          stanPrice: this.price
+        }).then(function() {
+            console.log("Document successfully updated!");
+        })
+        .catch(function(error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+      }
+
+      if(this.category != null){
+        docRef.update({
+          category: this.category
+        }).then(function() {
+            console.log("Document successfully updated!");
+        })
+        .catch(function(error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+      }
 
 
         // .get()

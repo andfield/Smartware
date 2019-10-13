@@ -38,6 +38,7 @@
               accept="image/pdf"
               outlined
               shaped
+              v-model="userForm"
             />
           </v-card>
         </v-flex>
