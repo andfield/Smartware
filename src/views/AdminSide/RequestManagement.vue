@@ -9,7 +9,7 @@
               <v-data-table
                 :headers="headers"
                 :items="requests"
-                sort-by="name"
+                item-key="name"
                 class="elevation-1"
                 :search="search"
               >
@@ -27,19 +27,14 @@
                   </v-toolbar>
                 </template>
                 <template v-slot:item.actions="{ item }">
-                  <v-icon color="primary" @click="getFormData()">cloud_download</v-icon>
+                  <v-icon color="primary" >cloud_download</v-icon>
                 </template>
               </v-data-table>
             </v-card-text>
-            <v-card-actions>
-              <v-btn small absolute bottom left color="success" fab to="/AddProduct">
-                <v-icon>add</v-icon>
-              </v-btn>
-            </v-card-actions>
           </v-card>
         </v-flex>
       </v-layout>
-      <v-btn @click="getFormData()"/>
+      <v-btn @click="getFormData()" />
     </v-container>
   </span>
 </template>
@@ -49,57 +44,72 @@ import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
 import AdminToolBar from "@/components/AdminToolBar";
 export default {
-    name: "RequestManagment",
-    components: {
-        AdminToolBar
-    },
-    data() {
-        return{
-            requests: [],
-            search: "",
-            headers: [
-              {
-                text: "First name",
-                align: "left",
-                sortable: true,
-                value: fname
-              },
-              {
-                text: "Last name",
-                value: lname
-              },
-              {
-                text: "Type",
-                value: type
-              },
-              {
-                text: "PDF",
-                value: ""
-              }
-
-            ]
+  name: "RequestManagment",
+  components: {
+    AdminToolBar
+  },
+  data() {
+    return {
+      requests: [],
+      search: "",
+      headers: [
+        {
+          text: "First name",
+          align: "left",
+          sortable: true,
+          value: "fName"
+        },
+        {
+          text: "Last name",
+          value: "lName",
+          sortable: true
+        },
+        {
+          text: "Type",
+          value: "type",
+          sortable: true
+        },
+        {
+          text: "PDF",
+          value: "fileName"
+        },
+        {
+          text: "Status",
+          sortable: true,
+          value: "status"
+        },
+        {
+          text: "Controls",
+          value: "actions",
+          sortable: false
         }
-    },
-    methods: {
-      getFormData() {
-        var fullList = [];
-        var tempForm = null;
+      ]
+    };
+  },
+  methods: {
+    getFormData() {
+      var fullList = [];
+      var tempForm = null;
 
-        db.collection("CustomerForms")
-          .get()
-          .then(snapshot => {
-            snapshot.forEach(doc => {
-              tempForm = doc.data();
-              fullList.push(tempForm);
-            });
-          })
-          .catch(error => {
-            console.log("error: " + error);
+      db.collection("CustomerForms")
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            tempForm = doc.data();
+            fullList.push(tempForm);
           });
+        })
+        .catch(error => {
+          console.log("error: " + error);
+        });
 
-        this.requests = fullList;
-        console.log(fullList)
-      },
+      this.requests = fullList;
+      console.log(fullList);
     }
-}
+  },
+  beforeMount() {
+    this.getFormData();
+  }
+
+};
 </script>
