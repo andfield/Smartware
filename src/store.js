@@ -95,6 +95,13 @@ export default new Vuex.Store({
         .catch(error => {
           alert("Error: " + error);
         });
+        setTimeout(function(){ console.log(firebase.auth().currentUser) 
+          firebase.auth().currentUser.sendEmailVerification().then(function() {
+            // Email sent.
+          }).catch(function(error) {
+            console.log("Error: " + error)
+          });
+        }, 3000);
     },
 
     userLogin({ commit, state }, { email, password }) {
@@ -196,7 +203,10 @@ export default new Vuex.Store({
       } else {
         console.log("error updating password");
       }
-      alert("Deatils have been updated");
+
+      if(newPass != null){
+        alert("Deatils have been updated");
+      }
     },
 
     updateCart({ commit, state }, { newProduct, quantity }) {
