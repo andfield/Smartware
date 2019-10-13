@@ -110,13 +110,6 @@ export default {
             }).catch(function(error) {
               console.log("Error: " + error)
             });
-            setTimeout(function(){ console.log(firebase.auth().currentUser) 
-            firebase.auth().currentUser.sendEmailVerification().then(function() {
-              // Email sent.
-            }).catch(function(error) {
-              console.log("Error: " + error)
-            });
-          }, 3000);
             console.log(tempURL)
             tempForm["url"] = tempURL
             fullList.push(tempForm);
@@ -149,69 +142,8 @@ export default {
       this.requests = fullList;
     }
   },
-  // beforeMount() {
-  //   this.getFormData();
-  // },
-  beforeCreate(){
-    var fullList = [];
-      var tempForm = null;
-      var tempPath = null
-      var tempURL = null
-      var formRef = null
-      var storageRef = firebase.storage().ref();
-      var url = null
-
-      db.collection("CustomerForms")
-        .get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
-            tempForm = doc.data();
-            // Create a reference to the file we want to download
-            formRef = storageRef.child(tempForm.fileName);
-            // Get the download URL
-            formRef.getDownloadURL().then(function(url) {
-              tempURL = url
-              console.log(tempURL)
-            }).catch(function(error) {
-              console.log("Error: " + error)
-            });
-            setTimeout(function(){ console.log(firebase.auth().currentUser) 
-            firebase.auth().currentUser.sendEmailVerification().then(function() {
-              // Email sent.
-            }).catch(function(error) {
-              console.log("Error: " + error)
-            });
-          }, 3000);
-            console.log(tempURL)
-            tempForm["url"] = tempURL
-            fullList.push(tempForm);
-          });
-        })
-        .catch(function(error) {
-
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case 'storage/object-not-found':
-            // File doesn't exist
-            break;
-
-          case 'storage/unauthorized':
-            // User doesn't have permission to access the object
-            break;
-
-          case 'storage/canceled':
-            // User canceled the upload
-            break;
-
-          case 'storage/unknown':
-            // Unknown error occurred, inspect the server response
-            break;
-        }
-      });
-      console.log(fullList)
-
-      this.requests = fullList;
+  beforeMount() {
+    this.getFormData();
   }
 
 };
