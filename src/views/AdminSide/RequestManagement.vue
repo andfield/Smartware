@@ -8,14 +8,14 @@
             <v-card-text>
               <v-data-table
                 :headers="headers"
-                :items="products"
+                :items="requests"
                 sort-by="name"
                 class="elevation-1"
                 :search="search"
               >
                 <template v-slot:top>
                   <v-toolbar flat dark>
-                    <v-toolbar-title>Product Management</v-toolbar-title>
+                    <v-toolbar-title>Request Management</v-toolbar-title>
                     <v-spacer />
                     <v-text-field
                       v-model="search"
@@ -27,13 +27,7 @@
                   </v-toolbar>
                 </template>
                 <template v-slot:item.actions="{ item }">
-                  <v-icon
-                    class="mr-2"
-                    color="primary"
-                    @click="$router.push({path: '/UpdateProduct', query: { currentProduct: item} })"
-                  >edit</v-icon>
-
-                  <v-icon color="error" @click="deleteProduct(item)">delete</v-icon>
+                  <v-icon color="primary" @click="">cloud_download</v-icon>
                 </template>
               </v-data-table>
             </v-card-text>
@@ -62,7 +56,27 @@ export default {
         return{
             requests: [],
             search: "",
-            headers: []
+            headers: [
+              {
+                text: "First name",
+                align: "left",
+                sortable: true,
+                value: fname
+              },
+              {
+                text: "Last name",
+                value: lname
+              },
+              {
+                text: "Type",
+                value: type
+              },
+              {
+                text: "PDF",
+                value: ""
+              }
+
+            ]
         }
     }
 }

@@ -10,29 +10,19 @@
         <v-list-item-content>
           <v-menu>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" text>
+              <v-btn to="/Support" text>
                 Support
                 <v-icon right>contact_support</v-icon>
               </v-btn>
             </template>
-
-            <v-list dark>
-              <v-list-item>
-                <v-list-item-title>Book appointments</v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>Rent products</v-list-item-title>
-              </v-list-item>
-            </v-list>
           </v-menu>
-          <v-btn block>
-            <span>Cart</span>
+          <v-btn text to="/CartPage">
+            Cart
             <v-badge>
               <template v-slot:badge>
-                <span v-text="0" />
-                <!-- change this later -->
+                <span :key="quantityKey" v-text="quantity" />
               </template>
-              <v-icon small>mdi-cart</v-icon>
+              <v-icon right>mdi-cart</v-icon>
             </v-badge>
           </v-btn>
           <v-btn @click="logout" text>
@@ -66,7 +56,7 @@
       <div v-if="isAuthenticated" class="hidden-sm-and-down">
         <v-menu>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn  to="/Support" text>
+            <v-btn to="/Support" text>
               Support
               <v-icon right>contact_support</v-icon>
             </v-btn>
@@ -101,8 +91,8 @@ import firebase, { functions } from "firebase";
 export default {
   name: "LandingNav",
   data() {
-    if(firebase.auth().currentUser != null){
-      var authStatus = true
+    if (firebase.auth().currentUser != null) {
+      var authStatus = true;
     }
     return {
       appTitle: "Smartware",
@@ -110,14 +100,14 @@ export default {
       items: [
         { title: "About us", route: "/publicAbout" },
         { title: "Sign In", route: "/signin" },
-        { title: "Sign up", route: "/signup" },
+        { title: "Sign up", route: "/signup" }
       ],
       quantity: this.$store.getters.getCartQuantity,
       isAuthenticated: authStatus,
-      quantityKey: 0,
+      quantityKey: 0
     };
   },
-  computed: { 
+  computed: {
     cartQuantity() {
       return this.$store.getters.getCartQuantity;
     }
@@ -127,8 +117,8 @@ export default {
       this.$store.dispatch("userSignOut");
     },
     forceRerender() {
-      this.quantityKey += 1
-    },
+      this.quantityKey += 1;
+    }
   }
 };
 </script>
