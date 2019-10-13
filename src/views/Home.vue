@@ -118,7 +118,6 @@ export default {
       });
     },
     setCategory(selected) {
-      console.log("Homepage " + firebase.auth().currentUser)
       var productList = [];
 
       db.collection("ProductCategory")
