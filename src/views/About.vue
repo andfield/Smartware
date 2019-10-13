@@ -3,86 +3,93 @@
     <LandingNav />
     <v-container>
       <v-layout class="justify-center">
-        <v-flex xs12 lg10 xl10>
-          <Carousel />
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <v-container class="grey lighten-5">
-      <v-row>
-        <v-col cols="9">
-          <h1>About Smartware</h1>
-          <v-card min-height="100%">
-            <v-card-text>
-              <p>Smartware is the best.</p>
-              <p>Github sucks.</p>
-              <p>Sid should just do everything and carry us.</p>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <h1>Our Partners</h1>
-          <v-card href="https://vuetifyjs.com/en/components/carousels#carousels" target>
-            <v-img
-              src="https://images.pexels.com/photos/736230/pexels-photo-736230.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              aspect-ratio="1.5"
-              contain
-            ></v-img>
-            <v-card-title>Company 1</v-card-title>
-            <v-card-text>
-              <p>This is hard af</p>
-            </v-card-text>
-          </v-card>
-          <p></p>
-          <v-card>
-            <v-img
-              src="https://images.pexels.com/photos/736230/pexels-photo-736230.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              aspect-ratio="2"
-              contain
-            ></v-img>
-            <v-card-title>Company 2</v-card-title>
-            <v-card-text>
-              <p>This is hard af</p>
-            </v-card-text>
-          </v-card>
-          <p></p>
-          <v-card>
-            <v-img
-              src="https://images.pexels.com/photos/736230/pexels-photo-736230.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              aspect-ratio="2"
-              contain
-            ></v-img>
-            <v-card-title>Company 3</v-card-title>
-            <v-card-text>
-              <p>This is hard af</p>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-container>
-      <v-layout class="justify-center">
-        <v-flex xs12 lg10 xl10>
+        <v-flex xs12 md12 sm12 lg10 xl10>
+          <v-row>
+            <Carousel />
+          </v-row>
+
+          <v-row>
+            <v-layout row wrap class="justify-center">
+              <v-flex class="mx-4 my-10" xs12 sm12 md8 lg7 xl7>
+                <v-card flat>
+                  <v-card-text>
+                    <v-row>
+                      <h3 class="display-2 font-weight-medium black--text">About Us</h3>
+                    </v-row>
+                    <v-row>
+                      <p class="body-2 mx-3 my-5 black--text">
+                        Smartware was founded to provide small to medium sized businesses with cost efficient Point Of Sale options, we see a space to simplify the process and save our customers time and money. We saw the current struggles businesses face with point of sale systems, from affordability to functionality. As a result, we focus on our customers needs and deliver friendly, intuitive, user-friendly options and forward-thinking solutions to help business survive in a competitive market.
+                        <br />
+                        <br />Smartwares online store was built for the average business that may not have the resources or know-how to implement a point of sale. Many solutions on the market are difficult to install, have minimal capabilities, or are too expensive. Our POS offerings are user friendly and we provide streamlined support to deliver highly-functional cost effective POS to empower small businesses in a difficult market.
+                        <br />
+                        <br />We are committed to a high level of user experience to increase customer satisfaction and adoption. We work closely with our customers to continually provide solutions and support for their needs. We are always willing to adapt our products to customer feedback and changing needs of the market, and continually improving.
+                      </p>
+                    </v-row>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+
+              <v-flex class="mx-10 my-10" xs12 md4 lg4 xl3>
+                <v-card flat>
+                  <v-card-text>
+                    <v-row>
+                      <h3 class="display-2 font-weight-medium black--text">Our Partners</h3>
+                    </v-row>
+
+                    <v-row v-for="partner in partners" :key="partner.name">
+                      <v-card flat>
+                        <v-card-title>
+                          <v-app-bar flat dark>
+                            <v-toolbar-title>{{partner.name}}</v-toolbar-title>
+                          </v-app-bar>
+                        </v-card-title>
+                        <v-card-text>{{partner.desc}}</v-card-text>
+                      </v-card>
+                    </v-row>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-row>
+
           <NavFooter />
         </v-flex>
       </v-layout>
     </v-container>
-    <AppFooter />
   </div>
 </template>
 
 <script>
-import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
 import LandingNav from "../components/LandingNav";
 
 export default {
   components: {
-    AppFooter,
     Carousel,
     NavFooter,
-    LandingNav,
+    LandingNav
+  },
+  data() {
+    return {
+      partners: [
+        {
+          name: "EFTPOS Bay of Plenty",
+          desc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis. Sit amet nulla facilisi morbi. Vitae congue mauris rhoncus aenean. Quis enim lobortis scelerisque fermentum dui faucibus in ornare quam. Bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida. Risus at ultrices mi tempus imperdiet nulla malesuada. Scelerisque varius morbi enim nunc faucibus a pellentesque sit. Odio ut sem nulla pharetra diam sit. Id leo in vitae turpis. Cras semper auctor neque vitae. Placerat vestibulum lectus mauris ultrices eros in cursus. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Amet justo donec enim diam. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Iaculis at erat pellentesque adipiscing commodo. Integer vitae justo eget magna."
+        },
+        {
+          name: "EFTPOS Bay of Plenty",
+          desc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis. Sit amet nulla facilisi morbi. Vitae congue mauris rhoncus aenean. Quis enim lobortis scelerisque fermentum dui faucibus in ornare quam. Bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida. Risus at ultrices mi tempus imperdiet nulla malesuada. Scelerisque varius morbi enim nunc faucibus a pellentesque sit. Odio ut sem nulla pharetra diam sit. Id leo in vitae turpis. Cras semper auctor neque vitae. Placerat vestibulum lectus mauris ultrices eros in cursus. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Amet justo donec enim diam. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Iaculis at erat pellentesque adipiscing commodo. Integer vitae justo eget magna."
+        },
+        {
+          name: "EFTPOS Bay of Plenty",
+          desc:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis. Sit amet nulla facilisi morbi. Vitae congue mauris rhoncus aenean. Quis enim lobortis scelerisque fermentum dui faucibus in ornare quam. Bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida. Risus at ultrices mi tempus imperdiet nulla malesuada. Scelerisque varius morbi enim nunc faucibus a pellentesque sit. Odio ut sem nulla pharetra diam sit. Id leo in vitae turpis. Cras semper auctor neque vitae. Placerat vestibulum lectus mauris ultrices eros in cursus. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Amet justo donec enim diam. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Iaculis at erat pellentesque adipiscing commodo. Integer vitae justo eget magna."
+        }
+      ]
+    };
   }
 };
 </script>

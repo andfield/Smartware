@@ -34,7 +34,7 @@
                         <span>Description</span>
                       </v-card-title>
                       <v-card-text>
-                        <p v-text="myprop.description">
+                        <p v-text="myprop.description"></p>
                         <p class="title">${{myprop.stanPrice}}</p>
                       </v-card-text>
                       <v-card-actions>
@@ -46,7 +46,12 @@
                           <v-icon>keyboard_arrow_right</v-icon>
                         </v-btn>
                       </v-card-actions>
-                      <v-btn color="primary" @click="addCart(myprop, quantity)" class="ma-5" dark>Add To Cart</v-btn>
+                      <v-btn
+                        color="primary"
+                        @click="addCart(myprop, quantity)"
+                        class="ma-5"
+                        dark
+                      >Add To Cart</v-btn>
                       <v-divider class="ma-5" />
                       <v-card-title class="title ma-5">
                         <span>Detailed Information</span>
@@ -73,9 +78,6 @@
           </v-row>
 
           <v-divider />
-
-          <productlist v-bindv-bind:products="products"/>
-
         </v-flex>
       </v-layout>
     </v-container>
@@ -85,25 +87,20 @@
 </template>
 
 <script>
-import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
-import productlist from '../components/productlist.vue'
 import LandingNav from "../components/LandingNav";
 
-
 export default {
-
   props: ["myprop"],
 
   components: {
     LandingNav,
-    AppFooter,
+
     Carousel,
-    NavFooter,
-    productlist
+    NavFooter
   },
   data() {
     return {
@@ -126,16 +123,16 @@ export default {
           name: "Color",
           desc: "White"
         }
-      ],
+      ]
     };
   },
 
   methods: {
-    addCart(product, quantity){
+    addCart(product, quantity) {
       this.$store.dispatch("updateCart", {
-            newProduct: product,
-            quantity: this.quantity
-          });
+        newProduct: product,
+        quantity: this.quantity
+      });
     }
   }
 };

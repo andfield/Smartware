@@ -1,23 +1,19 @@
 import Vue from "vue";
 import Router from "vue-router";
 import firebase from "firebase";
-import store from "./store.js"
+import store from "./store.js";
 
 // Client Side Imports
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import LandingPage from "./views/LandingPage.vue";
-import TandC from "./views/TandC.vue";
 import Product from "./views/Product.vue";
-import Category from "./views/Category.vue";
 import CustomerAccount from "./views/CustomerAccount.vue";
 import Signin from "./views/Signin";
 import Signup from "./views/Signup";
 import CartPage from "./views/CartPage";
 import Support from "./views/Support";
-import ShippingInfo from "./views/Checkout/ShippingInfo";
-import PaymentInfo from "./views/Checkout/PaymentInfo";
-import FinaliseOrder from "./views/Checkout/FinaliseOrder";
+import CheckoutSystem from "./views/CheckoutSystem";
 
 //Admin Side Imports
 import AdminDashboard from "./views/AdminSide/AdminDashboard";
@@ -77,14 +73,6 @@ const router = new Router({
       }
     },
     {
-      path: "/T&C",
-      name: "TandC",
-      component: TandC,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: "/Product",
       name: "Product",
       component: Product,
@@ -93,14 +81,6 @@ const router = new Router({
       },
       props(route) {
         return { myprop: route.query.myprop };
-      }
-    },
-    {
-      path: "/Category",
-      name: "Category",
-      component: Category,
-      meta: {
-        requiresAuth: true
       }
     },
     {
@@ -128,29 +108,14 @@ const router = new Router({
       }
     },
     {
-      path: "/Checkout/ShippingInfo",
-      name: "ShippingInfo",
-      component: ShippingInfo,
+      path: "/CheckoutSystem",
+      name: "CheckoutSystem",
+      component: CheckoutSystem,
       meta: {
         requiresAuth: true
       }
     },
-    {
-      path: "/Checkout/PaymentInfo",
-      name: "PaymentInfo",
-      component: PaymentInfo,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: "/Checkout/FinaliseOrder",
-      name: "FinaliseOrder",
-      component: FinaliseOrder,
-      meta: {
-        requiresAuth: true
-      }
-    },
+
 
     //Admin side paths
     {
@@ -158,14 +123,14 @@ const router = new Router({
       name: "AdminDashboard",
       component: AdminDashboard,
       meta: {
-        requiresAuth: true,
+        requiresAuth: true
       },
       beforeEnter: (to, from, next) => {
-        if (store.getters.getIsAdmin) { //checks if suer is using admin login
+        if (store.getters.getIsAdmin) {
+          //checks if suer is using admin login
           next();
-        } 
-        else {
-          console.log("Access Denied")
+        } else {
+          console.log("Access Denied");
         }
       }
     },
@@ -174,14 +139,13 @@ const router = new Router({
       name: "AddProduct",
       component: AddProduct,
       meta: {
-        requiresAuth: true,
+        requiresAuth: true
       },
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
           next();
-        } 
-        else {
-          console.log("Access Denied")
+        } else {
+          console.log("Access Denied");
         }
       }
     },
@@ -199,11 +163,10 @@ const router = new Router({
       },
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
-          console.log("admin login test: " + store.getters.getIsAdmin)
+          console.log("admin login test: " + store.getters.getIsAdmin);
           next();
-        } 
-        else {
-          console.log("Access Denied")
+        } else {
+          console.log("Access Denied");
         }
       }
     },
@@ -218,9 +181,8 @@ const router = new Router({
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
           next();
-        } 
-        else {
-          console.log("Access Denied")
+        } else {
+          console.log("Access Denied");
         }
       }
     },
@@ -235,9 +197,8 @@ const router = new Router({
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
           next();
-        } 
-        else {
-          console.log("Access Denied")
+        } else {
+          console.log("Access Denied");
         }
       }
     },
@@ -252,12 +213,11 @@ const router = new Router({
       beforeEnter: (to, from, next) => {
         if (store.getters.getIsAdmin) {
           next();
-        } 
-        else {
-          console.log("Access Denied")
+        } else {
+          console.log("Access Denied");
         }
       }
-    },
+    }
   ]
 });
 

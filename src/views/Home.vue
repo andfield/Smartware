@@ -27,11 +27,7 @@
           <v-row>
             <v-layout row wrap class="justify-center">
               <v-flex xs11 sm6 md6 lg6 xl4 v-for="product in products" :key="product.name">
-                <v-card
-                  class="ma-2"
-                  hover
-                  @click="$router.push({path: '/Product', query: { myprop: product} })"
-                >
+                <v-card class="ma-2" hover>
                   <v-img
                     :src="product.imgURL"
                     class="black--text"
@@ -49,7 +45,17 @@
                     <v-icon>attach_money</v-icon>
                     <span v-text="product.stanPrice" />
                     <v-spacer />
-                    <v-btn color="blue" dark small absolute bottom right fab>
+
+                    <v-btn
+                      dark
+                      color="blue"
+                      @click="$router.push({path: '/Product', query: { myprop: product} })"
+                    >
+                      View
+                      <v-icon>remove_red_eye</v-icon>
+                    </v-btn>
+
+                    <v-btn color="blue" dark small bottom right fab @click="addCart(product)">
                       <v-icon>add_shopping_cart</v-icon>
                     </v-btn>
                   </v-card-actions>
@@ -61,7 +67,7 @@
           <v-row>
             <v-layout class="mt-5">
               <v-flex>
-                <NavFooter class="hidden-sm-and-down" />
+                <NavFooter />
               </v-flex>
             </v-layout>
           </v-row>
@@ -73,20 +79,16 @@
 </template>
 
 <script>
-import AppFooter from "../components/AppFooter";
 import Carousel from "../components/Carousel";
 import NavFooter from "../components/NavFooter";
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
-import productlist from "../components/productlist.vue";
 import LandingNav from "../components/LandingNav";
 
 export default {
   components: {
-    AppFooter,
     Carousel,
     NavFooter,
-    productlist,
     LandingNav
   },
   data() {
@@ -99,7 +101,8 @@ export default {
       category: "Accessories" //default collection displayed
     };
   },
-    firestore() { //Sets the default category to display
+  firestore() {
+    //Sets the default category to display
     return {
       products: db
         .collection("ProductCategory")
@@ -108,8 +111,11 @@ export default {
     };
   },
   methods: {
-    test() {
-      c;
+    addCart(product) {
+      this.$store.dispatch("updateCart", {
+        newProduct: product,
+        quantity: 1
+      });
     },
     setCategory(selected) {
       var productList = [];
