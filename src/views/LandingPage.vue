@@ -29,7 +29,6 @@
       </v-layout>
     </v-container>
 
-    <AppFooter />
   </span>
 </template>
 
@@ -37,14 +36,12 @@
 import LandingNav from "../components/LandingNav";
 import LandingAbout from "../components/LandingAbout";
 import Services from "../components/Services";
-import AppFooter from "../components/AppFooter";
 
 export default {
   components: {
     LandingNav,
     LandingAbout,
-    Services,
-    AppFooter
+    Services
   },
   name: "LandingPage"
 };

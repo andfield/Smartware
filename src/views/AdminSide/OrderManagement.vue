@@ -35,7 +35,7 @@
                     color="success"
                   >done_outline</v-icon>
 
-                  <v-dialog max-width="600px">
+                  <v-dialog v-model="dialog" max-width="600px">
                     <template v-slot:activator="{ on }">
                           <v-btn fab x-small v-on="on">
                             <v-icon color="primary">remove_red_eye</v-icon>
@@ -96,6 +96,7 @@
                         </v-card>
                       </v-dialog>
 
+               
                 </template>
 
                 <template v-slot:expanded-item="{ headers }">

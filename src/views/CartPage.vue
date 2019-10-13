@@ -61,7 +61,6 @@
                         <v-spacer />
                         <h3 class="mt-2 black--text">Subtotal:</h3>
                         <h3 class="mt-2 mx-10 black--text">${{subtotal}}</h3>
-                        
                       </v-row>
                     </v-footer>
                     <!-- <div class="px-5">
@@ -122,11 +121,10 @@
               </v-flex>
             </v-layout>
           </v-row>
-          
-          <v-footer absolute>
-            <NavFooter/>
-          </v-footer>
 
+          <v-footer absolute>
+            <NavFooter />
+          </v-footer>
         </v-flex>
       </v-layout>
     </v-container>
@@ -136,25 +134,21 @@
 <script>
 import LandingNav from "../components/LandingNav";
 import NavFooter from "../components/NavFooter";
-import AppFooter from "../components/AppFooter";
 import router from "@/router";
 
 export default {
   name: "CartPage",
   components: {
     LandingNav,
-    NavFooter,
-    AppFooter
+    NavFooter
   },
 
   data() {
     var cartData = this.$store.getters.getCartDetails;
-    console.log(cartData);
-    console.log(parseFloat(this.$store.getters.getCartTotal).toFixed(2));
 
     return {
       cartList: cartData,
-      subtotal: this.$store.getters.getCartTotal // weird rounding bug if not forced to 2dp
+      subtotal: this.$store.getters.getCartTotal
     };
   },
   methods: {
@@ -171,7 +165,7 @@ export default {
       if (cartData.length == 0) {
         alert("Add something to the cart before you checkout");
       } else {
-        router.push("/Checkout/ShippingInfo");
+        router.push("/CheckoutSystem");
       }
     }
   }

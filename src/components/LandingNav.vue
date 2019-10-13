@@ -23,9 +23,6 @@
               <v-list-item>
                 <v-list-item-title>Rent products</v-list-item-title>
               </v-list-item>
-              <v-list-item>
-                <v-list-item-title>Option 3</v-list-item-title>
-              </v-list-item>
             </v-list>
           </v-menu>
           <v-btn block>
@@ -74,18 +71,6 @@
               <v-icon right>contact_support</v-icon>
             </v-btn>
           </template>
-
-          <!-- <v-list dark>
-            <v-list-item>
-              <v-list-item-title>Book appointments</v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>Rent products</v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>Option 3</v-list-item-title>
-            </v-list-item>
-          </v-list> -->
         </v-menu>
 
         <v-btn text class="ma-2" to="/CartPage">
@@ -124,17 +109,15 @@ export default {
       drawer: false,
       items: [
         { title: "About us", route: "/publicAbout" },
-        { title: "Contact us", route: "/contactUs" },
         { title: "Sign In", route: "/signin" },
         { title: "Sign up", route: "/signup" },
-        { title: "Admin", route: "/AdminDashboard" }
       ],
       quantity: this.$store.getters.getCartQuantity,
       isAuthenticated: authStatus,
       quantityKey: 0,
     };
   },
-  computed: { // maybe able to use this for quantity
+  computed: { 
     cartQuantity() {
       return this.$store.getters.getCartQuantity;
     }
