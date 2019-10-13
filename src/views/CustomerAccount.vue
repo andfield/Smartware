@@ -108,18 +108,30 @@ export default {
       return userData
     },
     updateDetails(){
-      if(this.newpass == !null){ // Cant compare .length if its null
-        this.passLength = this.newPass.length
+      console.log(this.newPass)
+      if(this.newpass == null){ // Cant compare .length if its null
+        console.log("null password")
+        this.$store.dispatch("updateCustomer", {
+              newPhNum: this.newPhNum,
+              newEmail: this.newEmail,
+              newAddress: this.newAddress
+            });
+      }
+      else{
+        console.log("nothing")
       }
 
       if(this.newPass == this.newPassCon){
-        if (this.passLength >= 8 || this.newPass != null) {
+        if (this.passLength >= 8) {
             this.$store.dispatch("updateCustomer", {
-            newPhNum: this.newPhNum,
-            newEmail: this.newEmail,
-            newPass: this.newPass,
-            newAddress: this.newAddress
-          });
+              newPhNum: this.newPhNum,
+              newEmail: this.newEmail,
+              newPass: this.newPass,
+              newAddress: this.newAddress
+            });
+        }
+        else if(this.newPass == null) {
+          console.log("null password")
         }
         else {
           alert("The password is too short")
