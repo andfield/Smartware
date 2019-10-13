@@ -27,13 +27,13 @@
       </v-layout>
       <v-divider />
       <v-list>
-        <v-list-item to="/AdminDashboard">
+        <!-- <v-list-item to="/AdminDashboard">
           <v-list-item-icon>
             <v-icon>dashboard</v-icon>
           </v-list-item-icon>
 
           <v-list-item-title>Dashboard</v-list-item-title>
-        </v-list-item>
+        </v-list-item> -->
 
         <v-list-item to="/ProductManagement">
           <v-list-item-icon>
@@ -51,7 +51,7 @@
           <v-list-item-title>Order Management</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link to="/RequestManagement">
           <v-list-item-icon>
             <v-icon>inbox</v-icon>
           </v-list-item-icon>

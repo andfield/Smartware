@@ -111,7 +111,7 @@ export default new Vuex.Store({
         .then(() => {
           if(firebase.auth().currentUser.uid == "sNBUtBuDEFbPkuZaTs3TQkCBKH12") {
             commit("setIsAdmin", true)
-            router.push("/AdminDashboard")
+            router.push("/ProductManagement")
           }
           else {
             router.push("/home");

@@ -74,7 +74,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <AppFooter />
   </div>
 </template>
 

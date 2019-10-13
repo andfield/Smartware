@@ -122,7 +122,13 @@
             </v-layout>
           </v-row>
 
-          <NavFooter/>
+          <v-row>
+            <v-layout row wrap class="justify-center align-center">
+              <v-flex class="mt-10">
+                <NavFooter/>
+              </v-flex>
+            </v-layout>
+          </v-row>
         </v-flex>
       </v-layout>
     </v-container>

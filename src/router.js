@@ -16,7 +16,6 @@ import Support from "./views/Support";
 import CheckoutSystem from "./views/CheckoutSystem";
 
 //Admin Side Imports
-import AdminDashboard from "./views/AdminSide/AdminDashboard";
 import AddProduct from "./views/AdminSide/AddProduct";
 import UpdateProduct from "./views/AdminSide/UpdateProduct";
 import ProductManagement from "./views/AdminSide/ProductManagement";
@@ -118,22 +117,6 @@ const router = new Router({
 
 
     //Admin side paths
-    {
-      path: "/AdminDashboard",
-      name: "AdminDashboard",
-      component: AdminDashboard,
-      meta: {
-        requiresAuth: true
-      },
-      beforeEnter: (to, from, next) => {
-        if (store.getters.getIsAdmin) {
-          //checks if suer is using admin login
-          next();
-        } else {
-          console.log("Access Denied");
-        }
-      }
-    },
     {
       path: "/AddProduct",
       name: "AddProduct",
