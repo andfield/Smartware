@@ -31,7 +31,7 @@
 
                   <v-card-actions>
                     <v-spacer />
-                    <v-btn block flat color="primary" @click="submitForm(userForm)">Submit</v-btn>
+                    <v-btn block flat color="primary" @click="submitForm(userForm, fname, lname, type)">Submit</v-btn>
                     <v-spacer />
                   </v-card-actions>
                 </v-card>
@@ -134,7 +134,37 @@ export default {
         newProduct: this.newProduct
       });
     },
-    submitForm(form) {
+    submitForm(form, fname, lname, type) {
+
+      // var storageRef = firebase.storage().ref();
+      // // Create a reference to the file we want to download
+      // var starsRef = storageRef.child('CustomerSupportForms/ESBOP_WeekendRentalForm_2019.pdf14-10-2019:633Conor-Oliver-SHORT-TERM EFTPOS HIRING AGREEMENT');
+      // // Get the download URL
+      // starsRef.getDownloadURL().then(function(url) {
+      //   console.log(url)
+      // }).catch(function(error) {
+
+      //   // A full list of error codes is available at
+      //   // https://firebase.google.com/docs/storage/web/handle-errors
+      //   switch (error.code) {
+      //     case 'storage/object-not-found':
+      //       // File doesn't exist
+      //       break;
+
+      //     case 'storage/unauthorized':
+      //       // User doesn't have permission to access the object
+      //       break;
+
+      //     case 'storage/canceled':
+      //       // User canceled the upload
+      //       break;
+
+      //     case 'storage/unknown':
+      //       // Unknown error occurred, inspect the server response
+      //       break;
+      //   }
+      // });
+
       if (form != null) {
         //get the date to make an identifiable filename, could use seconds but the file name doesnt have to be unique
         var date = new Date();
@@ -148,7 +178,7 @@ export default {
         var submissionDate =
           day + "-" + month + "-" + year + ":" + hour + minute;
 
-        var filename = "CustomerSupportForms/" + form.name + submissionDate;
+        var filename = "CustomerSupportForms/" + form.name + submissionDate + fname + "-" + lname + "-" + type;
 
         // Create a root reference
         var storageRef = firebase.storage().ref();
@@ -159,6 +189,16 @@ export default {
         formRef.put(form).then(function(snapshot) {
           console.log("Uploaded a blob or file!");
         });
+        
+        var formData = {
+          fName: fname,
+          lName: lname,
+          fileName: filename,
+          type: type,
+          status: "Pending",
+        };
+        db.collection("CustomerForms").add(formData);
+
       } else {
         alert("Nothing to submit");
       }
