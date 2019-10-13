@@ -1,7 +1,6 @@
 <template>
   <div class="Home">
     <LandingNav />
-    <v-btn @click="getAll()"/>
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs12 md12 sm12 lg10 xl10>
