@@ -27,7 +27,7 @@
                   </v-toolbar>
                 </template>
                 <template v-slot:item.actions="{ item }">
-                  <v-icon color="primary" @click="">cloud_download</v-icon>
+                  <v-icon color="primary" @click="getFormData()">cloud_download</v-icon>
                 </template>
               </v-data-table>
             </v-card-text>
@@ -39,6 +39,7 @@
           </v-card>
         </v-flex>
       </v-layout>
+      <v-btn @click="getFormData()"/>
     </v-container>
   </span>
 </template>
@@ -78,6 +79,27 @@ export default {
 
             ]
         }
+    },
+    methods: {
+      getFormData() {
+        var fullList = [];
+        var tempForm = null;
+
+        db.collection("CustomerForms")
+          .get()
+          .then(snapshot => {
+            snapshot.forEach(doc => {
+              tempForm = doc.data();
+              fullList.push(tempForm);
+            });
+          })
+          .catch(error => {
+            console.log("error: " + error);
+          });
+
+        this.requests = fullList;
+        console.log(fullList)
+      },
     }
 }
 </script>
