@@ -135,10 +135,13 @@ export default {
       });
     },
     submitForm(form, fname, lname, type) {
-
+      // var temptest = null
+      // var part1 = "CustomerSupportForms/"
+      // var part2 = "ESBOP_AgreementForm_2019.pdf14-10-2019:731Conor2-Oliver2-POINT OF SALE | EFTPOS AGREEMENT"
+      // var part3 = part1 + part2
       // var storageRef = firebase.storage().ref();
       // // Create a reference to the file we want to download
-      // var starsRef = storageRef.child('CustomerSupportForms/ESBOP_WeekendRentalForm_2019.pdf14-10-2019:633Conor-Oliver-SHORT-TERM EFTPOS HIRING AGREEMENT');
+      // var starsRef = storageRef.child(part3);
       // // Get the download URL
       // starsRef.getDownloadURL().then(function(url) {
       //   console.log(url)
