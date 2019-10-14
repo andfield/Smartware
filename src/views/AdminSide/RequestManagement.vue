@@ -27,7 +27,13 @@
                   </v-toolbar>
                 </template>
                 <template v-slot:item.actions="{ item }">
-                  <v-icon  @click="openForm(item.url)" color="primary" >cloud_download</v-icon>
+                  <v-icon @click="openForm(item.url)" color="primary">cloud_download</v-icon>
+                  <v-icon
+                    @click="complete(item)"
+                    v-if="item.status === 'Pending'"
+                    class="mr-2"
+                    color="success"
+                  >done_outline</v-icon>
                 </template>
               </v-data-table>
             </v-card-text>
@@ -72,10 +78,6 @@ export default {
           sortable: true
         },
         {
-          text: "Form-Link",
-          value: "url"
-        },
-        {
           text: "Status",
           sortable: true,
           value: "status"
@@ -89,61 +91,77 @@ export default {
     };
   },
   methods: {
-    getFormData(){
-      var fullList = []
-      var listLength = null
+    getFormData() {
+      var fullList = [];
+      var listLength = null;
       var storageRef = firebase.storage().ref();
-      var urlList = []
+      var urlList = [];
 
       //Get the forms
       db.collection("CustomerForms")
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          // formList = doc.data();
-          fullList.push(doc.data())
-          // console.log(formList)
-        });
-
-        // Loop through the forms
-        for(var i =0; i < fullList.length; i++){
-          var tempForm = fullList[i]
-          // Create a reference to the file we want to download
-          var formRef = storageRef.child(fullList[i].fileName);
-          // Get the download URL
-          formRef.getDownloadURL().then(function(url) {
-            urlList.push(url)
-          }).catch(function(error) {
-            console.log("Error: " + error)
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            // formList = doc.data();
+            fullList["reqID"] = doc.id;
+            fullList.push(doc.data());
+            // console.log(formList)
           });
+
+          // Loop through the forms
+          for (var i = 0; i < fullList.length; i++) {
+            var tempForm = fullList[i];
+            // Create a reference to the file we want to download
+            var formRef = storageRef.child(fullList[i].fileName);
+            // Get the download URL
+            formRef
+              .getDownloadURL()
+              .then(function(url) {
+                urlList.push(url);
+              })
+              .catch(function(error) {
+                console.log("Error: " + error);
+              });
             // console.log(urlList.length)
-        }
-        setTimeout(function() { //need to load, ive spent too much time on this
-          console.log("loading...")
-          for(var i =0; i < fullList.length; i++){
-            fullList[i]["url"] = urlList[i]
           }
-          this.requests = fullList;
-        }, 1000);
+          setTimeout(function() {
+            //need to load, ive spent too much time on this
+            console.log("loading...");
+            for (var i = 0; i < fullList.length; i++) {
+              fullList[i]["url"] = urlList[i];
+            }
+            this.requests = fullList;
+          }, 1000);
         })
         .catch(function(error) {
-          console.log("Error bottom: " + error)
+          console.log("Error bottom: " + error);
         });
-        this.requests = fullList;
+      this.requests = fullList;
     },
-    openForm(formURL){
-      console.log("xd")
-      console.log(formURL)
+    openForm(formURL) {
+      console.log("xd");
+      console.log(formURL);
       setTimeout(function() {
-        var newWindow = window.open(formURL, '_blank');
-        newWindow.focus()
+        var newWindow = window.open(formURL, "_blank");
+        newWindow.focus();
         // window.location.href = formURL
       }, 1000);
     },
+    complete(item) {
+      console.log(item)
+      if (confirm("Are you sure this request is complete?")) {
+        db.collection("CustomerForms")
+          .doc(item.reqID)
+          .update({
+            status: "Complete"
+          });
+        alert("Request has been updated.");
+      }
+      this.getFormData();
+    }
   },
   beforeMount() {
     this.getFormData();
   }
-
 };
 </script>
