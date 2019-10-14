@@ -135,7 +135,9 @@ export default {
       console.log("xd")
       console.log(formURL)
       setTimeout(function() {
-        window.location.href = formURL
+        var newWindow = window.open(formURL, '_blank');
+        newWindow.focus()
+        // window.location.href = formURL
       }, 1000);
     },
   },
