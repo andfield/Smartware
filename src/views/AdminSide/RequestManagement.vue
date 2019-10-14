@@ -27,14 +27,14 @@
                   </v-toolbar>
                 </template>
                 <template v-slot:item.actions="{ item }">
-                  <v-icon color="primary" >cloud_download</v-icon>
+                  <v-icon  @click="openForm(item.url)" color="primary" >cloud_download</v-icon>
                 </template>
               </v-data-table>
             </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>
-      <v-btn @click="test2()" />
+      <v-btn @click="getFormData()" />
     </v-container>
   </span>
 </template>
@@ -43,6 +43,8 @@
 import firebase, { functions, firestore } from "firebase";
 import db from "@/main";
 import AdminToolBar from "@/components/AdminToolBar";
+import router from "@/router";
+
 export default {
   name: "RequestManagment",
   components: {
@@ -70,7 +72,7 @@ export default {
           sortable: true
         },
         {
-          text: "PDF",
+          text: "Form-Link",
           value: "url"
         },
         {
@@ -87,97 +89,7 @@ export default {
     };
   },
   methods: {
-    getFormData() {
-      var fullList = [];
-      var formList = null;
-      var tempPath = null
-      var tempURL = null
-      var formRef = null
-      var storageRef = firebase.storage().ref();
-      var url = null
-      var tempList = []
-
-      db.collection("CustomerForms")
-        .get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
-            formList = doc.data();
-            fullList.push(doc.data())
-            console.log(formList)
-          });
-          //Still inside then()
-          console.log(fullList)
-          for( var i = 0; i < fullList.length; i++){
-
-            console.log("pls")
-            console.log(fullList[i].fileName)
-            var storage = firebase.storage().ref()
-            var formRef = storageRef.child("CustomerSupportForms/ESBOP_AgreementForm_2019.pdf14-10-2019:918Sid-Thakur-POINT OF SALE | EFTPOS AGREEMENT");
-            console.log(formRef)
-
-            formRef.getDownloadURL().then(function(url) {
-              formList[i]["url"] = url
-              console.log("xd")
-            }).catch(function(error) {
-
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case 'storage/object-not-found':
-            // File doesn't exist
-            break;
-
-          case 'storage/unauthorized':
-            // User doesn't have permission to access the object
-            break;
-
-          case 'storage/canceled':
-            // User canceled the upload
-            break;
-
-          case 'storage/unknown':
-            // Unknown error occurred, inspect the server response
-            break;
-        }
-      });
-
-            console.log(formList[i])
-            console.log("test")
-            finalList[i].push(formList[i])
-          }
-
-
-
-        })
-        .catch(function(error) {
-          console.log("Error bottom: " + error)
-        });
-
-      // look at this sid
-      var finalList = []
-      // formRef = storageRef.child(tempForm.fileName);
-      for( var i = 0; i < tempList.length; i++){
-
-      }
-
-      // tempList.forEach((i, index) => {
-      //   console.log("test")
-      //   formRef = storageRef.child(i.fileName);
-      //   formRef.getDownloadURL().then(function(url) {
-      //     console.log(i)
-      //     i["url"] = url
-      //     finalList.push(i)
-      //   }).catch(function(error) {
-      //     console.log("Error: " + error)
-      //   });
-      //   fullList.push(i)
-      // })
-      
-
-
-      this.requests = finalList;
-    },
-    test2(){
+    getFormData(){
       var fullList = []
       var listLength = null
       var storageRef = firebase.storage().ref();
@@ -218,11 +130,17 @@ export default {
           console.log("Error bottom: " + error)
         });
         this.requests = fullList;
-    }
+    },
+    openForm(formURL){
+      console.log("xd")
+      console.log(formURL)
+      setTimeout(function() {
+        window.location.href = formURL
+      }, 1000);
+    },
   },
-
   beforeMount() {
-    this.test2();
+    this.getFormData();
   }
 
 };
