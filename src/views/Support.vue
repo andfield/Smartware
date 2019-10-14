@@ -135,38 +135,38 @@ export default {
       });
     },
     submitForm(form, fname, lname, type) {
-      // var temptest = null
-      // var part1 = "CustomerSupportForms/"
-      // var part2 = "ESBOP_AgreementForm_2019.pdf14-10-2019:731Conor2-Oliver2-POINT OF SALE | EFTPOS AGREEMENT"
-      // var part3 = part1 + part2
-      // var storageRef = firebase.storage().ref();
-      // // Create a reference to the file we want to download
-      // var starsRef = storageRef.child(part3);
-      // // Get the download URL
-      // starsRef.getDownloadURL().then(function(url) {
-      //   console.log(url)
-      // }).catch(function(error) {
+      var temptest = null
+      var part1 = "CustomerSupportForms/"
+      var part2 = "ESBOP_AgreementForm_2019.pdf14-10-2019:731Conor2-Oliver2-POINT OF SALE | EFTPOS AGREEMENT"
+      var part3 = part1 + part2
+      var storageRef = firebase.storage().ref();
+      // Create a reference to the file we want to download
+      var starsRef = storageRef.child(part3);
+      // Get the download URL
+      starsRef.getDownloadURL().then(function(url) {
+        console.log(url)
+      }).catch(function(error) {
 
-      //   // A full list of error codes is available at
-      //   // https://firebase.google.com/docs/storage/web/handle-errors
-      //   switch (error.code) {
-      //     case 'storage/object-not-found':
-      //       // File doesn't exist
-      //       break;
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/object-not-found':
+            // File doesn't exist
+            break;
 
-      //     case 'storage/unauthorized':
-      //       // User doesn't have permission to access the object
-      //       break;
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
 
-      //     case 'storage/canceled':
-      //       // User canceled the upload
-      //       break;
+          case 'storage/canceled':
+            // User canceled the upload
+            break;
 
-      //     case 'storage/unknown':
-      //       // Unknown error occurred, inspect the server response
-      //       break;
-      //   }
-      // });
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            break;
+        }
+      });
 
       if (form != null) {
         //get the date to make an identifiable filename, could use seconds but the file name doesnt have to be unique

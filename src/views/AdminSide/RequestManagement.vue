@@ -34,7 +34,7 @@
           </v-card>
         </v-flex>
       </v-layout>
-      <v-btn @click="getFormData()" />
+      <v-btn @click="test2()" />
     </v-container>
   </span>
 </template>
@@ -89,7 +89,7 @@ export default {
   methods: {
     getFormData() {
       var fullList = [];
-      var tempForm = null;
+      var formList = null;
       var tempPath = null
       var tempURL = null
       var formRef = null
@@ -101,26 +101,24 @@ export default {
         .get()
         .then(snapshot => {
           snapshot.forEach(doc => {
-            tempForm = doc.data();
-            tempList.push(tempForm)
-            // Create a reference to the file we want to download
-            
-            // Get the download URL
-            // formRef.getDownloadURL().then(function(url) {
-
-            //   templist.forEach((i, index) => {
-            //     i["url"] = url
-            //     fullList.push(i)
-            //   })
-
-            // }).catch(function(error) {
-            //   console.log("Error: " + error)
-            // });
-            // tempForm["url"] = tempURL
-            // fullList.push(tempForm);
+            formList = doc.data();
+            fullList.push(doc.data())
+            console.log(formList)
           });
-        })
-        .catch(function(error) {
+          //Still inside then()
+          console.log(fullList)
+          for( var i = 0; i < fullList.length; i++){
+
+            console.log("pls")
+            console.log(fullList[i].fileName)
+            var storage = firebase.storage().ref()
+            var formRef = storageRef.child("CustomerSupportForms/ESBOP_AgreementForm_2019.pdf14-10-2019:918Sid-Thakur-POINT OF SALE | EFTPOS AGREEMENT");
+            console.log(formRef)
+
+            formRef.getDownloadURL().then(function(url) {
+              formList[i]["url"] = url
+              console.log("xd")
+            }).catch(function(error) {
 
         // A full list of error codes is available at
         // https://firebase.google.com/docs/storage/web/handle-errors
@@ -143,32 +141,88 @@ export default {
         }
       });
 
+            console.log(formList[i])
+            console.log("test")
+            finalList[i].push(formList[i])
+          }
+
+
+
+        })
+        .catch(function(error) {
+          console.log("Error bottom: " + error)
+        });
+
       // look at this sid
       var finalList = []
-      console.log(tempList)
       // formRef = storageRef.child(tempForm.fileName);
-      tempList.forEach((i, index) => {
-        console.log("test")
-        formRef = storageRef.child(i.fileName);
-        formRef.getDownloadURL().then(function(url) {
-          console.log(i)
-          i["url"] = url
-          finalList.push(i)
-        }).catch(function(error) {
-          console.log("Error: " + error)
-        });
-        fullList.push(i)
-      })
+      for( var i = 0; i < tempList.length; i++){
+
+      }
+
+      // tempList.forEach((i, index) => {
+      //   console.log("test")
+      //   formRef = storageRef.child(i.fileName);
+      //   formRef.getDownloadURL().then(function(url) {
+      //     console.log(i)
+      //     i["url"] = url
+      //     finalList.push(i)
+      //   }).catch(function(error) {
+      //     console.log("Error: " + error)
+      //   });
+      //   fullList.push(i)
+      // })
       
 
-      console.log(finalList)
 
       this.requests = finalList;
+    },
+    test2(){
+      var fullList = []
+      var listLength = null
+      var storageRef = firebase.storage().ref();
+      var urlList = []
+
+      //Get the forms
+      db.collection("CustomerForms")
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          // formList = doc.data();
+          fullList.push(doc.data())
+          // console.log(formList)
+        });
+
+        // Loop through the forms
+        for(var i =0; i < fullList.length; i++){
+          var tempForm = fullList[i]
+          // Create a reference to the file we want to download
+          var formRef = storageRef.child(fullList[i].fileName);
+          // Get the download URL
+          formRef.getDownloadURL().then(function(url) {
+            urlList.push(url)
+          }).catch(function(error) {
+            console.log("Error: " + error)
+          });
+            // console.log(urlList.length)
+        }
+        setTimeout(function() { //need to load, ive spent too much time on this
+          console.log("loading...")
+          for(var i =0; i < fullList.length; i++){
+            fullList[i]["url"] = urlList[i]
+          }
+          this.requests = fullList;
+        }, 1000);
+        })
+        .catch(function(error) {
+          console.log("Error bottom: " + error)
+        });
+        this.requests = fullList;
     }
   },
 
   beforeMount() {
-    this.getFormData();
+    this.test2();
   }
 
 };
