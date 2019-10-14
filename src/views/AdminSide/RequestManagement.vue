@@ -95,24 +95,29 @@ export default {
       var formRef = null
       var storageRef = firebase.storage().ref();
       var url = null
+      var tempList = []
 
       db.collection("CustomerForms")
         .get()
         .then(snapshot => {
           snapshot.forEach(doc => {
             tempForm = doc.data();
+            tempList.push(tempForm)
             // Create a reference to the file we want to download
-            formRef = storageRef.child(tempForm.fileName);
+            
             // Get the download URL
-            formRef.getDownloadURL().then(function(url) {
-              tempURL = url
-              console.log(tempURL)
-            }).catch(function(error) {
-              console.log("Error: " + error)
-            });
-            console.log(tempURL)
-            tempForm["url"] = tempURL
-            fullList.push(tempForm);
+            // formRef.getDownloadURL().then(function(url) {
+
+            //   templist.forEach((i, index) => {
+            //     i["url"] = url
+            //     fullList.push(i)
+            //   })
+
+            // }).catch(function(error) {
+            //   console.log("Error: " + error)
+            // });
+            // tempForm["url"] = tempURL
+            // fullList.push(tempForm);
           });
         })
         .catch(function(error) {
@@ -137,11 +142,31 @@ export default {
             break;
         }
       });
-      console.log(fullList)
 
-      this.requests = fullList;
+      // look at this sid
+      var finalList = []
+      console.log(tempList)
+      // formRef = storageRef.child(tempForm.fileName);
+      tempList.forEach((i, index) => {
+        console.log("test")
+        formRef = storageRef.child(i.fileName);
+        formRef.getDownloadURL().then(function(url) {
+          console.log(i)
+          i["url"] = url
+          finalList.push(i)
+        }).catch(function(error) {
+          console.log("Error: " + error)
+        });
+        fullList.push(i)
+      })
+      
+
+      console.log(finalList)
+
+      this.requests = finalList;
     }
   },
+
   beforeMount() {
     this.getFormData();
   }
