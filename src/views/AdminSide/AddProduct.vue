@@ -62,7 +62,7 @@
           </v-card-text>
 
           <v-card-actions class="mx-3">
-            <v-btn color="primary" to="/AdminDashboard">
+            <v-btn color="primary" to="/ProductManagement">
               <v-icon left>arrow_back</v-icon>
               <span>Back</span>
             </v-btn>
