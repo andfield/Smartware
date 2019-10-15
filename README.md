@@ -1,4 +1,5 @@
-# vuetifytest
+# Smartware Website
+
 
 ## Project setup
 ```
