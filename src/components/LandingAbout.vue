@@ -5,7 +5,7 @@
       <div style= 'text-shadow: 3px 3px #000000' class="display-4 font-weight-black white--text text-xs-center mb-3">EFTPOS solutions</div>
       <div style= 'text-shadow: 3px 3px #000000'
         class="display-1 font-weight-bold white--text text-xs-center"
-      >Here to simplify your buisness processes.</div>
+      >Here to simplify your business processes.</div>
       <v-btn></v-btn>
     </v-layout>
   </v-container>

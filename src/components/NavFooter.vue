@@ -163,8 +163,8 @@
         {{ new Date().getFullYear() }} —
         <strong>
           Smartware Ltd - (07) 577 1888 - wehelp@smartware.co.nz
-          3 Manley Grove, Tauranga
-        </strong>
+          Suite 305 / 45 Grey Street, Tauranga
+        </strong> 
       </v-col>
     </v-row>
   </v-footer>

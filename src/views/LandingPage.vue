@@ -14,7 +14,7 @@
         <div
           style="text-shadow: 3px 3px #000000"
           class="display-1 font-weight-bold white--text text-xs-center"
-        >Here to simplify your buisness processes.</div>
+        >Here to simplify your business processes.</div>
         <div class="my-10">
           <v-btn dark @click="$vuetify.goTo('#services')">Our Services</v-btn>
         </div>
