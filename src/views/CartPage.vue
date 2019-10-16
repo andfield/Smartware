@@ -111,7 +111,7 @@
                       </v-col>
                       <v-col cols="4" />
                       <v-col cols="4">
-                        <h3>${{parseFloat(subtotal) + parseFloat(parseFloat(subtotal*0.15).toFixed(3))}}</h3>
+                        <h3>${{parseFloat(subtotal).toFixed(2)}}</h3>
                       </v-col>
                     </v-row>
 
